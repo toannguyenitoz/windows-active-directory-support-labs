@@ -3,187 +3,200 @@
 # Lab 09 — Password, Lockout and Logon Controls
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Windows%2011-Client-0078D4?logo=windows&logoColor=white" alt="Windows 11">
-  <img src="https://img.shields.io/badge/Windows%20Server-Admin-5E5E5E?logo=windows&logoColor=white" alt="Windows Server">
-  <img src="https://img.shields.io/badge/Active%20Directory-Guide-6A1B9A" alt="Active Directory">
-  <img src="https://img.shields.io/badge/IT%20Support-Step--by--Step-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Intermediate-blue" alt="Intermediate">
-  <img src="https://img.shields.io/badge/Status-Ready-yellow" alt="Ready">
+  <img src="https://img.shields.io/badge/Active%20Directory-Account%20Support-6A1B9A" alt="Active Directory">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
+  <img src="https://img.shields.io/badge/Level-Intermediate-orange" alt="Intermediate">
 </p>
 
 <p align="center">
-  <a href="../08-active-directory-group-management/README.md">⬅ Previous Lab</a> | <a href="../../README.md">🏠 Main README</a> | <a href="../10-home-folder-and-file-share/README.md">Next Lab ➡</a>
+  <a href="../08-active-directory-group-management/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../10-home-folder-and-file-share/README.md">Next Lab</a>
 </p>
 
 ---
 
 ## Overview
 
-Practice common account support actions such as password reset, account unlock, disable/enable and logon controls.
+This lab explains common account support tasks in Active Directory.
+
+Service Desk and IT Support teams often help users who cannot sign in, need their account reviewed, or require access to be temporarily disabled. This guide shows the normal administrative workflow in a lab environment.
 
 ---
 
 ## Objectives
 
-- Reset a user password safely in a lab.
-- Review account status and unlock option.
-- Disable and enable an account.
-- Review logon hours and account expiry.
+- Review the account properties page.
+- Reset a lab user password.
+- Unlock a locked account when the option is available.
+- Disable and enable a user account.
+- Review logon hours and account expiry settings.
+- Record the support action clearly.
 
 ---
 
-## Lab Values
+## Example Account Used in This Guide
 
 | Item | Value |
 |---|---|
-| Example user | `j.smith` |
-| Tool | Active Directory Users and Computers |
-| Screenshot folder | `assets/images/lab-09-password-lockout-logon-controls/` |
+| User account | `j.smith` |
+| OU | `Company > Users` |
+| Client test computer | `W11-CLIENT01` |
+| Domain | `corp.local` |
 
 ---
 
 ## Before You Start
 
-- Complete the previous lab unless this is Lab 01.
-- Use a lab environment only.
-- Do not publish real passwords or private business information.
-- Replace placeholder screenshots with your own screenshots after completing each step.
+Complete the user and group labs first.
+
+Use a lab account only. Do not use a real business user account.
 
 ---
 
-## Screenshot Files
+## Step 1 — Open the User Account
 
-| File name | Step |
-|---|---|
-| 01-open-user-account-properties.png | Open user account properties |
-| 02-reset-user-password.png | Reset password |
-| 03-account-properties-account-tab.png | Review account tab |
-| 04-disable-user-account.png | Disable account |
-| 05-enable-user-account.png | Enable account |
-| 06-logon-hours-settings.png | Review logon hours |
+Open:
+
+```text
+Server Manager > Tools > Active Directory Users and Computers
+```
+
+Browse to:
+
+```text
+corp.local > Company > Users
+```
+
+Open the properties of:
+
+```text
+j.smith
+```
 
 ---
 
-## Step 1 — Open user account properties
+## Step 2 — Review the Account Tab
 
-Open ADUC and locate the test user `j.smith`.
-
-Screenshot file:
+In the user properties window, open:
 
 ```text
-assets/images/lab-09-password-lockout-logon-controls/01-open-user-account-properties.png
+Account
 ```
 
-![Open user account properties](../../assets/images/lab-09-password-lockout-logon-controls/01-open-user-account-properties.png)
-
-[⬆ Back to top](#top)
-
-## Step 2 — Reset password
-
-Right-click the user and select **Reset Password**.
-
-Use a lab-safe value and avoid publishing real passwords.
-
-Screenshot file:
+Review common support fields:
 
 ```text
-assets/images/lab-09-password-lockout-logon-controls/02-reset-user-password.png
+User logon name
+Account options
+Account expiry
+Logon hours
+Account status
 ```
 
-![Reset password](../../assets/images/lab-09-password-lockout-logon-controls/02-reset-user-password.png)
+This page is commonly used when investigating user access issues.
 
-[⬆ Back to top](#top)
+---
 
-## Step 3 — Review account tab
+## Step 3 — Reset the Lab User Password
 
-Open the Account tab and review sign-in name, account options, unlock option and expiry settings.
+Right-click the user account and choose the password reset option.
 
-Screenshot file:
+Use a lab-safe temporary password and choose the appropriate option for the scenario.
+
+After the reset, explain to the reader that in a workplace environment this action should follow identity verification and company policy.
+
+---
+
+## Step 4 — Test Sign-In from the Client
+
+On the Windows 11 client, test sign-in using the lab user account:
 
 ```text
-assets/images/lab-09-password-lockout-logon-controls/03-account-properties-account-tab.png
+CORP\j.smith
 ```
 
-![Review account tab](../../assets/images/lab-09-password-lockout-logon-controls/03-account-properties-account-tab.png)
+Confirm whether sign-in works as expected.
 
-[⬆ Back to top](#top)
+---
 
-## Step 4 — Disable account
+## Step 5 — Review Account Lockout State
 
-Disable the account and confirm the disabled icon appears.
+If the account is locked in the lab, open the user properties and review the Account tab.
 
-Screenshot file:
+Unlock the account only if the lockout option is shown and the lab scenario requires it.
+
+Then test sign-in again from the Windows 11 client.
+
+---
+
+## Step 6 — Disable the Account
+
+In Active Directory Users and Computers, disable the account.
+
+Try signing in from the Windows 11 client and observe the result.
+
+This demonstrates how disabling an account affects user access.
+
+---
+
+## Step 7 — Enable the Account Again
+
+Enable the user account again.
+
+Test sign-in once more and confirm that normal access is restored.
+
+---
+
+## Step 8 — Review Logon Hours and Account Expiry
+
+Open the Account tab and review:
 
 ```text
-assets/images/lab-09-password-lockout-logon-controls/04-disable-user-account.png
+Logon Hours
+Account Expires
 ```
 
-![Disable account](../../assets/images/lab-09-password-lockout-logon-controls/04-disable-user-account.png)
+These settings are useful when an account should only be valid during certain times or for a limited period.
 
-[⬆ Back to top](#top)
+---
 
-## Step 5 — Enable account
+## Step 9 — Write a Support Note
 
-Enable the account again and confirm normal status.
-
-Screenshot file:
+Record a short support note that includes:
 
 ```text
-assets/images/lab-09-password-lockout-logon-controls/05-enable-user-account.png
+User account checked
+Action performed
+Result after testing
+Follow-up required or not required
 ```
 
-![Enable account](../../assets/images/lab-09-password-lockout-logon-controls/05-enable-user-account.png)
-
-[⬆ Back to top](#top)
-
-## Step 6 — Review logon hours
-
-Open Logon Hours and review how access can be limited by time.
-
-Screenshot file:
-
-```text
-assets/images/lab-09-password-lockout-logon-controls/06-logon-hours-settings.png
-```
-
-![Review logon hours](../../assets/images/lab-09-password-lockout-logon-controls/06-logon-hours-settings.png)
-
-[⬆ Back to top](#top)
-
+Good notes help the next support person understand what happened.
 
 ---
 
 ## Completion Checklist
 
-- [ ] Password reset practiced.
+- [ ] User account located.
 - [ ] Account tab reviewed.
-- [ ] Disable account tested.
-- [ ] Enable account tested.
-- [ ] Logon hours reviewed.
-- [ ] Account expiry reviewed.
+- [ ] Lab password reset practiced.
+- [ ] Sign-in test completed.
+- [ ] Lockout state reviewed.
+- [ ] Account disable test completed.
+- [ ] Account enabled again.
+- [ ] Logon hours and expiry reviewed.
+- [ ] Support note written.
 
 ---
 
 ## Key Takeaways
 
-- Password reset should be documented clearly in a support ticket.
-- Disabling is useful when access must be removed quickly.
-- Logon controls can restrict when an account is allowed to sign in.
-
----
-
-## Author
-
-**Xuan Toan Nguyen**  
-IT Support | Service Desk | Desktop Support | System Administration  
-Adelaide, South Australia
-
-- LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
-- GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+- Account support tasks should be completed carefully and documented.
+- Password resets and unlock actions should follow proper verification in real workplaces.
+- Disabling an account is a quick way to stop normal sign-in.
+- Good case notes are part of good technical support.
 
 ---
 
 <p align="center">
-  <a href="../08-active-directory-group-management/README.md">⬅ Previous Lab</a> | <a href="../../README.md">🏠 Main README</a> | <a href="../10-home-folder-and-file-share/README.md">Next Lab ➡</a> |
-  <a href="#top">⬆ Back to Top</a>
+  <a href="../08-active-directory-group-management/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../10-home-folder-and-file-share/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
 </p>
