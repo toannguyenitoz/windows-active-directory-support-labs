@@ -1,197 +1,136 @@
 <a id="top"></a>
 
-# Lab 04 — Active Directory Domain Services Setup
+# 🏢 Lab 04 — Active Directory Domain Services Setup
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Active%20Directory-Domain%20Services-6A1B9A" alt="Active Directory">
-  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Intermediate-orange" alt="Intermediate">
+  <img src="https://img.shields.io/badge/Active%20Directory-Domain%20Services-6A1B9A" alt="Active Directory Domain Services Setup">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-2E7D32" alt="Guide">
+  <img src="https://img.shields.io/badge/Level-Intermediate-F9A825" alt="Intermediate">
 </p>
 
-<p align="center">
-  <a href="../03-network-and-dns-configuration/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../05-join-windows-11-client-to-domain/README.md">Next Lab</a>
-</p>
+<p align="center"><a href="../03-network-and-dns-configuration/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../05-join-windows-11-client-to-domain/README.md">Next Lab ➜</a></p>
 
 ---
 
-## Overview
+## 🎯 Lab Mission
 
-This lab turns the Windows Server into the central identity server for the lab environment.
+Turn the Windows Server into the central identity server for the lab environment.
 
-After this lab, the server will provide a lab domain that Windows clients can join. This allows users, groups, computers and policies to be managed from one place.
+> [!NOTE]
+> This lab is written as a user guide. Follow the steps in order and compare your result with the expected checks.
 
----
+## ✅ What You Will Learn
 
-## Objectives
-
-- Add the Active Directory Domain Services role.
+- Install the Active Directory Domain Services role.
 - Promote the server to a domain controller.
-- Create a new lab forest and domain.
-- Confirm the server restarts and signs in correctly.
-- Confirm the environment is ready for client domain join.
+- Create a new forest and domain.
+- Confirm AD and DNS tools open successfully.
 
----
-
-## Lab Values Used in This Guide
+## 🧱 Lab Values
 
 | Item | Value |
 |---|---|
 | Server name | `SRV-DC01` |
 | Domain name | `corp.local` |
 | Server IP | `192.168.20.10` |
-| DNS role | Installed with domain services |
 | Next lab use | Join Windows 11 client to domain |
 
----
+## 🧩 Before You Start
 
-## Before You Start
+- Complete Lab 03 first.
+- Confirm server hostname and IP configuration.
+- Use a lab-safe domain name such as `corp.local`.
 
-Complete the previous network and DNS lab first.
+> [!WARNING]
+> Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
 
-Confirm these items before installing the role:
+## 🚀 Step-by-Step Guide
 
-```cmd
-hostname
-ipconfig /all
-```
+### 🛠️ Step 1 — Open Add Roles and Features
 
-The server should have a stable IP address and should be able to use its own IP as DNS.
+Open **Server Manager > Manage > Add Roles and Features** and choose role-based installation.
 
----
+> [!TIP]
+> Use the local server as the installation target.
 
-## Step 1 — Open Add Roles and Features
+### 🏢 Step 2 — Select Active Directory Domain Services
 
-Open:
+Select **Active Directory Domain Services** and accept required tools.
 
-```text
-Server Manager > Manage > Add Roles and Features
-```
+> [!TIP]
+> Management tools are needed for later administration tasks.
 
-Select:
+### 🚩 Step 3 — Start domain controller configuration
 
-```text
-Role-based or feature-based installation
-```
+Use the Server Manager notification flag and choose **Promote this server to a domain controller**.
 
-Choose the local server.
+> [!TIP]
+> Installing the role alone does not make the server a domain controller.
 
----
+### 🌲 Step 4 — Create a new forest
 
-## Step 2 — Select Active Directory Domain Services
+Select **Add a new forest** and enter `corp.local`.
 
-In the server roles list, select:
+> [!TIP]
+> This creates the first domain in the lab forest.
 
-```text
-Active Directory Domain Services
-```
+### ⚙️ Step 5 — Review configuration options
 
-When Windows asks to add required features and management tools, accept the default selection.
+Review domain controller options, DNS options, NetBIOS name, paths and prerequisites.
 
-Continue through the wizard and install the role.
+> [!TIP]
+> The prerequisite check should pass before installation.
 
----
+### 🔁 Step 6 — Install and restart
 
-## Step 3 — Start Domain Controller Configuration
+Start installation and allow the server to restart automatically.
 
-After installation, return to Server Manager.
+> [!TIP]
+> The restart completes the promotion process.
 
-Open the notification flag and select:
+### 🧪 Step 7 — Verify domain controller status
 
-```text
-Promote this server to a domain controller
-```
+Confirm hostname, DNS and user domain.
 
-This starts the configuration wizard.
-
----
-
-## Step 4 — Create a New Forest
-
-Select:
-
-```text
-Add a new forest
-```
-
-Use the lab root domain name:
-
-```text
-corp.local
-```
-
-This creates the first domain in the lab forest.
-
----
-
-## Step 5 — Review Configuration Options
-
-Continue through the wizard using lab-safe values.
-
-Review these areas carefully:
-
-```text
-Domain controller options
-DNS options
-NetBIOS name
-Paths
-Prerequisites check
-```
-
-The prerequisite check should pass before installation.
-
----
-
-## Step 6 — Install and Restart
-
-Start the installation.
-
-The server will restart automatically when the process finishes.
-
-After restart, sign in again and confirm that the domain is available.
-
----
-
-## Step 7 — Verify Domain Controller Status
-
-Open Command Prompt and run:
+Run:
 
 ```cmd
 hostname
+```
+
+```cmd
 ipconfig /all
+```
+
+```cmd
 echo %USERDOMAIN%
 ```
 
-Confirm:
+> [!TIP]
+> The domain should be available after sign-in.
 
-- The server name is still `SRV-DC01`.
-- DNS points to the server.
-- The domain value is available after sign-in.
+### 🧰 Step 8 — Open Active Directory tools
 
----
+Open ADUC and DNS from Server Manager tools.
 
-## Step 8 — Open Active Directory Tools
-
-Open:
-
-```text
-Server Manager > Tools > Active Directory Users and Computers
-```
-
-Confirm that the domain is visible.
-
-Also open:
-
-```text
-Server Manager > Tools > DNS
-```
-
-Confirm that DNS management opens successfully.
+> [!TIP]
+> Both consoles should open without errors.
 
 ---
 
-## Completion Checklist
+## 🧾 Command Reference
 
-- [ ] Active Directory Domain Services role installed.
+| Command | Run on | Purpose | Expected result |
+|---|---|---|---|
+| `hostname` | Domain controller | Confirms server name | Shows `SRV-DC01` |
+| `ipconfig /all` | Domain controller | Confirms DNS/IP settings | DNS points to the server |
+| `echo %USERDOMAIN%` | Domain controller | Shows logon domain | Shows the domain value after promotion |
+
+---
+
+## ✅ Completion Checklist
+
+- [ ] AD DS role installed.
 - [ ] Server promoted to domain controller.
 - [ ] New forest created using `corp.local`.
 - [ ] Server restarted successfully.
@@ -201,14 +140,25 @@ Confirm that DNS management opens successfully.
 
 ---
 
-## Key Takeaways
+## 🧠 Key Takeaways
 
-- Active Directory centralizes user, computer and group management.
-- DNS is required for clients to locate domain services.
-- The first domain controller creates the foundation for the rest of the lab.
+| Key point | Why it matters |
+|---|---|
+| 1 | Active Directory centralizes user, computer and group management. |
+| 2 | DNS is required for clients to locate domain services. |
+| 3 | The first domain controller is the foundation for the rest of the lab. |
 
 ---
 
-<p align="center">
-  <a href="../03-network-and-dns-configuration/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../05-join-windows-11-client-to-domain/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
-</p>
+## 👤 Author
+
+**Xuan Toan Nguyen**  
+IT Support | Service Desk | Desktop Support | System Administration  
+Adelaide, South Australia
+
+- 🔗 LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
+- 💻 GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+
+---
+
+<p align="center"><a href="../03-network-and-dns-configuration/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../05-join-windows-11-client-to-domain/README.md">Next Lab ➜</a> · <a href="#top">⬆ Back to Top</a></p>

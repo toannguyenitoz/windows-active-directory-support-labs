@@ -1,39 +1,32 @@
 <a id="top"></a>
 
-# Lab 12 — Second Client and Computer Management
+# 💻 Lab 12 — Second Client and Computer Management
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Windows%2011-Second%20Client-0078D4?logo=windows&logoColor=white" alt="Windows 11">
-  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Intermediate-orange" alt="Intermediate">
+  <img src="https://img.shields.io/badge/Windows%2011-Second%20Client-0078D4?logo=windows&logoColor=white" alt="Second Client and Computer Management">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-2E7D32" alt="Guide">
+  <img src="https://img.shields.io/badge/Level-Intermediate-F9A825" alt="Intermediate">
 </p>
 
-<p align="center">
-  <a href="../11-rsat-remote-administration/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../13-print-server-and-network-printer/README.md">Next Lab</a>
-</p>
+<p align="center"><a href="../11-rsat-remote-administration/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../13-print-server-and-network-printer/README.md">Next Lab ➜</a></p>
 
 ---
 
-## Overview
+## 🎯 Lab Mission
 
-This lab adds a second Windows 11 client to the domain and shows how to organize multiple computer objects in Active Directory.
+Add a second Windows 11 client to the domain and organize computer objects.
 
-Adding a second client helps readers practise domain join again and understand how IT Support teams manage more than one workstation.
+> [!NOTE]
+> This lab is written as a user guide. Follow the steps in order and compare your result with the expected checks.
 
----
+## ✅ What You Will Learn
 
-## Objectives
+- Rename the second client.
+- Configure DNS.
+- Join it to the domain.
+- Move the computer object into the correct OU.
 
-- Prepare a second Windows 11 client.
-- Rename the second client using the naming standard.
-- Configure DNS for domain communication.
-- Join the second client to the domain.
-- Move the second computer object into the correct OU.
-- Confirm both clients appear in Active Directory.
-
----
-
-## Lab Values Used in This Guide
+## 🧱 Lab Values
 
 | Item | Value |
 |---|---|
@@ -41,162 +34,133 @@ Adding a second client helps readers practise domain join again and understand h
 | Second client | `W11-CLIENT02` |
 | Domain | `corp.local` |
 | DNS server | `192.168.20.10` |
-| Computer OU | `Company > Computers` |
 
----
+## 🧩 Before You Start
 
-## Before You Start
+- Domain controller must be working.
+- First client should already be joined.
 
-The domain controller must be working and the first Windows 11 client should already be joined to the domain.
+> [!WARNING]
+> Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
 
----
+## 🚀 Step-by-Step Guide
 
-## Step 1 — Check the Second Client
+### 🪟 Step 1 — Check second client
 
-Start the second Windows 11 client and sign in with a local administrator account.
+Open About page and review current computer name.
 
-Open:
+> [!TIP]
+> Confirm edition and starting state.
 
-```text
-Settings > System > About
-```
+### 🏷️ Step 2 — Rename the second client
 
-Review the current computer name and Windows edition.
+Rename to `W11-CLIENT02` and restart.
 
----
+> [!TIP]
+> Consistent naming simplifies management.
 
-## Step 2 — Rename the Second Client
+### 🌐 Step 3 — Configure DNS
 
-Rename the computer to:
+Set DNS to `192.168.20.10` and verify.
 
-```text
-W11-CLIENT02
-```
-
-Restart the client when prompted.
-
-After restart, confirm the name:
-
-```cmd
-hostname
-```
-
----
-
-## Step 3 — Configure DNS
-
-Open the active network adapter settings and set the DNS server to the domain controller IP:
-
-```text
-192.168.20.10
-```
-
-Then confirm from Command Prompt:
+Run:
 
 ```cmd
 ipconfig /all
 ```
 
----
+> [!TIP]
+> DNS is required for domain join.
 
-## Step 4 — Test Connectivity
+### 📡 Step 4 — Test connectivity
+
+Test server and domain lookup.
 
 Run:
 
 ```cmd
 ping 192.168.20.10
+```
+
+```cmd
 nslookup corp.local
 ```
 
-The client should be able to reach the server and resolve the domain name.
+> [!TIP]
+> Both tests should work.
+
+### 🔗 Step 5 — Join the domain
+
+Join `corp.local` and restart.
+
+> [!TIP]
+> Use an account with join permission.
+
+### 👤 Step 6 — Sign in with domain account
+
+Test domain sign-in.
+
+> [!TIP]
+> Confirms the join is usable.
+
+### 🗂️ Step 7 — Move computer object
+
+Move `W11-CLIENT02` to `Company > Computers`.
+
+> [!TIP]
+> Keeps computer objects organized.
+
+### ✅ Step 8 — Review both clients
+
+Confirm both clients appear in the Computers OU.
+
+> [!TIP]
+> Shows multiple workstations are managed.
 
 ---
 
-## Step 5 — Join the Domain
+## 🧾 Command Reference
 
-Open:
-
-```text
-System Properties > Computer Name > Change
-```
-
-Join the domain:
-
-```text
-corp.local
-```
-
-Restart the computer when prompted.
+| Command | Run on | Purpose | Expected result |
+|---|---|---|---|
+| `hostname` | Second client | Confirms computer name | Shows `W11-CLIENT02` |
+| `ipconfig /all` | Second client | Checks DNS/IP values | DNS points to server |
+| `nslookup corp.local` | Second client | Tests domain lookup | Domain resolves |
 
 ---
 
-## Step 6 — Sign In with a Domain Account
+## ✅ Completion Checklist
 
-After restart, sign in using a domain account.
-
-Example:
-
-```text
-CORP\j.smith
-```
-
-Confirm that sign-in works.
-
----
-
-## Step 7 — Move the Computer Object
-
-On the server, open Active Directory Users and Computers.
-
-Find:
-
-```text
-W11-CLIENT02
-```
-
-Move it into:
-
-```text
-Company > Computers
-```
-
----
-
-## Step 8 — Review Both Client Computers
-
-Confirm that both clients appear in the Computers OU:
-
-```text
-W11-CLIENT01
-W11-CLIENT02
-```
-
-This confirms that multiple workstations are now represented in the domain.
-
----
-
-## Completion Checklist
-
-- [ ] Second client checked.
-- [ ] Second client renamed to `W11-CLIENT02`.
-- [ ] DNS configured for the second client.
-- [ ] Connectivity to server tested.
+- [ ] Second client renamed.
+- [ ] DNS configured.
+- [ ] Connectivity tested.
 - [ ] Domain lookup tested.
-- [ ] Second client joined to domain.
+- [ ] Domain join completed.
 - [ ] Domain sign-in tested.
-- [ ] Computer object moved to the Computers OU.
-- [ ] Both clients confirmed in Active Directory.
+- [ ] Computer object moved.
+- [ ] Both clients confirmed in AD.
 
 ---
 
-## Key Takeaways
+## 🧠 Key Takeaways
 
-- Each workstation should have a clear and consistent name.
-- DNS must be correct before domain join.
-- Computer objects should be organized into the correct OU after joining the domain.
+| Key point | Why it matters |
+|---|---|
+| 1 | Each workstation should have a consistent name. |
+| 2 | DNS must be correct before domain join. |
+| 3 | Computer objects should be organized into the correct OU. |
 
 ---
 
-<p align="center">
-  <a href="../11-rsat-remote-administration/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../13-print-server-and-network-printer/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
-</p>
+## 👤 Author
+
+**Xuan Toan Nguyen**  
+IT Support | Service Desk | Desktop Support | System Administration  
+Adelaide, South Australia
+
+- 🔗 LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
+- 💻 GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+
+---
+
+<p align="center"><a href="../11-rsat-remote-administration/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../13-print-server-and-network-printer/README.md">Next Lab ➜</a> · <a href="#top">⬆ Back to Top</a></p>

@@ -1,162 +1,87 @@
 <a id="top"></a>
 
-# Lab 08 — Active Directory Group Management
+# 👥 Lab 08 — Active Directory Group Management
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Active%20Directory-Groups-6A1B9A" alt="Active Directory">
-  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Intermediate-orange" alt="Intermediate">
+  <img src="https://img.shields.io/badge/Active%20Directory-Groups-6A1B9A" alt="Active Directory Group Management">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-2E7D32" alt="Guide">
+  <img src="https://img.shields.io/badge/Level-Intermediate-F9A825" alt="Intermediate">
 </p>
 
-<p align="center">
-  <a href="../07-active-directory-user-management/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../09-password-lockout-logon-controls/README.md">Next Lab</a>
-</p>
+<p align="center"><a href="../07-active-directory-user-management/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../09-password-lockout-logon-controls/README.md">Next Lab ➜</a></p>
 
 ---
 
-## Overview
+## 🎯 Lab Mission
 
-This lab explains how to create and manage Active Directory groups.
+Create and manage security groups for cleaner access management.
 
-Groups make access management easier because permissions can be assigned to groups instead of individual users. This is a common workplace practice for file shares, printers, applications and administrative access.
+> [!NOTE]
+> This lab is written as a user guide. Follow the steps in order and compare your result with the expected checks.
 
----
+## ✅ What You Will Learn
 
-## Objectives
-
-- Create security groups in the correct OU.
-- Apply a simple group naming standard.
+- Create global and domain local groups.
+- Use a clear naming standard.
 - Add users to groups.
-- Review group membership from both the group and user view.
-- Confirm group membership using a command.
+- Verify membership.
 
----
+## 🧱 Lab Values
 
-## Example Groups Used in This Guide
-
-| Group | Purpose |
+| Item | Value |
 |---|---|
-| `GG_ITSupport` | Global group for IT Support users |
-| `GG_StandardUsers` | Global group for standard domain users |
-| `DL_SharedData_Read` | Domain local group for read access |
-| `DL_SharedData_Modify` | Domain local group for modify access |
+| Global group | `GG_StandardUsers` |
+| IT group | `GG_ITSupport` |
+| Access groups | `DL_SharedData_Read`, `DL_SharedData_Modify` |
 
-> `GG` means Global Group and `DL` means Domain Local Group. This naming style helps readers understand group purpose quickly.
+## 🧩 Before You Start
 
----
+- Confirm Groups OU exists.
+- Confirm `j.smith` exists.
 
-## Before You Start
+> [!WARNING]
+> Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
 
-Complete the user management lab first.
+## 🚀 Step-by-Step Guide
 
-Confirm that the `Groups` OU exists:
+### 🧰 Step 1 — Open Groups OU
 
-```text
-Company > Groups
-```
+Browse to `corp.local > Company > Groups`.
 
-Confirm that the test user exists:
+> [!TIP]
+> Groups should be created in a dedicated OU.
 
-```text
-j.smith
-```
+### ➕ Step 2 — Create standard users group
 
----
+Create `GG_StandardUsers` as a Global Security group.
 
-## Step 1 — Open the Groups OU
+> [!TIP]
+> Global groups commonly hold users.
 
-Open:
+### 🛠️ Step 3 — Create IT support group
 
-```text
-Server Manager > Tools > Active Directory Users and Computers
-```
+Create `GG_ITSupport`.
 
-Browse to:
+> [!TIP]
+> Useful for support role scenarios.
 
-```text
-corp.local > Company > Groups
-```
+### 👤 Step 4 — Add user to group
 
----
+Add `j.smith` to `GG_StandardUsers`.
 
-## Step 2 — Create a Global Security Group
+> [!TIP]
+> Group membership drives access.
 
-Right-click the `Groups` OU and select:
+### 🔍 Step 5 — Review Member Of
 
-```text
-New > Group
-```
+Open the user and review the Member Of tab.
 
-Create:
+> [!TIP]
+> Verify membership from the user view.
 
-```text
-GG_StandardUsers
-```
+### 💻 Step 6 — Confirm with PowerShell
 
-Use these options:
-
-```text
-Group scope: Global
-Group type: Security
-```
-
----
-
-## Step 3 — Create an IT Support Group
-
-Create another group:
-
-```text
-GG_ITSupport
-```
-
-Use the same type:
-
-```text
-Global Security
-```
-
-This group can be used later for support or administration scenarios.
-
----
-
-## Step 4 — Add a User to a Group
-
-Open the properties of:
-
-```text
-GG_StandardUsers
-```
-
-Go to the Members tab and add:
-
-```text
-j.smith
-```
-
-This grants the user membership in the group.
-
----
-
-## Step 5 — Review the User Member Of Tab
-
-Open the properties of the user account:
-
-```text
-j.smith
-```
-
-Go to:
-
-```text
-Member Of
-```
-
-Confirm that `GG_StandardUsers` appears in the list.
-
----
-
-## Step 6 — Confirm Group Membership with PowerShell
+Run membership check.
 
 Run:
 
@@ -164,43 +89,55 @@ Run:
 Get-ADGroupMember GG_StandardUsers
 ```
 
-The test user should appear in the command output.
+> [!TIP]
+> The test user should appear.
+
+### 📁 Step 7 — Create access groups
+
+Create `DL_SharedData_Read` and `DL_SharedData_Modify`.
+
+> [!TIP]
+> These are used in the file share lab.
 
 ---
 
-## Step 7 — Create Access Groups for Later Labs
+## 🧾 Command Reference
 
-Create these groups for the file share lab:
-
-```text
-DL_SharedData_Read
-DL_SharedData_Modify
-```
-
-These groups will be used later to demonstrate access control.
+| Command | Run on | Purpose | Expected result |
+|---|---|---|---|
+| `Get-ADGroupMember GG_StandardUsers` | Server | Lists group members | Shows `j.smith` |
 
 ---
 
-## Completion Checklist
+## ✅ Completion Checklist
 
-- [ ] Groups OU opened.
-- [ ] `GG_StandardUsers` created.
-- [ ] `GG_ITSupport` created.
-- [ ] Test user added to a group.
+- [ ] Groups created.
+- [ ] User added to group.
 - [ ] User membership reviewed.
-- [ ] Group membership confirmed with PowerShell.
-- [ ] Domain local groups created for later labs.
+- [ ] Membership confirmed with PowerShell.
+- [ ] Access groups created.
 
 ---
 
-## Key Takeaways
+## 🧠 Key Takeaways
 
-- Groups make permission management easier and cleaner.
-- Naming standards help support staff understand group purpose.
-- User membership can be checked from both the user object and the group object.
+| Key point | Why it matters |
+|---|---|
+| 1 | Groups make permission management easier. |
+| 2 | Naming standards explain group purpose. |
+| 3 | Membership can be verified from multiple views. |
 
 ---
 
-<p align="center">
-  <a href="../07-active-directory-user-management/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../09-password-lockout-logon-controls/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
-</p>
+## 👤 Author
+
+**Xuan Toan Nguyen**  
+IT Support | Service Desk | Desktop Support | System Administration  
+Adelaide, South Australia
+
+- 🔗 LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
+- 💻 GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+
+---
+
+<p align="center"><a href="../07-active-directory-user-management/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../09-password-lockout-logon-controls/README.md">Next Lab ➜</a> · <a href="#top">⬆ Back to Top</a></p>

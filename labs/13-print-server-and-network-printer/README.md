@@ -1,190 +1,148 @@
 <a id="top"></a>
 
-# Lab 13 — Print Server and Network Printer
+# 🖨️ Lab 13 — Print Server and Network Printer
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Windows%20Server-Print%20Support-5E5E5E?logo=windows&logoColor=white" alt="Print Server">
-  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Intermediate-orange" alt="Intermediate">
+  <img src="https://img.shields.io/badge/Windows%20Server-Print%20Support-5E5E5E?logo=windows&logoColor=white" alt="Print Server and Network Printer">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-2E7D32" alt="Guide">
+  <img src="https://img.shields.io/badge/Level-Intermediate-F9A825" alt="Intermediate">
 </p>
 
-<p align="center">
-  <a href="../12-second-client-computer-management/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../14-remote-desktop-support/README.md">Next Lab</a>
-</p>
+<p align="center"><a href="../12-second-client-computer-management/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../14-remote-desktop-support/README.md">Next Lab ➜</a></p>
 
 ---
 
-## Overview
+## 🎯 Lab Mission
 
-This lab explains a basic print support workflow in a Windows Server environment.
+Practise a basic print support workflow in a Windows Server environment.
 
-Printer issues are common in IT Support. This guide shows how to add print services, create a shared printer for lab practice, connect from a Windows 11 client and review the print queue.
+> [!NOTE]
+> This lab is written as a user guide. Follow the steps in order and compare your result with the expected checks.
 
----
+## ✅ What You Will Learn
 
-## Objectives
+- Open Print Management.
+- Add or review a lab printer.
+- Share the printer.
+- Connect from a Windows 11 client.
+- Review print queue actions.
 
-- Add print management capability on the server.
-- Create or add a lab printer.
-- Share the printer with a clear name.
-- Connect to the printer from Windows 11.
-- Review common print queue actions.
-- Understand basic printer troubleshooting checks.
-
----
-
-## Lab Values Used in This Guide
+## 🧱 Lab Values
 
 | Item | Value |
 |---|---|
 | Server | `SRV-DC01` |
 | Client | `W11-CLIENT01` |
-| Example printer name | `PRN-LAB-01` |
-| Example shared printer name | `Shared-Printer-01` |
+| Printer | `PRN-LAB-01` |
+| Share name | `Shared-Printer-01` |
 
----
+## 🧩 Before You Start
 
-## Before You Start
+- Client should be joined to the domain.
+- Client should reach the server.
 
-The Windows 11 client should be joined to the domain and able to reach the server.
+> [!WARNING]
+> Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
 
-Confirm connectivity from the client:
+## 🚀 Step-by-Step Guide
 
-```cmd
-ping 192.168.20.10
-```
+### 🛠️ Step 1 — Open Server Manager
 
----
+Use Add Roles and Features to ensure print management tools are available.
 
-## Step 1 — Open Server Manager
+> [!TIP]
+> Print tools are needed for queue and shared printer management.
 
-On the server, open:
+### 🖨️ Step 2 — Open Print Management
 
-```text
-Server Manager
-```
+Open Server Manager > Tools > Print Management.
 
-Go to:
+> [!TIP]
+> This is the central print admin console.
 
-```text
-Manage > Add Roles and Features
-```
+### ➕ Step 3 — Add a lab printer
 
-Use the wizard to add print management capability for the lab.
+Add a test printer and name it `PRN-LAB-01`.
 
----
+> [!TIP]
+> Use clear naming for support.
 
-## Step 2 — Open Print Management
+### 🌐 Step 4 — Share the printer
 
-After installation, open:
+Share it as `Shared-Printer-01`.
 
-```text
-Server Manager > Tools > Print Management
-```
+> [!TIP]
+> A clear share name helps users select the right printer.
 
-Review the print servers list and confirm the local server appears.
+### 💻 Step 5 — Connect from Windows 11
 
----
+Open Printers and scanners and add the shared printer.
 
-## Step 3 — Add a Lab Printer
+> [!TIP]
+> Client test confirms usability.
 
-In Print Management, add a printer for lab practice.
+### 📄 Step 6 — Review print queue
 
-Use a test printer or a safe lab printer configuration.
+Review pause, resume and cancel actions.
 
-Give the printer a clear name, for example:
+> [!TIP]
+> The queue is a common troubleshooting location.
 
-```text
-PRN-LAB-01
-```
+### 🔍 Step 7 — Basic troubleshooting checks
 
----
+Check printer visibility, queue state, stuck jobs and server connectivity.
 
-## Step 4 — Share the Printer
-
-Open printer properties and review the Sharing tab.
-
-Share the printer using a clear share name:
-
-```text
-Shared-Printer-01
-```
-
-A clear name makes it easier for users and support staff to identify the correct printer.
-
----
-
-## Step 5 — Connect from Windows 11 Client
-
-On the Windows 11 client, open:
-
-```text
-Settings > Bluetooth and devices > Printers and scanners
-```
-
-Add the shared printer from the server.
-
-Confirm that the printer appears in the client printer list.
-
----
-
-## Step 6 — Review the Print Queue
-
-Open the printer queue from the client or server.
-
-Review common queue actions:
-
-```text
-Pause printing
-Resume printing
-Cancel a stuck job
-Open printer properties
-Set as default printer
-```
-
-This gives the reader a basic printer support workflow.
-
----
-
-## Step 7 — Basic Troubleshooting Checks
-
-When a user reports a printer issue, check:
-
-- Is the printer visible on the client?
-- Is the user connected to the correct printer?
-- Is the queue paused?
-- Are there stuck jobs?
-- Can the client reach the print server?
-- Is the printer shared with the expected name?
-
-Useful command:
+Run:
 
 ```cmd
 ping 192.168.20.10
 ```
 
+> [!TIP]
+> Start with simple checks.
+
 ---
 
-## Completion Checklist
+## 🧾 Command Reference
 
-- [ ] Print management opened on the server.
+| Command | Run on | Purpose | Expected result |
+|---|---|---|---|
+| `ping 192.168.20.10` | Client | Tests print server connectivity | Successful replies |
+| `control printers` | Client | Opens printers interface | Printer list opens |
+
+---
+
+## ✅ Completion Checklist
+
+- [ ] Print management opened.
 - [ ] Lab printer added or reviewed.
-- [ ] Printer shared with a clear name.
-- [ ] Windows 11 client connected to the shared printer.
+- [ ] Printer shared.
+- [ ] Client connected.
 - [ ] Print queue opened.
-- [ ] Common queue actions reviewed.
-- [ ] Basic troubleshooting checks reviewed.
+- [ ] Queue actions reviewed.
+- [ ] Troubleshooting checks reviewed.
 
 ---
 
-## Key Takeaways
+## 🧠 Key Takeaways
 
-- Printer names should be clear and easy to identify.
-- The print queue is an important troubleshooting location.
-- Many printer issues are caused by queue state, wrong printer selection or connection problems.
+| Key point | Why it matters |
+|---|---|
+| 1 | Printer names should be easy to identify. |
+| 2 | Queue state is important in printer troubleshooting. |
+| 3 | Many printer issues involve wrong printer selection, paused queues or connectivity. |
 
 ---
 
-<p align="center">
-  <a href="../12-second-client-computer-management/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../14-remote-desktop-support/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
-</p>
+## 👤 Author
+
+**Xuan Toan Nguyen**  
+IT Support | Service Desk | Desktop Support | System Administration  
+Adelaide, South Australia
+
+- 🔗 LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
+- 💻 GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+
+---
+
+<p align="center"><a href="../12-second-client-computer-management/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../14-remote-desktop-support/README.md">Next Lab ➜</a> · <a href="#top">⬆ Back to Top</a></p>

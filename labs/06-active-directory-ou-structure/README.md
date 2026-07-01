@@ -1,175 +1,137 @@
 <a id="top"></a>
 
-# Lab 06 — Active Directory OU Structure
+# 🗂️ Lab 06 — Active Directory OU Structure
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Active%20Directory-OU%20Design-6A1B9A" alt="Active Directory">
-  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Intermediate-orange" alt="Intermediate">
+  <img src="https://img.shields.io/badge/Active%20Directory-OU%20Design-6A1B9A" alt="Active Directory OU Structure">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-2E7D32" alt="Guide">
+  <img src="https://img.shields.io/badge/Level-Intermediate-F9A825" alt="Intermediate">
 </p>
 
-<p align="center">
-  <a href="../05-join-windows-11-client-to-domain/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../07-active-directory-user-management/README.md">Next Lab</a>
-</p>
+<p align="center"><a href="../05-join-windows-11-client-to-domain/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../07-active-directory-user-management/README.md">Next Lab ➜</a></p>
 
 ---
 
-## Overview
+## 🎯 Lab Mission
 
-This lab creates a clean Organizational Unit structure in Active Directory.
+Create a clean Organizational Unit structure for users, computers, groups and service accounts.
 
-Organizational Units help administrators organize users, computers, groups and service accounts. A clear OU structure also makes Group Policy management easier in later administration tasks.
+> [!NOTE]
+> This lab is written as a user guide. Follow the steps in order and compare your result with the expected checks.
 
----
+## ✅ What You Will Learn
 
-## Objectives
+- Create top-level and sub-level OUs.
+- Organize users, computers and groups.
+- Move workstation objects into the correct OU.
 
-- Open Active Directory Users and Computers.
-- Create a top-level OU for the lab organization.
-- Create sub-OUs for users, computers, groups and service accounts.
-- Move the Windows 11 computer object into the correct OU.
-- Confirm the final OU structure.
+## 🧱 Lab Values
 
----
+| Item | Value |
+|---|---|
+| Top OU | `Company` |
+| User OU | `Company > Users` |
+| Computer OU | `Company > Computers` |
 
-## Suggested OU Structure
+## 🧩 Before You Start
 
-```text
-corp.local
-└── Company
-    ├── Users
-    ├── Computers
-    ├── Groups
-    ├── Service Accounts
-    └── Disabled Accounts
-```
+- Complete the domain join lab.
+- Confirm the client computer object exists.
 
----
+> [!WARNING]
+> Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
 
-## Before You Start
+## 🚀 Step-by-Step Guide
 
-Complete the domain join lab first.
+### 🧰 Step 1 — Open ADUC
 
-Confirm that the Windows 11 client computer object exists in Active Directory:
+Open **Server Manager > Tools > Active Directory Users and Computers**.
 
-```text
-Active Directory Users and Computers > Computers
-```
+> [!TIP]
+> ADUC is the main GUI for object management.
 
----
+### 🏢 Step 2 — Create the top-level OU
 
-## Step 1 — Open Active Directory Users and Computers
+Create `Company` under the domain.
 
-On the server, open:
+> [!TIP]
+> This becomes the main container.
 
-```text
-Server Manager > Tools > Active Directory Users and Computers
-```
+### 👤 Step 3 — Create user and computer OUs
 
-Expand the domain:
+Create `Users` and `Computers` inside `Company`.
 
-```text
-corp.local
-```
+> [!TIP]
+> Separate users and computers for cleaner management.
 
----
+### 👥 Step 4 — Create additional OUs
 
-## Step 2 — Create the Top-Level OU
+Create `Groups`, `Service Accounts` and `Disabled Accounts`.
 
-Right-click the domain name and create a new Organizational Unit.
+> [!TIP]
+> These OUs help as the lab grows.
 
-Name it:
+### 💻 Step 5 — Move client object
 
-```text
-Company
-```
+Move `W11-CLIENT01` into `Company > Computers`.
 
-This becomes the main container for the lab objects.
+> [!TIP]
+> Avoid leaving lab objects in default containers.
 
----
+### 🧪 Step 6 — Verify structure
 
-## Step 3 — Create User and Computer OUs
+Optionally list OUs with PowerShell.
 
-Inside the `Company` OU, create:
-
-```text
-Users
-Computers
-```
-
-The `Users` OU will store normal user accounts.
-
-The `Computers` OU will store workstation computer objects.
-
----
-
-## Step 4 — Create Group and Service Account OUs
-
-Inside the `Company` OU, create:
-
-```text
-Groups
-Service Accounts
-Disabled Accounts
-```
-
-These OUs make administration clearer and reduce confusion as the lab grows.
-
----
-
-## Step 5 — Move the Client Computer Object
-
-Find the computer object:
-
-```text
-W11-CLIENT01
-```
-
-Move it into:
-
-```text
-Company > Computers
-```
-
-This keeps workstation objects separated from the default Computers container.
-
----
-
-## Step 6 — Verify the OU Structure
-
-Review the final structure in Active Directory Users and Computers.
-
-Optional PowerShell check:
+Run:
 
 ```powershell
 Get-ADOrganizationalUnit -Filter *
 ```
 
-Confirm that the new OUs are visible.
+> [!TIP]
+> Confirm all OUs are visible.
 
 ---
 
-## Completion Checklist
+## 🧾 Command Reference
 
-- [ ] Active Directory Users and Computers opened.
-- [ ] `Company` OU created.
-- [ ] `Users` OU created.
-- [ ] `Computers` OU created.
-- [ ] `Groups` OU created.
-- [ ] `Service Accounts` OU created.
-- [ ] `Disabled Accounts` OU created.
-- [ ] Client computer object moved to the correct OU.
+| Command | Run on | Purpose | Expected result |
+|---|---|---|---|
+| `Get-ADOrganizationalUnit -Filter *` | Server | Lists OUs | Shows created OUs |
 
 ---
 
-## Key Takeaways
+## ✅ Completion Checklist
 
-- OUs help organize directory objects.
-- A clean OU structure supports easier administration.
-- Computer objects should be moved into purpose-built OUs instead of leaving everything in default containers.
+- [ ] Company OU created.
+- [ ] Users OU created.
+- [ ] Computers OU created.
+- [ ] Groups OU created.
+- [ ] Service Accounts OU created.
+- [ ] Disabled Accounts OU created.
+- [ ] Client object moved.
 
 ---
 
-<p align="center">
-  <a href="../05-join-windows-11-client-to-domain/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../07-active-directory-user-management/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
-</p>
+## 🧠 Key Takeaways
+
+| Key point | Why it matters |
+|---|---|
+| 1 | OUs organize directory objects. |
+| 2 | Clean structure supports easier administration. |
+| 3 | Move objects out of default containers. |
+
+---
+
+## 👤 Author
+
+**Xuan Toan Nguyen**  
+IT Support | Service Desk | Desktop Support | System Administration  
+Adelaide, South Australia
+
+- 🔗 LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
+- 💻 GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+
+---
+
+<p align="center"><a href="../05-join-windows-11-client-to-domain/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../07-active-directory-user-management/README.md">Next Lab ➜</a> · <a href="#top">⬆ Back to Top</a></p>

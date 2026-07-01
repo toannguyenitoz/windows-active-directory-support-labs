@@ -1,187 +1,132 @@
 <a id="top"></a>
 
-# Lab 03 — Network and DNS Configuration
+# 🌐 Lab 03 — Network and DNS Configuration
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Networking-DNS-blue" alt="Networking">
-  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Beginner-blue" alt="Beginner">
+  <img src="https://img.shields.io/badge/Networking-DNS-1565C0" alt="Network and DNS Configuration">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-2E7D32" alt="Guide">
+  <img src="https://img.shields.io/badge/Level-Beginner-1565C0" alt="Beginner">
 </p>
 
-<p align="center">
-  <a href="../02-windows-server-initial-configuration/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../04-active-directory-domain-services-setup/README.md">Next Lab</a>
-</p>
+<p align="center"><a href="../02-windows-server-initial-configuration/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../04-active-directory-domain-services-setup/README.md">Next Lab ➜</a></p>
 
 ---
 
-## Overview
+## 🎯 Lab Mission
 
-This lab configures the basic network and DNS settings required before Active Directory can be installed and before a Windows 11 client can join the domain.
+Configure the network and DNS foundation required before Active Directory and domain join can work reliably.
 
-The key idea is simple: the Windows 11 client must use the server as its DNS server so it can locate the domain controller in later labs.
+> [!NOTE]
+> This lab is written as a user guide. Follow the steps in order and compare your result with the expected checks.
 
----
+## ✅ What You Will Learn
 
-## Objectives
+- Configure or confirm server IPv4 settings.
+- Point the Windows 11 client DNS server to the domain controller.
+- Test client-to-server connectivity.
+- Record final network values for later labs.
 
-- Configure or confirm the server IP address.
-- Configure the server DNS setting.
-- Configure the Windows 11 client DNS setting.
-- Test connectivity between client and server.
-- Confirm the environment is ready for directory service setup.
-
----
-
-## Lab Values Used in This Guide
+## 🧱 Lab Values
 
 | Item | Value |
 |---|---|
-| Server name | `SRV-DC01` |
 | Server IP | `192.168.20.10` |
-| Client name | `W11-CLIENT01` |
 | Client IP | `192.168.20.101` |
 | Subnet mask | `255.255.255.0` |
 | Client DNS server | `192.168.20.10` |
 
-> Use values that match your own lab, but keep server and client on the same network.
+## 🧩 Before You Start
 
----
+- Complete Lab 01 and Lab 02.
+- Know which network adapter is active on both client and server.
+- Use the same lab network for both machines.
 
-## Before You Start
+> [!WARNING]
+> Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
 
-Complete Lab 01 and Lab 02 first.
+## 🚀 Step-by-Step Guide
 
-You should know:
+### 🔌 Step 1 — Review the server adapter
 
-- The server computer name.
-- The client computer name.
-- The IP range used by the lab.
-- Which network adapter is connected.
+Open the server network adapter IPv4 properties and review current values.
 
----
+> [!TIP]
+> Changing the wrong adapter is a common lab mistake.
 
-## Step 1 — Review Server Network Adapter
+### 🧭 Step 2 — Configure server IPv4
 
-On the server, open:
+Set server IP, subnet mask and preferred DNS according to the lab design.
 
-```text
-Control Panel > Network and Internet > Network Connections
-```
+> [!TIP]
+> The server will use itself as DNS after DNS services are installed.
 
-Open the Ethernet adapter properties and select:
+### 🧪 Step 3 — Verify server IP configuration
 
-```text
-Internet Protocol Version 4 (TCP/IPv4)
-```
+Confirm server IPv4 and DNS values.
 
-Review the current IP configuration before making changes.
-
----
-
-## Step 2 — Configure Server IPv4 Settings
-
-Set the server IPv4 values using your lab design.
-
-Example values:
-
-```text
-IP address: 192.168.20.10
-Subnet mask: 255.255.255.0
-Default gateway: use your lab gateway if required
-Preferred DNS server: 192.168.20.10
-```
-
-The server uses itself as DNS because it will provide DNS services after the domain role is configured.
-
----
-
-## Step 3 — Verify Server IP Configuration
-
-On the server, open Command Prompt and run:
+Run:
 
 ```cmd
 ipconfig /all
 ```
 
-Confirm:
+> [!TIP]
+> Check the adapter name to avoid reading the wrong interface.
 
-- IPv4 address is correct.
-- Subnet mask is correct.
-- DNS server points to the server IP.
-- The correct adapter is being used.
+### 💻 Step 4 — Configure client DNS
 
----
+On the Windows 11 client, set the preferred DNS server to `192.168.20.10`.
 
-## Step 4 — Configure Client DNS Setting
+> [!TIP]
+> Domain clients must use the domain DNS service.
 
-On the Windows 11 client, open the IPv4 properties for the active network adapter.
+### 🔍 Step 5 — Verify client IP configuration
 
-Set the preferred DNS server to:
+Confirm client IP, network range and DNS server.
 
-```text
-192.168.20.10
-```
-
-This allows the client to use the server for name resolution in later domain labs.
-
----
-
-## Step 5 — Verify Client IP Configuration
-
-On the Windows 11 client, run:
+Run:
 
 ```cmd
 ipconfig /all
 ```
 
-Confirm:
+> [!TIP]
+> Client and server should be on the same subnet.
 
-- The client has a valid IPv4 address.
-- The client is on the same network as the server.
-- The DNS server value points to the server IP.
+### 📡 Step 6 — Test connectivity
 
----
+From the client, test connectivity to the server.
 
-## Step 6 — Test Client to Server Connectivity
-
-From the Windows 11 client, run:
+Run:
 
 ```cmd
 ping 192.168.20.10
 ```
 
-A successful reply confirms that the client can reach the server.
+> [!TIP]
+> Successful replies confirm basic IP connectivity.
 
-A failed test usually means one of these areas needs checking:
+### 📝 Step 7 — Record final network values
 
-- Incorrect IP address.
-- Wrong subnet mask.
-- Wrong network adapter.
-- Firewall rule blocking the test.
-- Client and server not on the same network.
+Record server name, server IP, client name, client IP, client DNS and planned domain name.
 
----
-
-## Step 7 — Record the Final Network Values
-
-Record the final values before moving to the next lab:
-
-```text
-Server name
-Server IP
-Client name
-Client IP
-Client DNS server
-Domain name planned for next lab
-```
-
-These values are required for Active Directory setup and domain join.
+> [!TIP]
+> These values are used repeatedly in later labs.
 
 ---
 
-## Completion Checklist
+## 🧾 Command Reference
 
-- [ ] Server network adapter reviewed.
+| Command | Run on | Purpose | Expected result |
+|---|---|---|---|
+| `ipconfig /all` | Client and server | Shows detailed IP and DNS settings | Correct adapter values are visible |
+| `ping 192.168.20.10` | Windows 11 client | Tests connectivity to server | Successful replies received |
+
+---
+
+## ✅ Completion Checklist
+
+- [ ] Server adapter reviewed.
 - [ ] Server IPv4 settings configured or confirmed.
 - [ ] Server DNS value reviewed.
 - [ ] Client DNS points to the server IP.
@@ -191,14 +136,25 @@ These values are required for Active Directory setup and domain join.
 
 ---
 
-## Key Takeaways
+## 🧠 Key Takeaways
 
-- DNS is critical for Active Directory.
-- Domain clients should use the domain controller DNS service, not a random external DNS server.
-- `ipconfig /all` and `ping` are essential support commands for first-level network checks.
+| Key point | Why it matters |
+|---|---|
+| 1 | DNS is critical for Active Directory. |
+| 2 | Domain clients should use the domain controller DNS service. |
+| 3 | `ipconfig /all` and `ping` are essential first-line network checks. |
 
 ---
 
-<p align="center">
-  <a href="../02-windows-server-initial-configuration/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../04-active-directory-domain-services-setup/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
-</p>
+## 👤 Author
+
+**Xuan Toan Nguyen**  
+IT Support | Service Desk | Desktop Support | System Administration  
+Adelaide, South Australia
+
+- 🔗 LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
+- 💻 GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+
+---
+
+<p align="center"><a href="../02-windows-server-initial-configuration/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../04-active-directory-domain-services-setup/README.md">Next Lab ➜</a> · <a href="#top">⬆ Back to Top</a></p>

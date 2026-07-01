@@ -1,197 +1,149 @@
 <a id="top"></a>
 
-# Lab 16 — Service Desk Documentation and Case Notes
+# 📝 Lab 16 — Service Desk Documentation and Case Notes
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Service%20Desk-Documentation-green" alt="Service Desk">
-  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Beginner-blue" alt="Beginner">
+  <img src="https://img.shields.io/badge/Service%20Desk-Documentation-2E7D32" alt="Service Desk Documentation and Case Notes">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-2E7D32" alt="Guide">
+  <img src="https://img.shields.io/badge/Level-Beginner-1565C0" alt="Beginner">
 </p>
 
-<p align="center">
-  <a href="../15-network-troubleshooting-wifi-ip/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a>
-</p>
+<p align="center"><a href="../15-network-troubleshooting-wifi-ip/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a></p>
 
 ---
 
-## Overview
+## 🎯 Lab Mission
 
-This lab explains how to write clear Service Desk notes after completing technical support work.
+Write clear Service Desk notes after completing technical support work.
 
-Good technical work is only part of IT Support. The ticket must also explain what happened, what was checked, what was changed, what result was confirmed and whether follow-up is required.
+> [!NOTE]
+> This lab is written as a user guide. Follow the steps in order and compare your result with the expected checks.
 
----
+## ✅ What You Will Learn
 
-## Objectives
-
-- Write a clear issue summary.
-- Record the affected user, device and service.
+- Write an issue summary.
+- Record user, device and service details.
 - Document troubleshooting steps in order.
-- Record findings and resolution.
-- Confirm the result after testing.
-- Write a professional final case note.
+- Record findings, resolution and final result.
 
----
+## 🧱 Lab Values
 
-## Example Scenario
+| Item | Value |
+|---|---|
+| Example issue | Client cannot access domain resources |
+| Client | `W11-CLIENT01` |
+| Service | Domain resources / shared folders |
 
-A user reports:
+## 🧩 Before You Start
 
-```text
-The Windows 11 client cannot access domain resources.
-```
+- Use a completed support scenario from earlier labs.
+- Write factual notes based on checks, not guesses.
 
-The support person checks network status, DNS settings, server connectivity and domain sign-in.
+> [!WARNING]
+> Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
 
----
+## 🚀 Step-by-Step Guide
 
-## Step 1 — Write the Issue Summary
+### 📝 Step 1 — Write the issue summary
 
-Start with a short summary.
+Start with a short factual summary.
 
-Example:
+> [!TIP]
+> Good summaries are clear and concise.
 
-```text
-User reported that the Windows 11 client could not access domain resources.
-```
+### 📋 Step 2 — Record basic details
 
-A good summary should be short, factual and easy to understand.
+Record user, computer, date/time, issue, service and impact.
 
----
+> [!TIP]
+> This helps triage and escalation.
 
-## Step 2 — Record Basic Details
+### 🔎 Step 3 — Document troubleshooting steps
 
-Record:
+Write checks in the order completed.
 
-```text
-User
-Computer name
-Date and time
-Reported issue
-Affected service
-Business impact
-```
+> [!TIP]
+> Order matters for understanding the workflow.
 
-Example:
+### 📌 Step 4 — Document findings
 
-```text
-Computer: W11-CLIENT01
-Service affected: Domain resources and shared folders
-Impact: User unable to access required files
-```
+Record evidence such as IP and DNS results.
 
----
+> [!TIP]
+> Findings should be based on checks.
 
-## Step 3 — Document Troubleshooting Steps
+### 🛠️ Step 5 — Document the resolution
 
-Write the checks in the order they were completed.
+Write exactly what fixed the issue.
 
-Example:
+> [!TIP]
+> Be specific.
 
-```text
-Checked network connection status.
-Ran ipconfig /all to review IP and DNS settings.
-Tested ping to the domain controller.
-Tested name resolution for the domain.
-Confirmed user sign-in status.
-```
+### ✅ Step 6 — Confirm the result
 
-This helps another support person understand the workflow.
+Document the final successful test.
 
----
+> [!TIP]
+> Do not close without confirmation.
 
-## Step 4 — Document Findings
-
-Record what was found.
-
-Example:
-
-```text
-Client IP address was valid.
-DNS server was not pointing to the domain controller.
-Client could ping the server IP but could not resolve the domain name.
-```
-
-Findings should be based on evidence from checks, not guesses.
-
----
-
-## Step 5 — Document the Resolution
-
-Write what fixed the issue.
-
-Example:
-
-```text
-Updated the client DNS server to point to the domain controller. Confirmed domain name resolution worked after the change.
-```
-
-Keep the resolution clear and specific.
-
----
-
-## Step 6 — Confirm the Result
-
-Document the final test.
-
-Example:
-
-```text
-Confirmed the client could resolve the domain name and access the shared folder successfully.
-```
-
-A ticket should not be closed until the result has been tested.
-
----
-
-## Step 7 — Record Follow-Up Action
+### 🔄 Step 7 — Record follow-up action
 
 State whether follow-up is required.
 
-Example:
+> [!TIP]
+> Clear next actions reduce confusion.
 
-```text
-No further action required.
-```
+### 📄 Step 8 — Write final case note
 
-or:
+Combine issue, checks, finding, fix and confirmation into a professional note.
 
-```text
-Monitor for recurrence and escalate if the issue returns.
-```
+> [!TIP]
+> This becomes the final support record.
 
 ---
 
-## Step 8 — Final Case Note Example
+## 🧾 Command Reference
 
-```text
-User reported that W11-CLIENT01 could not access domain resources. Checked network connection, IP configuration and DNS settings. The client had a valid IP address but DNS was not pointing to the domain controller. Updated the DNS setting to the domain controller IP and confirmed domain name resolution worked. User access to the shared folder was tested successfully. No further action required.
-```
+| Command | Run on | Purpose | Expected result |
+|---|---|---|---|
+| `ipconfig /all` | Client | Evidence for IP/DNS state | Used in troubleshooting note |
+| `ping 192.168.20.10` | Client | Evidence for connectivity | Used in findings |
+| `nslookup corp.local` | Client | Evidence for DNS | Used in findings |
 
 ---
 
-## Completion Checklist
+## ✅ Completion Checklist
 
 - [ ] Issue summary written.
 - [ ] User and device details recorded.
 - [ ] Troubleshooting steps documented.
 - [ ] Findings documented.
 - [ ] Resolution documented.
-- [ ] Final test result confirmed.
+- [ ] Final result confirmed.
 - [ ] Follow-up action recorded.
-- [ ] Final case note reviewed for clarity.
+- [ ] Final case note reviewed.
 
 ---
 
-## Key Takeaways
+## 🧠 Key Takeaways
 
-- Ticket notes should be factual and easy to follow.
-- Troubleshooting steps should be written in order.
-- A good case note includes the issue, checks, finding, resolution and confirmation.
-- Clear documentation helps future support and escalation.
+| Key point | Why it matters |
+|---|---|
+| 1 | Ticket notes should be factual and easy to follow. |
+| 2 | Troubleshooting steps should be written in order. |
+| 3 | A good case note includes issue, checks, finding, resolution and confirmation. |
 
 ---
 
-<p align="center">
-  <a href="../15-network-troubleshooting-wifi-ip/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="#top">Back to Top</a>
-</p>
+## 👤 Author
+
+**Xuan Toan Nguyen**  
+IT Support | Service Desk | Desktop Support | System Administration  
+Adelaide, South Australia
+
+- 🔗 LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
+- 💻 GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+
+---
+
+<p align="center"><a href="../15-network-troubleshooting-wifi-ip/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="#top">⬆ Back to Top</a></p>

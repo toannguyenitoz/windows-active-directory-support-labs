@@ -1,204 +1,174 @@
 <a id="top"></a>
 
-# Lab 14 — Remote Desktop Support
+# 🛰️ Lab 14 — Remote Desktop Support
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Windows-Remote%20Support-0078D4?logo=windows&logoColor=white" alt="Remote Support">
-  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Intermediate-orange" alt="Intermediate">
+  <img src="https://img.shields.io/badge/Windows-Remote%20Support-0078D4?logo=windows&logoColor=white" alt="Remote Desktop Support">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-2E7D32" alt="Guide">
+  <img src="https://img.shields.io/badge/Level-Intermediate-F9A825" alt="Intermediate">
 </p>
 
-<p align="center">
-  <a href="../13-print-server-and-network-printer/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../15-network-troubleshooting-wifi-ip/README.md">Next Lab</a>
-</p>
+<p align="center"><a href="../13-print-server-and-network-printer/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../15-network-troubleshooting-wifi-ip/README.md">Next Lab ➜</a></p>
 
 ---
 
-## Overview
+## 🎯 Lab Mission
 
-This lab explains a basic Remote Desktop support workflow.
+Practise a basic Remote Desktop support workflow.
 
-Remote support allows an approved support person to connect to another computer for troubleshooting or administration. This lab focuses on safe lab practice, connection checks and professional support behaviour.
+> [!NOTE]
+> This lab is written as a user guide. Follow the steps in order and compare your result with the expected checks.
 
----
-
-## Objectives
+## ✅ What You Will Learn
 
 - Review Remote Desktop availability.
-- Confirm the target computer name and IP address.
-- Test network connectivity to the target computer.
-- Open the Remote Desktop client.
-- Connect to the target computer.
-- Close the session safely after support testing.
+- Confirm target hostname and IP.
+- Test connectivity.
+- Connect using Remote Desktop.
+- Close the session safely.
 
----
-
-## Lab Values Used in This Guide
+## 🧱 Lab Values
 
 | Item | Value |
 |---|---|
 | Support computer | `W11-CLIENT01` |
 | Target computer | `W11-CLIENT02` or `SRV-DC01` |
-| Domain | `corp.local` |
 | Tool | Remote Desktop Connection |
 
----
+## 🧩 Before You Start
 
-## Before You Start
+- Use Remote Desktop only where you have permission.
+- Confirm the target is powered on.
 
-Use Remote Desktop only in a safe lab environment or where you have permission.
+> [!WARNING]
+> Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
 
-Confirm that the target computer supports Remote Desktop and is powered on.
+## 🚀 Step-by-Step Guide
 
----
+### 🛰️ Step 1 — Review Remote Desktop on target
 
-## Step 1 — Review Remote Desktop Settings on the Target
+Open Settings > System > Remote Desktop.
 
-On the target computer, open:
+> [!TIP]
+> Target must allow remote connections.
 
-```text
-Settings > System > Remote Desktop
-```
+### 💻 Step 2 — Confirm target name
 
-Review whether Remote Desktop is enabled.
+Run hostname on target.
 
-Windows 11 Pro, Enterprise and Education editions usually support Remote Desktop host functionality. Windows Home editions may not.
-
----
-
-## Step 2 — Confirm the Target Computer Name
-
-On the target computer, open Command Prompt and run:
+Run:
 
 ```cmd
 hostname
 ```
 
-Record the result.
+> [!TIP]
+> Record the name.
 
-Example:
+### 🌐 Step 3 — Confirm target IP
 
-```text
-W11-CLIENT02
-```
+Run ipconfig on target.
 
----
-
-## Step 3 — Confirm the Target IP Address
-
-On the target computer, run:
+Run:
 
 ```cmd
 ipconfig
 ```
 
-Record the IPv4 address.
+> [!TIP]
+> Record IPv4 address.
 
-This gives an alternative connection method if name resolution is not working.
+### 📡 Step 4 — Test connectivity
 
----
+Ping target name or IP from support computer.
 
-## Step 4 — Test Connectivity from the Support Computer
-
-From the support computer, run:
+Run:
 
 ```cmd
 ping W11-CLIENT02
 ```
 
-If name ping fails, test the IP address:
+> [!TIP]
+> Successful ping confirms connectivity.
 
-```cmd
-ping 192.168.20.102
-```
+### 🪟 Step 5 — Open Remote Desktop Connection
 
-Successful connectivity confirms that the support computer can reach the target.
+Run mstsc.
 
----
-
-## Step 5 — Open Remote Desktop Connection
-
-On the support computer, open:
-
-```text
-Start > Remote Desktop Connection
-```
-
-Or run:
+Run:
 
 ```cmd
 mstsc
 ```
 
----
+> [!TIP]
+> Remote Desktop client opens.
 
-## Step 6 — Connect to the Target Computer
+### 🔗 Step 6 — Connect to target
 
-Enter the target computer name or IP address.
+Enter target name or IP and sign in with approved account.
 
-Example:
+> [!TIP]
+> Session should open.
 
-```text
-W11-CLIENT02
-```
+### 🧪 Step 7 — Complete support check
 
-Sign in using an approved domain account.
+Open Settings or Command Prompt inside remote session.
 
-Confirm that the remote session opens successfully.
+> [!TIP]
+> Confirms session is usable.
 
----
+### 🔚 Step 8 — Close session safely
 
-## Step 7 — Complete a Simple Support Check
+Sign out or disconnect.
 
-Inside the remote session, complete a safe check such as:
-
-```text
-Open Settings
-Check device name
-Open Command Prompt
-Run hostname
-```
-
-This confirms that the remote session is usable.
+> [!TIP]
+> Communicate with user in real support work.
 
 ---
 
-## Step 8 — Close the Remote Session Safely
+## 🧾 Command Reference
 
-When testing is complete, close the session properly.
-
-Use one of these methods:
-
-```text
-Sign out from the remote computer
-Disconnect the Remote Desktop session
-```
-
-For real support work, always communicate with the user before connecting, making changes or ending the session.
+| Command | Run on | Purpose | Expected result |
+|---|---|---|---|
+| `hostname` | Target | Confirms target computer name | Shows expected hostname |
+| `ipconfig` | Target | Shows target IP | IPv4 visible |
+| `mstsc` | Support computer | Opens Remote Desktop Connection | RDP client opens |
 
 ---
 
-## Completion Checklist
+## ✅ Completion Checklist
 
-- [ ] Remote Desktop availability reviewed on the target.
-- [ ] Target computer name confirmed.
-- [ ] Target IP address confirmed.
-- [ ] Connectivity tested from support computer.
-- [ ] Remote Desktop Connection opened.
+- [ ] Remote Desktop availability reviewed.
+- [ ] Target name confirmed.
+- [ ] Target IP confirmed.
+- [ ] Connectivity tested.
+- [ ] Remote Desktop opened.
 - [ ] Remote session established.
 - [ ] Basic support check completed.
 - [ ] Session closed safely.
 
 ---
 
-## Key Takeaways
+## 🧠 Key Takeaways
 
-- Remote Desktop requires the target computer to allow remote connections.
-- Computer name and IP address are both useful for connection testing.
-- Remote support should always be performed with permission and clear communication.
+| Key point | Why it matters |
+|---|---|
+| 1 | Remote Desktop requires target settings and network connectivity. |
+| 2 | Computer name and IP are both useful for testing. |
+| 3 | Remote support should be performed with permission and clear communication. |
 
 ---
 
-<p align="center">
-  <a href="../13-print-server-and-network-printer/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../15-network-troubleshooting-wifi-ip/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
-</p>
+## 👤 Author
+
+**Xuan Toan Nguyen**  
+IT Support | Service Desk | Desktop Support | System Administration  
+Adelaide, South Australia
+
+- 🔗 LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
+- 💻 GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+
+---
+
+<p align="center"><a href="../13-print-server-and-network-printer/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../15-network-troubleshooting-wifi-ip/README.md">Next Lab ➜</a> · <a href="#top">⬆ Back to Top</a></p>

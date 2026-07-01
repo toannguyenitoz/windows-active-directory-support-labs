@@ -3,128 +3,80 @@
 # 🪟 Lab 01 — Windows 11 Client Initial Configuration
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Windows%2011-Client-0078D4?logo=windows&logoColor=white" alt="Windows 11">
-  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-2E7D32" alt="IT Support">
+  <img src="https://img.shields.io/badge/Windows%2011-Client-0078D4?logo=windows&logoColor=white" alt="Windows 11 Client Initial Configuration">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-2E7D32" alt="Guide">
   <img src="https://img.shields.io/badge/Level-Beginner-1565C0" alt="Beginner">
-  <img src="https://img.shields.io/badge/Status-Ready-F9A825" alt="Ready">
 </p>
 
-<p align="center">
-  <a href="../../README.md">🏠 Main README</a> ·
-  <a href="../02-windows-server-initial-configuration/README.md">Next Lab ➜</a>
-</p>
+<p align="center"><a href="../../README.md">🏠 Main README</a> · <a href="../02-windows-server-initial-configuration/README.md">Next Lab ➜</a></p>
 
 ---
 
 ## 🎯 Lab Mission
 
-Prepare a Windows 11 client computer for a workplace-style IT support environment.
+Prepare a Windows 11 client computer for a workplace-style IT support environment before DNS, domain join, Active Directory and troubleshooting labs.
 
-By the end of this lab, the computer will have a clear device name, verified local account information, reviewed network settings, stable power settings and confirmed Remote Desktop availability. This prepares the client for later DNS, domain join, Active Directory and troubleshooting labs.
-
----
+> [!NOTE]
+> This lab is written as a user guide. Follow the steps in order and compare your result with the expected checks.
 
 ## ✅ What You Will Learn
 
-| Skill | What it means in IT Support |
-|---|---|
-| 🪟 Check device information | Confirm Windows edition, system type and baseline details |
-| 🏷️ Rename a workstation | Apply a clear naming standard for support and inventory |
-| 💻 Use support commands | Verify hostname, signed-in user and network configuration |
-| 🌐 Review IP and DNS | Understand the client network state before domain join |
-| 🔋 Adjust power settings | Prevent lab interruptions during configuration |
-| 🛰️ Review Remote Desktop | Prepare for later remote support scenarios |
+- Check Windows 11 device and edition information.
+- Rename a workstation using a clear support naming standard.
+- Verify hostname, signed-in account and network configuration.
+- Review sleep and Remote Desktop settings for later support tasks.
 
----
-
-## 🧱 Lab Values Used in This Guide
+## 🧱 Lab Values
 
 | Item | Value |
 |---|---|
-| 🖥️ Client computer name | `W11-CLIENT01` |
-| 🪟 Operating system | Windows 11 Pro, Enterprise or Education recommended |
-| 👤 Starting state | Local account / workgroup computer |
-| 🔜 Later use | DNS configuration, domain join, remote support and troubleshooting |
-
-> Readers can use different names in their own environment, but should keep a consistent naming standard across all labs.
-
----
+| Client computer name | `W11-CLIENT01` |
+| Operating system | Windows 11 Pro, Enterprise or Education recommended |
+| Starting state | Local account / workgroup computer |
+| Later use | DNS configuration, domain join, remote support and troubleshooting |
 
 ## 🧩 Before You Start
 
-Make sure the Windows 11 client can start normally and that you can sign in with a local administrator account.
+- Sign in with a local administrator account.
+- Use a safe lab environment with no real business data.
+- Keep the client powered on during configuration.
+- Record device names and IP values because later labs depend on them.
 
-Recommended preparation:
+> [!WARNING]
+> Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
 
-- ✅ Use a safe lab environment.
-- ✅ Do not use real business data.
-- ✅ Keep the client powered on during configuration.
-- ✅ Record any names or IP addresses you use because later labs depend on them.
+## 🚀 Step-by-Step Guide
 
----
+### 🪟 Step 1 — Check Windows 11 device information
 
-## 🪟 Step 1 — Check Windows 11 Device Information
+Open **Settings > System > About** and review device name, processor, RAM, system type, Windows edition and Windows version.
 
-Open:
+> [!TIP]
+> This creates a baseline before any configuration changes are made.
 
-```text
-Settings > System > About
-```
+### 🏷️ Step 2 — Rename the Windows 11 client
 
-Review the following information:
+Select **Rename this PC**, set the computer name to `W11-CLIENT01`, then restart when prompted.
 
-```text
-Device name
-Processor
-Installed RAM
-System type
-Windows edition
-Windows version
-```
+> [!TIP]
+> A clear device name helps with support, inventory, DNS lookup and remote access.
 
-💡 **Why this matters:** This gives a baseline view of the client before any configuration changes are made.
+### 💻 Step 3 — Confirm the computer name
 
----
+After restart, open Command Prompt and confirm the hostname.
 
-## 🏷️ Step 2 — Rename the Windows 11 Client
-
-From the About page, select:
-
-```text
-Rename this PC
-```
-
-Set the computer name to:
-
-```text
-W11-CLIENT01
-```
-
-Restart the computer when Windows asks for a restart.
-
-💡 **Why this matters:** A clear device name helps with support, inventory, DNS lookup, remote access and Active Directory administration.
-
----
-
-## 💻 Step 3 — Confirm the Computer Name
-
-After the restart, open Command Prompt and run:
+Run:
 
 ```cmd
 hostname
 ```
 
-Expected result:
+> [!TIP]
+> Expected result: `W11-CLIENT01`.
 
-```text
-W11-CLIENT01
-```
+### 👤 Step 4 — Confirm the current signed-in account
 
-✅ **Success check:** The hostname output matches the workstation name used in this guide.
-
----
-
-## 👤 Step 4 — Confirm the Current Signed-In Account
+Check which account is currently signed in before domain join.
 
 Run:
 
@@ -132,17 +84,12 @@ Run:
 whoami
 ```
 
-Before the client joins a domain, the result normally shows a local account, for example:
+> [!TIP]
+> Before domain join, the result normally shows a local account.
 
-```text
-w11-client01\localuser
-```
+### 🌐 Step 5 — Review network configuration
 
-💡 **Why this matters:** This helps support staff confirm whether the user is signed in with a local account or a domain account.
-
----
-
-## 🌐 Step 5 — Review Network Configuration
+Review host name, IPv4 address, subnet mask, gateway, DNS servers and DHCP status.
 
 Run:
 
@@ -150,77 +97,58 @@ Run:
 ipconfig /all
 ```
 
-Check the following values:
+> [!TIP]
+> Do not change DNS in this lab; DNS is configured later.
 
-```text
-Host Name
-IPv4 Address
-Subnet Mask
-Default Gateway
-DNS Servers
-DHCP Enabled
-```
+### 🔋 Step 6 — Adjust sleep settings
 
-> **Important:** Do not change DNS in this lab. DNS will be configured later so the client can find the domain controller.
+Open **Settings > System > Power & battery > Screen and sleep** and set plugged-in sleep to **Never** or a long value.
 
----
+> [!TIP]
+> This prevents interruptions during later lab tasks.
 
-## 🔋 Step 6 — Adjust Sleep Settings
+### 🛰️ Step 7 — Review Remote Desktop settings
 
-Open:
+Open **Settings > System > Remote Desktop** and review whether Remote Desktop is available.
 
-```text
-Settings > System > Power & battery > Screen and sleep
-```
+> [!TIP]
+> Windows Home may not support Remote Desktop host functionality.
 
-Recommended setting while plugged in:
+### 🧪 Step 8 — Run final verification
 
-```text
-Put my device to sleep after: Never
-```
+Run a final baseline check before continuing.
 
-💡 **Why this matters:** This prevents the client from sleeping during network testing, domain join, remote access and troubleshooting activities.
-
----
-
-## 🛰️ Step 7 — Review Remote Desktop Settings
-
-Open:
-
-```text
-Settings > System > Remote Desktop
-```
-
-Review whether Remote Desktop is available.
-
-| Windows edition | Remote Desktop host support |
-|---|---|
-| Windows 11 Pro | Usually supported |
-| Windows 11 Enterprise | Usually supported |
-| Windows 11 Education | Usually supported |
-| Windows 11 Home | Usually not supported as a host |
-
-This setting is reviewed now because later labs include remote support practice.
-
----
-
-## 🧪 Step 8 — Run Final Verification
-
-Open Command Prompt and run:
+Run:
 
 ```cmd
 hostname
+```
+
+```cmd
 whoami
+```
+
+```cmd
 ipconfig /all
+```
+
+```cmd
 winver
 ```
 
-Use the results to confirm:
+> [!TIP]
+> Confirm name, account, network and Windows version.
 
-- ✅ The computer name is correct.
-- ✅ The current account is known.
-- ✅ Network settings are visible.
-- ✅ The Windows version is confirmed.
+---
+
+## 🧾 Command Reference
+
+| Command | Run on | Purpose | Expected result |
+|---|---|---|---|
+| `hostname` | Windows 11 client | Confirms the device name | Shows `W11-CLIENT01` |
+| `whoami` | Windows 11 client | Shows the signed-in account | Shows local account before domain join |
+| `ipconfig /all` | Windows 11 client | Displays detailed network configuration | Shows IP, DNS, DHCP and adapter information |
+| `winver` | Windows 11 client | Shows Windows version | Windows version dialog opens |
 
 ---
 
@@ -229,7 +157,7 @@ Use the results to confirm:
 - [ ] Windows About page reviewed.
 - [ ] Computer renamed to `W11-CLIENT01`.
 - [ ] Computer restarted successfully.
-- [ ] `hostname` output confirmed.
+- [ ] Hostname output confirmed.
 - [ ] Current local account checked.
 - [ ] IP and DNS settings reviewed.
 - [ ] Sleep settings adjusted or reviewed.
@@ -242,10 +170,9 @@ Use the results to confirm:
 
 | Key point | Why it matters |
 |---|---|
-| 🏷️ Clear computer names | Makes support, inventory and remote access easier |
-| 💻 Basic commands | `hostname`, `whoami` and `ipconfig /all` are essential support tools |
-| 🌐 DNS readiness | A client needs correct DNS before joining a domain |
-| 🔋 Power settings | Stable power settings prevent interruptions during labs |
+| 1 | Clear computer names simplify support and inventory. |
+| 2 | `hostname`, `whoami` and `ipconfig /all` are core support commands. |
+| 3 | Stable power settings reduce interruptions during longer lab activities. |
 
 ---
 
@@ -260,8 +187,4 @@ Adelaide, South Australia
 
 ---
 
-<p align="center">
-  <a href="../../README.md">🏠 Main README</a> ·
-  <a href="../02-windows-server-initial-configuration/README.md">Next Lab ➜</a> ·
-  <a href="#top">⬆ Back to Top</a>
-</p>
+<p align="center"><a href="../../README.md">🏠 Main README</a> · <a href="../02-windows-server-initial-configuration/README.md">Next Lab ➜</a> · <a href="#top">⬆ Back to Top</a></p>

@@ -1,75 +1,66 @@
 <a id="top"></a>
 
-# Lab 05 — Join Windows 11 Client to Domain
+# 🔗 Lab 05 — Join Windows 11 Client to Domain
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Windows%2011-Domain%20Join-0078D4?logo=windows&logoColor=white" alt="Windows 11">
-  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Intermediate-orange" alt="Intermediate">
+  <img src="https://img.shields.io/badge/Windows%2011-Domain%20Join-0078D4?logo=windows&logoColor=white" alt="Join Windows 11 Client to Domain">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-2E7D32" alt="Guide">
+  <img src="https://img.shields.io/badge/Level-Intermediate-F9A825" alt="Intermediate">
 </p>
 
-<p align="center">
-  <a href="../04-active-directory-domain-services-setup/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../06-active-directory-ou-structure/README.md">Next Lab</a>
-</p>
+<p align="center"><a href="../04-active-directory-domain-services-setup/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../06-active-directory-ou-structure/README.md">Next Lab ➜</a></p>
 
 ---
 
-## Overview
+## 🎯 Lab Mission
 
-This lab joins the Windows 11 client to the Active Directory domain created in the previous lab.
+Join the Windows 11 client to the Active Directory domain.
 
-After the domain join, the client can be managed as a domain computer and users can sign in with domain accounts.
+> [!NOTE]
+> This lab is written as a user guide. Follow the steps in order and compare your result with the expected checks.
 
----
+## ✅ What You Will Learn
 
-## Objectives
-
-- Confirm the client DNS setting points to the domain controller.
-- Join the Windows 11 client to the domain.
-- Restart the client after the join.
-- Sign in using a domain account.
+- Confirm client DNS points to the domain controller.
+- Join the client to `corp.local`.
+- Restart and test domain sign-in.
 - Confirm the computer object appears in Active Directory.
 
----
-
-## Lab Values Used in This Guide
+## 🧱 Lab Values
 
 | Item | Value |
 |---|---|
-| Client computer name | `W11-CLIENT01` |
-| Domain name | `corp.local` |
-| Domain controller | `SRV-DC01` |
+| Client name | `W11-CLIENT01` |
+| Domain | `corp.local` |
 | DNS server | `192.168.20.10` |
 
----
+## 🧩 Before You Start
 
-## Before You Start
+- Complete Lab 04 first.
+- Confirm the client can reach the server.
+- Confirm DNS points to the domain controller.
 
-Complete Lab 04 first.
+> [!WARNING]
+> Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
 
-On the Windows 11 client, confirm DNS:
+## 🚀 Step-by-Step Guide
 
-```cmd
-ipconfig /all
-```
+### 📡 Step 1 — Test connectivity
 
-The DNS server should point to the domain controller IP address.
+Ping the domain controller from the client.
 
----
-
-## Step 1 — Test Connectivity to the Server
-
-From the Windows 11 client, run:
+Run:
 
 ```cmd
 ping 192.168.20.10
 ```
 
-A successful reply confirms that the client can communicate with the server.
+> [!TIP]
+> A reply confirms IP connectivity.
 
----
+### 🔍 Step 2 — Test name resolution
 
-## Step 2 — Test Name Resolution
+Check whether the client can resolve the domain name.
 
 Run:
 
@@ -77,128 +68,108 @@ Run:
 nslookup corp.local
 ```
 
-The response should come from the domain controller DNS service.
+> [!TIP]
+> If this fails, review client DNS.
 
-If this fails, review the client DNS setting before continuing.
+### ⚙️ Step 3 — Open domain join settings
 
----
+Open **Settings > System > About > Advanced system settings > Computer Name > Change**.
 
-## Step 3 — Open Domain Join Settings
+> [!TIP]
+> This is where workgroup/domain membership is changed.
 
-Open:
+### 🏢 Step 4 — Join the domain
 
-```text
-Settings > System > About > Advanced system settings
-```
+Select Domain and enter `corp.local`.
 
-Then open:
+> [!TIP]
+> Use an account with permission to join computers.
 
-```text
-Computer Name > Change
-```
+### 🔁 Step 5 — Restart the client
 
-This is where the workgroup or domain membership is changed.
+Restart when prompted.
 
----
+> [!TIP]
+> Restart applies domain membership.
 
-## Step 4 — Join the Domain
+### 👤 Step 6 — Sign in with a domain account
 
-Select:
+Use `CORP\username` or `username@corp.local`.
 
-```text
-Domain
-```
+> [!TIP]
+> Domain sign-in confirms the join is usable.
 
-Enter:
+### 🧪 Step 7 — Confirm domain membership
 
-```text
-corp.local
-```
+Run verification commands.
 
-When prompted, enter a domain account with permission to join computers to the domain.
-
-Windows should display a welcome message after the join succeeds.
-
----
-
-## Step 5 — Restart the Client
-
-Restart the Windows 11 client when prompted.
-
-The restart is required before the domain membership is fully applied.
-
----
-
-## Step 6 — Sign In with a Domain Account
-
-At the sign-in screen, choose another user and sign in using a domain account.
-
-Example format:
-
-```text
-CORP\username
-```
-
-or:
-
-```text
-username@corp.local
-```
-
----
-
-## Step 7 — Confirm Domain Membership
-
-After sign-in, open Command Prompt and run:
+Run:
 
 ```cmd
 hostname
+```
+
+```cmd
 whoami
+```
+
+```cmd
 echo %USERDOMAIN%
 ```
 
-Confirm that the user domain and device state match the lab domain.
+> [!TIP]
+> Confirm the user domain and device state.
+
+### 🗂️ Step 8 — Confirm the computer object
+
+Open ADUC and find `W11-CLIENT01`.
+
+> [!TIP]
+> This confirms Active Directory knows the client.
 
 ---
 
-## Step 8 — Confirm the Computer Object in Active Directory
+## 🧾 Command Reference
 
-On the server, open:
-
-```text
-Server Manager > Tools > Active Directory Users and Computers
-```
-
-Find the computer object for:
-
-```text
-W11-CLIENT01
-```
-
-This confirms that the client is now known by Active Directory.
+| Command | Run on | Purpose | Expected result |
+|---|---|---|---|
+| `ping 192.168.20.10` | Client | Tests server connectivity | Successful replies |
+| `nslookup corp.local` | Client | Tests DNS/domain lookup | Response from domain DNS |
+| `echo %USERDOMAIN%` | Client | Shows sign-in domain | Shows domain value |
 
 ---
 
-## Completion Checklist
+## ✅ Completion Checklist
 
-- [ ] Client DNS points to the domain controller.
-- [ ] Client can reach the server IP.
-- [ ] Domain name lookup works.
+- [ ] Client DNS checked.
+- [ ] Server connectivity tested.
+- [ ] Domain lookup tested.
 - [ ] Client joined to `corp.local`.
-- [ ] Client restarted successfully.
+- [ ] Client restarted.
 - [ ] Domain sign-in tested.
-- [ ] Computer object found in Active Directory.
+- [ ] Computer object found in AD.
 
 ---
 
-## Key Takeaways
+## 🧠 Key Takeaways
 
-- Domain join depends on correct DNS.
-- After joining the domain, the client becomes a managed domain computer.
-- Domain users can sign in to the client after restart.
+| Key point | Why it matters |
+|---|---|
+| 1 | Domain join depends on correct DNS. |
+| 2 | After joining the domain, the client becomes a managed computer. |
+| 3 | Domain users can sign in after restart. |
 
 ---
 
-<p align="center">
-  <a href="../04-active-directory-domain-services-setup/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../06-active-directory-ou-structure/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
-</p>
+## 👤 Author
+
+**Xuan Toan Nguyen**  
+IT Support | Service Desk | Desktop Support | System Administration  
+Adelaide, South Australia
+
+- 🔗 LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
+- 💻 GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+
+---
+
+<p align="center"><a href="../04-active-directory-domain-services-setup/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../06-active-directory-ou-structure/README.md">Next Lab ➜</a> · <a href="#top">⬆ Back to Top</a></p>

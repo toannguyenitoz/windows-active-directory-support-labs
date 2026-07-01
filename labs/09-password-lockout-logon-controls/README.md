@@ -1,202 +1,156 @@
 <a id="top"></a>
 
-# Lab 09 — Password, Lockout and Logon Controls
+# 🔐 Lab 09 — Password, Lockout and Logon Controls
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Active%20Directory-Account%20Support-6A1B9A" alt="Active Directory">
-  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Intermediate-orange" alt="Intermediate">
+  <img src="https://img.shields.io/badge/Active%20Directory-Account%20Support-6A1B9A" alt="Password, Lockout and Logon Controls">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-2E7D32" alt="Guide">
+  <img src="https://img.shields.io/badge/Level-Intermediate-F9A825" alt="Intermediate">
 </p>
 
-<p align="center">
-  <a href="../08-active-directory-group-management/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../10-home-folder-and-file-share/README.md">Next Lab</a>
-</p>
+<p align="center"><a href="../08-active-directory-group-management/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../10-home-folder-and-file-share/README.md">Next Lab ➜</a></p>
 
 ---
 
-## Overview
+## 🎯 Lab Mission
 
-This lab explains common account support tasks in Active Directory.
+Practise common account support tasks in Active Directory.
 
-Service Desk and IT Support teams often help users who cannot sign in, need their account reviewed, or require access to be temporarily disabled. This guide shows the normal administrative workflow in a lab environment.
+> [!NOTE]
+> This lab is written as a user guide. Follow the steps in order and compare your result with the expected checks.
 
----
+## ✅ What You Will Learn
 
-## Objectives
+- Review account properties.
+- Reset a lab password.
+- Review lockout state.
+- Disable and enable an account.
+- Review logon controls.
 
-- Review the account properties page.
-- Reset a lab user password.
-- Unlock a locked account when the option is available.
-- Disable and enable a user account.
-- Review logon hours and account expiry settings.
-- Record the support action clearly.
-
----
-
-## Example Account Used in This Guide
+## 🧱 Lab Values
 
 | Item | Value |
 |---|---|
-| User account | `j.smith` |
-| OU | `Company > Users` |
-| Client test computer | `W11-CLIENT01` |
+| User | `j.smith` |
+| Client | `W11-CLIENT01` |
 | Domain | `corp.local` |
 
----
+## 🧩 Before You Start
 
-## Before You Start
+- Use a lab account only.
+- Complete user and group labs first.
 
-Complete the user and group labs first.
+> [!WARNING]
+> Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
 
-Use a lab account only. Do not use a real business user account.
+## 🚀 Step-by-Step Guide
 
----
+### 🧰 Step 1 — Open the user account
 
-## Step 1 — Open the User Account
+Open `j.smith` in ADUC.
 
-Open:
+> [!TIP]
+> Always verify the account before changing it.
 
-```text
-Server Manager > Tools > Active Directory Users and Computers
-```
+### 🔍 Step 2 — Review Account tab
 
-Browse to:
+Review logon name, account options, expiry and logon hours.
 
-```text
-corp.local > Company > Users
-```
+> [!TIP]
+> This tab is central to account access support.
 
-Open the properties of:
+### 🔑 Step 3 — Reset lab password
 
-```text
-j.smith
-```
+Reset the password using a lab-safe temporary password.
 
----
+> [!TIP]
+> In real workplaces, follow identity verification policy.
 
-## Step 2 — Review the Account Tab
+### 👤 Step 4 — Test sign-in
 
-In the user properties window, open:
+Test the new password from the client.
 
-```text
-Account
-```
+> [!TIP]
+> Testing confirms the support action worked.
 
-Review common support fields:
+### 🚫 Step 5 — Review lockout state
 
-```text
-User logon name
-Account options
-Account expiry
-Logon hours
-Account status
-```
+If locked, review and unlock only when appropriate.
 
-This page is commonly used when investigating user access issues.
+> [!TIP]
+> Understand lockout behavior before changing settings.
 
----
+### ⛔ Step 6 — Disable the account
 
-## Step 3 — Reset the Lab User Password
+Disable the account and observe sign-in behavior.
 
-Right-click the user account and choose the password reset option.
+> [!TIP]
+> Disabling blocks normal sign-in.
 
-Use a lab-safe temporary password and choose the appropriate option for the scenario.
+### ✅ Step 7 — Enable the account again
 
-After the reset, explain to the reader that in a workplace environment this action should follow identity verification and company policy.
+Enable the account and confirm access is restored.
 
----
+> [!TIP]
+> Return the lab to a usable state.
 
-## Step 4 — Test Sign-In from the Client
+### 🕒 Step 8 — Review logon hours and expiry
 
-On the Windows 11 client, test sign-in using the lab user account:
+Open Logon Hours and Account Expires.
 
-```text
-CORP\j.smith
-```
+> [!TIP]
+> Useful for temporary or restricted access.
 
-Confirm whether sign-in works as expected.
+### 📝 Step 9 — Write a support note
 
----
+Record what was checked, changed and confirmed.
 
-## Step 5 — Review Account Lockout State
-
-If the account is locked in the lab, open the user properties and review the Account tab.
-
-Unlock the account only if the lockout option is shown and the lab scenario requires it.
-
-Then test sign-in again from the Windows 11 client.
+> [!TIP]
+> Documentation is part of the support task.
 
 ---
 
-## Step 6 — Disable the Account
+## 🧾 Command Reference
 
-In Active Directory Users and Computers, disable the account.
-
-Try signing in from the Windows 11 client and observe the result.
-
-This demonstrates how disabling an account affects user access.
-
----
-
-## Step 7 — Enable the Account Again
-
-Enable the user account again.
-
-Test sign-in once more and confirm that normal access is restored.
+| Command | Run on | Purpose | Expected result |
+|---|---|---|---|
+| `whoami` | Client | Confirms signed-in user | Shows domain user after login |
+| `gpupdate /force` | Client | Refreshes policy when needed | Policy refresh completes |
 
 ---
 
-## Step 8 — Review Logon Hours and Account Expiry
+## ✅ Completion Checklist
 
-Open the Account tab and review:
-
-```text
-Logon Hours
-Account Expires
-```
-
-These settings are useful when an account should only be valid during certain times or for a limited period.
-
----
-
-## Step 9 — Write a Support Note
-
-Record a short support note that includes:
-
-```text
-User account checked
-Action performed
-Result after testing
-Follow-up required or not required
-```
-
-Good notes help the next support person understand what happened.
-
----
-
-## Completion Checklist
-
-- [ ] User account located.
 - [ ] Account tab reviewed.
-- [ ] Lab password reset practiced.
+- [ ] Password reset practised.
 - [ ] Sign-in test completed.
 - [ ] Lockout state reviewed.
-- [ ] Account disable test completed.
+- [ ] Disable test completed.
 - [ ] Account enabled again.
-- [ ] Logon hours and expiry reviewed.
+- [ ] Logon controls reviewed.
 - [ ] Support note written.
 
 ---
 
-## Key Takeaways
+## 🧠 Key Takeaways
 
-- Account support tasks should be completed carefully and documented.
-- Password resets and unlock actions should follow proper verification in real workplaces.
-- Disabling an account is a quick way to stop normal sign-in.
-- Good case notes are part of good technical support.
+| Key point | Why it matters |
+|---|---|
+| 1 | Account tasks should be documented. |
+| 2 | Password reset and unlock actions should follow policy. |
+| 3 | Disabling an account quickly stops normal sign-in. |
 
 ---
 
-<p align="center">
-  <a href="../08-active-directory-group-management/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../10-home-folder-and-file-share/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
-</p>
+## 👤 Author
+
+**Xuan Toan Nguyen**  
+IT Support | Service Desk | Desktop Support | System Administration  
+Adelaide, South Australia
+
+- 🔗 LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
+- 💻 GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+
+---
+
+<p align="center"><a href="../08-active-directory-group-management/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../10-home-folder-and-file-share/README.md">Next Lab ➜</a> · <a href="#top">⬆ Back to Top</a></p>

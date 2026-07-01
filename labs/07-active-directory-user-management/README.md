@@ -1,184 +1,144 @@
 <a id="top"></a>
 
-# Lab 07 — Active Directory User Management
+# 👤 Lab 07 — Active Directory User Management
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Active%20Directory-Users-6A1B9A" alt="Active Directory">
-  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Intermediate-orange" alt="Intermediate">
+  <img src="https://img.shields.io/badge/Active%20Directory-Users-6A1B9A" alt="Active Directory User Management">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-2E7D32" alt="Guide">
+  <img src="https://img.shields.io/badge/Level-Intermediate-F9A825" alt="Intermediate">
 </p>
 
-<p align="center">
-  <a href="../06-active-directory-ou-structure/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../08-active-directory-group-management/README.md">Next Lab</a>
-</p>
+<p align="center"><a href="../06-active-directory-ou-structure/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../08-active-directory-group-management/README.md">Next Lab ➜</a></p>
 
 ---
 
-## Overview
+## 🎯 Lab Mission
 
-This lab explains how to create and manage a domain user account in Active Directory.
+Create and manage a domain user account in Active Directory.
 
-User management is one of the most common tasks for IT Support and Service Desk teams. This lab focuses on creating a user, reviewing properties, testing sign-in and documenting the account clearly.
+> [!NOTE]
+> This lab is written as a user guide. Follow the steps in order and compare your result with the expected checks.
 
----
+## ✅ What You Will Learn
 
-## Objectives
+- Create a user account.
+- Review account properties.
+- Test domain sign-in.
+- Disable and enable a user account.
 
-- Create a new domain user account.
-- Configure basic user properties.
-- Review account settings.
-- Test domain sign-in from the Windows 11 client.
-- Disable and enable a user account for support practice.
+## 🧱 Lab Values
 
----
-
-## Example User Used in This Guide
-
-| Field | Example Value |
+| Item | Value |
 |---|---|
-| First name | John |
-| Last name | Smith |
-| Username | `j.smith` |
-| Department | IT Support |
+| Example user | `j.smith` |
 | OU | `Company > Users` |
+| Department | IT Support |
 
----
+## 🧩 Before You Start
 
-## Before You Start
+- Complete the OU structure lab.
+- Confirm the Users OU exists.
 
-Complete the OU structure lab first.
+> [!WARNING]
+> Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
 
-Confirm that the `Users` OU exists:
+## 🚀 Step-by-Step Guide
 
-```text
-Company > Users
-```
+### 🧰 Step 1 — Open the Users OU
 
----
+Browse to `corp.local > Company > Users`.
 
-## Step 1 — Open Active Directory Users and Computers
+> [!TIP]
+> Create users in the correct OU.
 
-On the server, open:
+### ➕ Step 2 — Create a user
 
-```text
-Server Manager > Tools > Active Directory Users and Computers
-```
+Create John Smith with username `j.smith`.
 
-Browse to:
+> [!TIP]
+> Use lab-safe credentials only.
 
-```text
-corp.local > Company > Users
-```
+### 📝 Step 3 — Review properties
 
----
+Review General, Account, Profile, Member Of and Organization tabs.
 
-## Step 2 — Create a New User
+> [!TIP]
+> Good properties help future support.
 
-Right-click the `Users` OU and select:
+### 🔍 Step 4 — Confirm the user exists
 
-```text
-New > User
-```
+Use PowerShell to verify the account.
 
-Enter the user details:
-
-```text
-First name: John
-Last name: Smith
-User logon name: j.smith
-```
-
-Continue through the wizard and create the account.
-
----
-
-## Step 3 — Review User Properties
-
-Open the new user properties and review important fields:
-
-```text
-General
-Account
-Profile
-Member Of
-Organization
-```
-
-Add useful information such as department and description. Good account information helps future support staff identify the user and their role.
-
----
-
-## Step 4 — Confirm the User Exists
-
-Optional PowerShell check:
+Run:
 
 ```powershell
 Get-ADUser j.smith
 ```
 
-This confirms the account can be found in Active Directory.
+> [!TIP]
+> The account should return successfully.
+
+### 👤 Step 5 — Test domain sign-in
+
+Sign in from the client with `CORP\j.smith` or `j.smith@corp.local`.
+
+> [!TIP]
+> Client testing confirms usability.
+
+### ⛔ Step 6 — Disable the account
+
+Disable the account and observe sign-in behavior.
+
+> [!TIP]
+> This demonstrates access control.
+
+### ✅ Step 7 — Enable the account again
+
+Enable the account and confirm access is restored.
+
+> [!TIP]
+> Restore account state after testing.
 
 ---
 
-## Step 5 — Test Domain Sign-In
+## 🧾 Command Reference
 
-On the Windows 11 client, sign out and sign in using the new domain user.
-
-Example format:
-
-```text
-CORP\j.smith
-```
-
-or:
-
-```text
-j.smith@corp.local
-```
-
-Confirm that the user can sign in successfully.
+| Command | Run on | Purpose | Expected result |
+|---|---|---|---|
+| `Get-ADUser j.smith` | Server | Finds the user object | Returns user details |
 
 ---
 
-## Step 6 — Disable the Account for Testing
+## ✅ Completion Checklist
 
-Back on the server, right-click the user account and choose the disable option.
-
-Try signing in again from the client and observe the result.
-
-This helps the reader understand how account status affects user access.
-
----
-
-## Step 7 — Enable the Account Again
-
-Enable the user account again from Active Directory Users and Computers.
-
-Test sign-in again to confirm the account is usable.
-
----
-
-## Completion Checklist
-
-- [ ] `Users` OU located.
-- [ ] New domain user created.
-- [ ] User properties reviewed.
+- [ ] User created.
+- [ ] Properties reviewed.
 - [ ] Department or description added.
-- [ ] User sign-in tested from Windows 11.
-- [ ] Account disable behaviour reviewed.
+- [ ] Sign-in tested.
+- [ ] Disable behavior reviewed.
 - [ ] Account enabled again.
 
 ---
 
-## Key Takeaways
+## 🧠 Key Takeaways
 
-- User accounts should be created in the correct OU.
-- Clear user properties help IT Support understand account ownership and purpose.
-- Disabling an account immediately prevents normal sign-in.
-- Testing from the client confirms that directory changes are working.
+| Key point | Why it matters |
+|---|---|
+| 1 | Create users in the correct OU. |
+| 2 | Clear properties help support staff. |
+| 3 | Client testing confirms directory changes. |
 
 ---
 
-<p align="center">
-  <a href="../06-active-directory-ou-structure/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../08-active-directory-group-management/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
-</p>
+## 👤 Author
+
+**Xuan Toan Nguyen**  
+IT Support | Service Desk | Desktop Support | System Administration  
+Adelaide, South Australia
+
+- 🔗 LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
+- 💻 GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+
+---
+
+<p align="center"><a href="../06-active-directory-ou-structure/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../08-active-directory-group-management/README.md">Next Lab ➜</a> · <a href="#top">⬆ Back to Top</a></p>

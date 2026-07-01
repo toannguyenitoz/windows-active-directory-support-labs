@@ -1,120 +1,81 @@
 <a id="top"></a>
 
-# Lab 02 — Windows Server Initial Configuration
+# 🖥️ Lab 02 — Windows Server Initial Configuration
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Windows%20Server-Admin-5E5E5E?logo=windows&logoColor=white" alt="Windows Server">
-  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Beginner-blue" alt="Beginner">
+  <img src="https://img.shields.io/badge/Windows%20Server-Admin-5E5E5E?logo=windows&logoColor=white" alt="Windows Server Initial Configuration">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-2E7D32" alt="Guide">
+  <img src="https://img.shields.io/badge/Level-Beginner-1565C0" alt="Beginner">
 </p>
 
-<p align="center">
-  <a href="../01-windows-11-client-initial-configuration/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../03-network-and-dns-configuration/README.md">Next Lab</a>
-</p>
+<p align="center"><a href="../01-windows-11-client-initial-configuration/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../03-network-and-dns-configuration/README.md">Next Lab ➜</a></p>
 
 ---
 
-## Overview
+## 🎯 Lab Mission
 
-This lab prepares a Windows Server computer for later network, DNS and directory service configuration.
+Prepare a Windows Server machine for later networking, DNS and Active Directory configuration.
 
-The purpose is to confirm the server baseline, apply a clear server name, check the network adapter, review remote management settings and make sure the server is stable before any roles are added.
+> [!NOTE]
+> This lab is written as a user guide. Follow the steps in order and compare your result with the expected checks.
 
----
-
-## Objectives
+## ✅ What You Will Learn
 
 - Open Server Manager and review the Local Server page.
 - Rename the server using a clear naming standard.
-- Confirm the server name after restart.
-- Review current IP and DNS settings.
-- Review Remote Desktop and firewall status.
-- Run final verification commands.
+- Review IP, DNS, Remote Desktop, firewall, time zone and update status.
+- Run baseline verification commands.
 
----
-
-## Lab Values Used in This Guide
+## 🧱 Lab Values
 
 | Item | Value |
 |---|---|
 | Server name | `SRV-DC01` |
-| Server role later | Domain controller, DNS, file and print support |
+| Future role | Domain controller, DNS, file and print support |
 | Starting state | Standalone Windows Server |
 | Later domain | `corp.local` |
 
----
+## 🧩 Before You Start
 
-## Before You Start
-
-Make sure you can sign in to Windows Server with a local administrator account.
-
-Recommended preparation:
-
+- Sign in with a local administrator account.
 - Keep the server powered on during the lab.
-- Record the server name and IP address you use.
-- Do not add Active Directory yet; that is covered in a later lab.
+- Do not install Active Directory yet; that is covered in Lab 04.
 
----
+> [!WARNING]
+> Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
 
-## Step 1 — Open Server Manager
+## 🚀 Step-by-Step Guide
 
-After signing in, open **Server Manager**.
+### 🖥️ Step 1 — Open Server Manager
 
-Go to:
+Open **Server Manager > Local Server** and review computer name, workgroup/domain state, Ethernet, Remote Desktop, firewall, time zone and update status.
 
-```text
-Server Manager > Local Server
-```
+> [!TIP]
+> Server Manager is the main dashboard for Windows Server administration.
 
-Review:
+### 🏷️ Step 2 — Rename the server
 
-```text
-Computer name
-Workgroup or domain state
-Remote Desktop
-Ethernet
-Windows Firewall
-Time zone
-Windows Update
-```
+Change the computer name to `SRV-DC01` and restart when prompted.
 
-This provides the server baseline before configuration changes.
+> [!TIP]
+> A role-based name makes documentation and troubleshooting easier.
 
----
+### 💻 Step 3 — Confirm the server name
 
-## Step 2 — Rename the Server
+After restart, open Command Prompt and confirm the name.
 
-From **Local Server**, select the current computer name.
-
-Change the server name to:
-
-```text
-SRV-DC01
-```
-
-Restart the server when prompted.
-
-A clear server name helps identify the server role and makes support documentation easier.
-
----
-
-## Step 3 — Confirm the Server Name
-
-After restart, open Command Prompt and run:
+Run:
 
 ```cmd
 hostname
 ```
 
-Expected result:
+> [!TIP]
+> Expected result: `SRV-DC01`.
 
-```text
-SRV-DC01
-```
+### 🌐 Step 4 — Review network configuration
 
----
-
-## Step 4 — Review Network Configuration
+Record IPv4 address, subnet mask, default gateway, DNS servers and adapter name.
 
 Run:
 
@@ -122,83 +83,88 @@ Run:
 ipconfig /all
 ```
 
-Record the following values:
+> [!TIP]
+> Do not finalize the network design until Lab 03.
 
-```text
-IPv4 Address
-Subnet Mask
-Default Gateway
-DNS Servers
-Network adapter name
-```
+### 🛰️ Step 5 — Review Remote Desktop
 
-Do not finalize the static IP in this lab. The next lab focuses on IP and DNS configuration.
+On the Local Server page, review the Remote Desktop status.
 
----
+> [!TIP]
+> Enable only in a controlled lab or approved environment.
 
-## Step 5 — Review Remote Desktop
+### 🕒 Step 6 — Review time zone and update status
 
-In Server Manager, go to **Local Server** and review the Remote Desktop setting.
+Confirm time zone and update status from Local Server.
 
-For later remote administration labs, Remote Desktop can be enabled in a controlled lab environment.
+> [!TIP]
+> Accurate time helps authentication and log analysis.
 
-Confirm that only approved lab accounts are used for remote access.
+### 🧪 Step 7 — Run final verification
 
----
-
-## Step 6 — Review Time Zone and Update Status
-
-Still on the Local Server page, review:
-
-```text
-Time zone
-Windows Update status
-```
-
-A correct time zone is important because authentication, logs and troubleshooting depend on accurate time.
-
----
-
-## Step 7 — Run Final Verification
+Run final baseline checks.
 
 Run:
 
 ```cmd
 hostname
+```
+
+```cmd
 ipconfig /all
+```
+
+```cmd
 winver
 ```
 
-Confirm that:
-
-- The server name is correct.
-- The current IP and DNS settings are known.
-- Windows Server version is confirmed.
-- The server is ready for network and DNS configuration.
+> [!TIP]
+> The server is ready for networking configuration.
 
 ---
 
-## Completion Checklist
+## 🧾 Command Reference
 
-- [ ] Server Manager opened successfully.
+| Command | Run on | Purpose | Expected result |
+|---|---|---|---|
+| `hostname` | Windows Server | Confirms server name | Shows `SRV-DC01` |
+| `ipconfig /all` | Windows Server | Displays full network configuration | Shows adapter, IP and DNS details |
+| `winver` | Windows Server | Confirms OS version | Windows version dialog opens |
+
+---
+
+## ✅ Completion Checklist
+
+- [ ] Server Manager opened.
 - [ ] Local Server page reviewed.
 - [ ] Server renamed to `SRV-DC01`.
 - [ ] Server restarted successfully.
-- [ ] `hostname` output confirmed.
-- [ ] Current IP and DNS settings reviewed.
+- [ ] Hostname confirmed.
+- [ ] Network settings reviewed.
 - [ ] Remote Desktop status reviewed.
 - [ ] Time zone and update status reviewed.
 
 ---
 
-## Key Takeaways
+## 🧠 Key Takeaways
 
-- Server naming should clearly describe the server purpose.
-- Server Manager is the main starting point for Windows Server administration.
-- Time, network and remote access settings should be checked before adding server roles.
+| Key point | Why it matters |
+|---|---|
+| 1 | Server naming should clearly describe purpose. |
+| 2 | Server Manager is the starting point for server administration. |
+| 3 | Time, network and remote access settings should be checked before adding roles. |
 
 ---
 
-<p align="center">
-  <a href="../01-windows-11-client-initial-configuration/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../03-network-and-dns-configuration/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
-</p>
+## 👤 Author
+
+**Xuan Toan Nguyen**  
+IT Support | Service Desk | Desktop Support | System Administration  
+Adelaide, South Australia
+
+- 🔗 LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
+- 💻 GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+
+---
+
+<p align="center"><a href="../01-windows-11-client-initial-configuration/README.md">⬅ Previous Lab</a> · <a href="../../README.md">🏠 Main README</a> · <a href="../03-network-and-dns-configuration/README.md">Next Lab ➜</a> · <a href="#top">⬆ Back to Top</a></p>
