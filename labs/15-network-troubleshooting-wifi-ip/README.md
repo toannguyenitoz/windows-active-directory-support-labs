@@ -3,88 +3,89 @@
 # Lab 15 — Network Troubleshooting: Wi-Fi and IP
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Windows%2011-Client-0078D4?logo=windows&logoColor=white" alt="Windows 11">
-  <img src="https://img.shields.io/badge/Windows%20Server-Admin-5E5E5E?logo=windows&logoColor=white" alt="Windows Server">
-  <img src="https://img.shields.io/badge/Active%20Directory-Guide-6A1B9A" alt="Active Directory">
-  <img src="https://img.shields.io/badge/IT%20Support-Step--by--Step-green" alt="IT Support">
+  <img src="https://img.shields.io/badge/Networking-Troubleshooting-blue" alt="Networking">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
   <img src="https://img.shields.io/badge/Level-Beginner-blue" alt="Beginner">
-  <img src="https://img.shields.io/badge/Status-Ready-yellow" alt="Ready">
 </p>
 
 <p align="center">
-  <a href="../14-remote-desktop-support/README.md">⬅ Previous Lab</a> | <a href="../../README.md">🏠 Main README</a> | <a href="../16-service-desk-documentation/README.md">Next Lab ➡</a>
+  <a href="../14-remote-desktop-support/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../16-service-desk-documentation/README.md">Next Lab</a>
 </p>
 
 ---
 
 ## Overview
 
-Practice a structured first-line network troubleshooting workflow for Windows devices.
+This lab explains a practical first-level network troubleshooting workflow for Windows clients.
+
+The goal is to help readers identify whether a connection issue is caused by Wi-Fi or Ethernet status, IP configuration, gateway reachability, DNS settings or server connectivity.
 
 ---
 
 ## Objectives
 
-- Check connection type and network status.
+- Check network connection status.
 - Review IP configuration.
-- Test local and server connectivity.
+- Test gateway or server connectivity.
 - Test DNS name resolution.
-- Record findings clearly.
+- Run basic repair commands.
+- Document the troubleshooting result.
 
 ---
 
-## Lab Values
+## Common Scenario
 
-| Item | Value |
-|---|---|
-| Client | Windows 11 |
-| Tools | Command Prompt and Settings |
-| Screenshot folder | `assets/images/lab-15-network-troubleshooting-wifi-ip/` |
-
----
-
-## Before You Start
-
-- Complete the previous lab unless this is Lab 01.
-- Use a lab environment only.
-- Do not publish real passwords or private business information.
-- Replace placeholder screenshots with your own screenshots after completing each step.
-
----
-
-## Screenshot Files
-
-| File name | Step |
-|---|---|
-| 01-network-status-icon.png | Confirm connection type |
-| 02-ipconfig-output.png | Run IP configuration check |
-| 03-ping-default-gateway.png | Check default gateway |
-| 04-ping-server.png | Check server connectivity |
-| 05-dns-lookup-test.png | Check DNS name resolution |
-| 06-refresh-network-configuration.png | Refresh network configuration if needed |
-| 07-network-troubleshooting-note.png | Record findings |
-
----
-
-## Step 1 — Confirm connection type
-
-Check whether the device is using Wi-Fi or Ethernet.
-
-Review the network icon and Windows network settings.
-
-Screenshot file:
+A user reports:
 
 ```text
-assets/images/lab-15-network-troubleshooting-wifi-ip/01-network-status-icon.png
+I cannot access shared folders or domain resources from my Windows computer.
 ```
 
-![Confirm connection type](../../assets/images/lab-15-network-troubleshooting-wifi-ip/01-network-status-icon.png)
+The reader will use structured checks to narrow down the cause.
 
-[⬆ Back to top](#top)
+---
 
-## Step 2 — Run IP configuration check
+## Step 1 — Confirm Connection Type
 
-Open Command Prompt and review IP details.
+Check whether the device is using:
+
+```text
+Wi-Fi
+Ethernet
+Docking station network adapter
+```
+
+Open:
+
+```text
+Settings > Network & internet
+```
+
+Confirm that the active connection shows as connected.
+
+---
+
+## Step 2 — Check IP Configuration
+
+Open Command Prompt and run:
+
+```cmd
+ipconfig
+```
+
+Review:
+
+```text
+IPv4 Address
+Subnet Mask
+Default Gateway
+```
+
+A missing or unusual IP address may indicate a DHCP or adapter issue.
+
+---
+
+## Step 3 — Check Detailed Network Information
 
 Run:
 
@@ -92,147 +93,130 @@ Run:
 ipconfig /all
 ```
 
-Screenshot file:
+Review:
 
 ```text
-assets/images/lab-15-network-troubleshooting-wifi-ip/02-ipconfig-output.png
+Adapter name
+DHCP Enabled
+DNS Servers
+Lease information
+Physical address
 ```
 
-![Run IP configuration check](../../assets/images/lab-15-network-troubleshooting-wifi-ip/02-ipconfig-output.png)
+This helps identify whether the device has the expected DNS and adapter configuration.
 
-[⬆ Back to top](#top)
+---
 
-## Step 3 — Check default gateway
+## Step 4 — Test the Server or Gateway
 
-Identify the default gateway from `ipconfig /all` and test it.
-
-Run:
-
-```cmd
-ping <default-gateway-ip>
-```
-
-Screenshot file:
-
-```text
-assets/images/lab-15-network-troubleshooting-wifi-ip/03-ping-default-gateway.png
-```
-
-![Check default gateway](../../assets/images/lab-15-network-troubleshooting-wifi-ip/03-ping-default-gateway.png)
-
-[⬆ Back to top](#top)
-
-## Step 4 — Check server connectivity
-
-Test connectivity to the domain controller or server.
-
-Run:
+Test the lab server:
 
 ```cmd
 ping 192.168.20.10
 ```
 
-Screenshot file:
+A successful reply means the client can reach the server IP.
 
-```text
-assets/images/lab-15-network-troubleshooting-wifi-ip/04-ping-server.png
-```
+If the ping fails, check:
 
-![Check server connectivity](../../assets/images/lab-15-network-troubleshooting-wifi-ip/04-ping-server.png)
+- Network cable or Wi-Fi connection.
+- IP address range.
+- Subnet mask.
+- Firewall or network isolation.
+- Wrong adapter selected.
 
-[⬆ Back to top](#top)
+---
 
-## Step 5 — Check DNS name resolution
-
-Test whether DNS can resolve the lab domain or server name.
+## Step 5 — Test Domain Name Resolution
 
 Run:
 
 ```cmd
 nslookup corp.local
-ping SRV-DC01
 ```
 
-Screenshot file:
+The result should come from the domain DNS server.
 
-```text
-assets/images/lab-15-network-troubleshooting-wifi-ip/05-dns-lookup-test.png
-```
+If the command fails, review the DNS server value in `ipconfig /all`.
 
-![Check DNS name resolution](../../assets/images/lab-15-network-troubleshooting-wifi-ip/05-dns-lookup-test.png)
+---
 
-[⬆ Back to top](#top)
-
-## Step 6 — Refresh network configuration if needed
-
-Use basic refresh commands when troubleshooting client IP or DNS issues.
+## Step 6 — Test Computer Name Resolution
 
 Run:
 
 ```cmd
+ping SRV-DC01
+```
+
+This checks whether the client can resolve the server name.
+
+If IP ping works but name ping fails, the issue is likely related to DNS or name resolution.
+
+---
+
+## Step 7 — Refresh IP and DNS Information
+
+Use these commands when appropriate:
+
+```cmd
+ipconfig /flushdns
 ipconfig /release
 ipconfig /renew
-ipconfig /flushdns
 ```
 
-Screenshot file:
+Then check the new configuration:
+
+```cmd
+ipconfig /all
+```
+
+Only use release and renew when the client uses DHCP.
+
+---
+
+## Step 8 — Record the Troubleshooting Result
+
+Write down:
 
 ```text
-assets/images/lab-15-network-troubleshooting-wifi-ip/06-refresh-network-configuration.png
+What the user reported
+Connection type
+IP address
+DNS server
+Tests completed
+Result of each test
+Likely cause
+Next action
 ```
 
-![Refresh network configuration if needed](../../assets/images/lab-15-network-troubleshooting-wifi-ip/06-refresh-network-configuration.png)
-
-[⬆ Back to top](#top)
-
-## Step 7 — Record findings
-
-Write a short support note explaining what was tested and what worked or failed.
-
-Screenshot file:
-
-```text
-assets/images/lab-15-network-troubleshooting-wifi-ip/07-network-troubleshooting-note.png
-```
-
-![Record findings](../../assets/images/lab-15-network-troubleshooting-wifi-ip/07-network-troubleshooting-note.png)
-
-[⬆ Back to top](#top)
-
+Clear documentation helps if the issue needs to be escalated.
 
 ---
 
 ## Completion Checklist
 
-- [ ] Connection type confirmed.
-- [ ] IP configuration checked.
-- [ ] Gateway connectivity tested.
-- [ ] Server connectivity tested.
+- [ ] Connection type checked.
+- [ ] Network status reviewed.
+- [ ] `ipconfig` checked.
+- [ ] `ipconfig /all` checked.
+- [ ] Server or gateway ping tested.
 - [ ] DNS lookup tested.
-- [ ] Findings documented.
+- [ ] Name resolution tested.
+- [ ] Repair commands used where appropriate.
+- [ ] Troubleshooting result documented.
 
 ---
 
 ## Key Takeaways
 
-- Use a process of elimination: device, adapter, IP, gateway, DNS, server.
-- DNS issues often look like domain or application issues.
-- Clear notes help the next support technician continue quickly.
-
----
-
-## Author
-
-**Xuan Toan Nguyen**  
-IT Support | Service Desk | Desktop Support | System Administration  
-Adelaide, South Australia
-
-- LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
-- GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+- Start with simple checks before changing settings.
+- IP connectivity and DNS name resolution are different tests.
+- `ipconfig /all`, `ping` and `nslookup` are core IT Support troubleshooting commands.
+- Good notes make escalation easier.
 
 ---
 
 <p align="center">
-  <a href="../14-remote-desktop-support/README.md">⬅ Previous Lab</a> | <a href="../../README.md">🏠 Main README</a> | <a href="../16-service-desk-documentation/README.md">Next Lab ➡</a> |
-  <a href="#top">⬆ Back to Top</a>
+  <a href="../14-remote-desktop-support/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../16-service-desk-documentation/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
 </p>
