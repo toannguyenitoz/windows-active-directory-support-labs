@@ -27,7 +27,7 @@ This repository is a practical user guide for building and supporting a small wo
 
 It is designed so IT Support learners and junior administrators can follow clear instructions, complete each configuration task, run the required commands, and understand how Windows clients work with Windows Server, DNS, Active Directory, file sharing, printer support, Remote Desktop and troubleshooting workflows.
 
-Screenshots are intentionally kept as replaceable files. You can follow each lab, capture your own screenshots, and replace the placeholder images in the matching `assets/images/` folder.
+Screenshots in this guide are used as visual examples to show what each step should look like. They help readers understand the expected result while following the lab in their own environment.
 
 ---
 
@@ -108,14 +108,19 @@ windows-active-directory-support-labs/
 
 ---
 
-## 🚀 How to Use This Guide
+## 🚀 How to Follow This User Guide
+
+This repository is written for readers who want to follow the labs and build the environment themselves. Each lab explains what to configure, which commands to run, and how to verify the result.
 
 1. Start from Lab 01.
-2. Complete each step in order.
-3. Run the verification commands.
-4. Replace placeholder screenshots with your own screenshots.
-5. Tick the completion checklist.
-6. Continue to the next lab.
+2. Read the lab objective and environment values.
+3. Follow each configuration step in order.
+4. Run the verification commands to confirm the result.
+5. Use the screenshots as visual examples of the expected screens or outputs.
+6. Review the completion checklist to confirm the lab is finished.
+7. Continue to the next lab.
+
+> Note: The screenshots are examples for learning and reference. Readers do not need to replace them. New screenshots may be added by the repository author as the labs are completed.
 
 ---
 
