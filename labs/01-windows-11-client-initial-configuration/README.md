@@ -4,112 +4,112 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Windows%2011-Client-0078D4?logo=windows&logoColor=white" alt="Windows 11">
-  <img src="https://img.shields.io/badge/Windows%20Server-Admin-5E5E5E?logo=windows&logoColor=white" alt="Windows Server">
-  <img src="https://img.shields.io/badge/Active%20Directory-Guide-6A1B9A" alt="Active Directory">
-  <img src="https://img.shields.io/badge/IT%20Support-Step--by--Step-green" alt="IT Support">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
   <img src="https://img.shields.io/badge/Level-Beginner-blue" alt="Beginner">
   <img src="https://img.shields.io/badge/Status-Ready-yellow" alt="Ready">
 </p>
 
 <p align="center">
-  <a href="../../README.md">🏠 Main README</a> | <a href="../02-windows-server-initial-configuration/README.md">Next Lab ➡</a>
+  <a href="../../README.md">Main README</a> | <a href="../02-windows-server-initial-configuration/README.md">Next Lab</a>
 </p>
 
 ---
 
 ## Overview
 
-Prepare a Windows 11 client computer for a workplace-style IT support environment before it is connected to the domain.
+This lab shows how to prepare a Windows 11 client computer for a workplace-style IT support environment.
+
+At the end of this lab, the computer will have a clear device name, verified local account information, reviewed network settings, stable power settings and confirmed Remote Desktop availability. This prepares the client for later DNS, domain join, Active Directory and troubleshooting labs.
 
 ---
 
 ## Objectives
 
-- Review Windows 11 device information.
-- Rename the client using a clear workstation naming standard.
-- Confirm the current local user and device name.
-- Review IP address, DNS and network adapter details.
-- Adjust sleep settings to avoid interruptions during lab work.
-- Review Remote Desktop availability for later support scenarios.
+By following this guide, the reader will learn how to:
+
+- Check Windows 11 system information.
+- Rename a Windows 11 workstation using a clear naming standard.
+- Confirm the computer name from Command Prompt.
+- Identify the currently signed-in local account.
+- Review IP, DNS and adapter information.
+- Adjust sleep settings for stable lab work.
+- Review Remote Desktop settings.
+- Run final verification checks.
 
 ---
 
-## Lab Values
+## Lab Values Used in This Guide
 
 | Item | Value |
 |---|---|
 | Client computer name | `W11-CLIENT01` |
-| Client operating system | Windows 11 Pro, Enterprise or Education recommended |
-| Domain status | Workgroup / local account before domain join |
-| Screenshot folder | `assets/images/lab-01-windows-11-client-initial-configuration/` |
+| Operating system | Windows 11 Pro, Enterprise or Education recommended |
+| Starting state | Local account / workgroup computer |
+| Later use | DNS configuration, domain join, remote support and troubleshooting |
+
+> Readers can use different names in their own environment, but should keep a consistent naming standard across all labs.
 
 ---
 
 ## Before You Start
 
-- Complete the previous lab unless this is Lab 01.
-- Use a lab environment only.
-- Do not publish real passwords or private business information.
-- Replace placeholder screenshots with your own screenshots after completing each step.
+Make sure the Windows 11 client can start normally and that you can sign in with a local administrator account.
+
+Recommended preparation:
+
+- Use a safe lab environment.
+- Do not use real business data.
+- Keep the client powered on during configuration.
+- Record any names or IP addresses you use, because later labs depend on them.
 
 ---
 
-## Screenshot Files
+## Step 1 — Check Windows 11 Device Information
 
-| File name | Step |
-|---|---|
-| 01-windows-11-about-page.png | Open Windows About page |
-| 02-rename-this-pc-w11-client01.png | Rename the Windows 11 client |
-| 03-confirm-client-hostname.png | Confirm the new computer name |
-| 04-confirm-current-user.png | Confirm current logged-in user |
-| 05-ipconfig-before-domain-join.png | Review IP and DNS configuration |
-| 06-disable-sleep-settings.png | Adjust sleep settings |
-| 07-remote-desktop-settings.png | Review Remote Desktop settings |
-| 08-client-verification-commands.png | Run final verification |
+Open:
+
+```text
+Settings > System > About
+```
+
+Review the following information:
+
+```text
+Device name
+Processor
+Installed RAM
+System type
+Windows edition
+Windows version
+```
+
+This gives a baseline view of the client before any configuration changes are made.
 
 ---
 
-## Step 1 — Open Windows About page
+## Step 2 — Rename the Windows 11 Client
 
-Open **Settings > System > About**.
-
-Review the device name, processor, installed RAM, system type, Windows edition and Windows version.
-
-This confirms the baseline information before making changes.
-
-Screenshot file:
+From the About page, select:
 
 ```text
-assets/images/lab-01-windows-11-client-initial-configuration/01-windows-11-about-page.png
+Rename this PC
 ```
 
-![Open Windows About page](../../assets/images/lab-01-windows-11-client-initial-configuration/01-windows-11-about-page.png)
-
-[⬆ Back to top](#top)
-
-## Step 2 — Rename the Windows 11 client
-
-From **Settings > System > About**, select **Rename this PC**.
-
-Set the computer name to `W11-CLIENT01`.
-
-Restart the computer when prompted.
-
-Screenshot file:
+Set the computer name to:
 
 ```text
-assets/images/lab-01-windows-11-client-initial-configuration/02-rename-this-pc-w11-client01.png
+W11-CLIENT01
 ```
 
-![Rename the Windows 11 client](../../assets/images/lab-01-windows-11-client-initial-configuration/02-rename-this-pc-w11-client01.png)
+Restart the computer when Windows asks for a restart.
 
-[⬆ Back to top](#top)
+A clear device name helps with support, inventory, DNS lookup, remote access and Active Directory administration.
 
-## Step 3 — Confirm the new computer name
+---
 
-After restart, open Command Prompt and confirm the hostname.
+## Step 3 — Confirm the Computer Name
 
-Run:
+After the restart, open Command Prompt and run:
 
 ```cmd
 hostname
@@ -121,21 +121,11 @@ Expected result:
 W11-CLIENT01
 ```
 
-Screenshot file:
+This confirms that the rename was applied successfully.
 
-```text
-assets/images/lab-01-windows-11-client-initial-configuration/03-confirm-client-hostname.png
-```
+---
 
-![Confirm the new computer name](../../assets/images/lab-01-windows-11-client-initial-configuration/03-confirm-client-hostname.png)
-
-[⬆ Back to top](#top)
-
-## Step 4 — Confirm current logged-in user
-
-Check which local account is currently signed in.
-
-Before the domain join lab, the result normally shows a local computer account such as `W11-CLIENT01\User`.
+## Step 4 — Confirm the Current Signed-In Account
 
 Run:
 
@@ -143,21 +133,17 @@ Run:
 whoami
 ```
 
-Screenshot file:
+Before the client joins a domain, the result normally shows a local account, for example:
 
 ```text
-assets/images/lab-01-windows-11-client-initial-configuration/04-confirm-current-user.png
+w11-client01\localuser
 ```
 
-![Confirm current logged-in user](../../assets/images/lab-01-windows-11-client-initial-configuration/04-confirm-current-user.png)
+This helps support staff confirm whether the user is signed in with a local account or a domain account.
 
-[⬆ Back to top](#top)
+---
 
-## Step 5 — Review IP and DNS configuration
-
-Review the network adapter, IPv4 address, default gateway, DNS server and DHCP status.
-
-Do not change DNS in this lab. DNS is configured in the later network lab.
+## Step 5 — Review Network Configuration
 
 Run:
 
@@ -165,55 +151,56 @@ Run:
 ipconfig /all
 ```
 
-Screenshot file:
+Check the following values:
 
 ```text
-assets/images/lab-01-windows-11-client-initial-configuration/05-ipconfig-before-domain-join.png
+Host Name
+IPv4 Address
+Subnet Mask
+Default Gateway
+DNS Servers
+DHCP Enabled
 ```
 
-![Review IP and DNS configuration](../../assets/images/lab-01-windows-11-client-initial-configuration/05-ipconfig-before-domain-join.png)
+Do not change DNS in this lab. DNS will be configured later so the client can find the domain controller.
 
-[⬆ Back to top](#top)
+---
 
-## Step 6 — Adjust sleep settings
+## Step 6 — Adjust Sleep Settings
 
-Open **Settings > System > Power & battery > Screen and sleep**.
-
-Set plugged-in sleep to **Never** or a long enough value for lab work.
-
-Screenshot file:
+Open:
 
 ```text
-assets/images/lab-01-windows-11-client-initial-configuration/06-disable-sleep-settings.png
+Settings > System > Power & battery > Screen and sleep
 ```
 
-![Adjust sleep settings](../../assets/images/lab-01-windows-11-client-initial-configuration/06-disable-sleep-settings.png)
-
-[⬆ Back to top](#top)
-
-## Step 7 — Review Remote Desktop settings
-
-Open **Settings > System > Remote Desktop**.
-
-Enable Remote Desktop if the Windows edition supports it.
-
-Windows Home may not support Remote Desktop host functionality.
-
-Screenshot file:
+Recommended setting while plugged in:
 
 ```text
-assets/images/lab-01-windows-11-client-initial-configuration/07-remote-desktop-settings.png
+Put my device to sleep after: Never
 ```
 
-![Review Remote Desktop settings](../../assets/images/lab-01-windows-11-client-initial-configuration/07-remote-desktop-settings.png)
+This prevents the client from sleeping during network testing, domain join, remote access and troubleshooting activities.
 
-[⬆ Back to top](#top)
+---
 
-## Step 8 — Run final verification
+## Step 7 — Review Remote Desktop Settings
 
-Run a final check before moving to the server lab.
+Open:
 
-Run:
+```text
+Settings > System > Remote Desktop
+```
+
+Review whether Remote Desktop is available. Windows 11 Pro, Enterprise and Education editions usually support Remote Desktop host functionality. Windows Home editions may not.
+
+This setting is reviewed now because later labs include remote support practice.
+
+---
+
+## Step 8 — Run Final Verification
+
+Open Command Prompt and run:
 
 ```cmd
 hostname
@@ -222,16 +209,12 @@ ipconfig /all
 winver
 ```
 
-Screenshot file:
+Use the results to confirm:
 
-```text
-assets/images/lab-01-windows-11-client-initial-configuration/08-client-verification-commands.png
-```
-
-![Run final verification](../../assets/images/lab-01-windows-11-client-initial-configuration/08-client-verification-commands.png)
-
-[⬆ Back to top](#top)
-
+- The computer name is correct.
+- The current account is known.
+- Network settings are visible.
+- The Windows version is confirmed.
 
 ---
 
@@ -246,15 +229,15 @@ assets/images/lab-01-windows-11-client-initial-configuration/08-client-verificat
 - [ ] Sleep settings adjusted or reviewed.
 - [ ] Remote Desktop availability reviewed.
 - [ ] Final verification commands completed.
-- [ ] Screenshots saved in the correct folder.
 
 ---
 
 ## Key Takeaways
 
-- Clear computer names make support, inventory, DNS lookup and remote access easier.
+- A clear computer name makes support and administration easier.
 - `hostname`, `whoami` and `ipconfig /all` are essential first-line support commands.
-- Client DNS must point to the domain controller before joining a domain.
+- A client should have correct DNS settings before it is joined to a domain.
+- Power settings can affect lab stability and remote support sessions.
 
 ---
 
@@ -270,6 +253,6 @@ Adelaide, South Australia
 ---
 
 <p align="center">
-  <a href="../../README.md">🏠 Main README</a> | <a href="../02-windows-server-initial-configuration/README.md">Next Lab ➡</a> |
-  <a href="#top">⬆ Back to Top</a>
+  <a href="../../README.md">Main README</a> | <a href="../02-windows-server-initial-configuration/README.md">Next Lab</a> |
+  <a href="#top">Back to Top</a>
 </p>
