@@ -3,23 +3,22 @@
 # Lab 11 — RSAT Remote Administration
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Windows%2011-Client-0078D4?logo=windows&logoColor=white" alt="Windows 11">
-  <img src="https://img.shields.io/badge/Windows%20Server-Admin-5E5E5E?logo=windows&logoColor=white" alt="Windows Server">
-  <img src="https://img.shields.io/badge/Active%20Directory-Guide-6A1B9A" alt="Active Directory">
-  <img src="https://img.shields.io/badge/IT%20Support-Step--by--Step-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Intermediate-blue" alt="Intermediate">
-  <img src="https://img.shields.io/badge/Status-Ready-yellow" alt="Ready">
+  <img src="https://img.shields.io/badge/Windows%2011-RSAT-0078D4?logo=windows&logoColor=white" alt="RSAT">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
+  <img src="https://img.shields.io/badge/Level-Intermediate-orange" alt="Intermediate">
 </p>
 
 <p align="center">
-  <a href="../10-home-folder-and-file-share/README.md">⬅ Previous Lab</a> | <a href="../../README.md">🏠 Main README</a> | <a href="../12-second-client-computer-management/README.md">Next Lab ➡</a>
+  <a href="../10-home-folder-and-file-share/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../12-second-client-computer-management/README.md">Next Lab</a>
 </p>
 
 ---
 
 ## Overview
 
-Use Remote Server Administration Tools from the Windows 11 client to manage Active Directory remotely.
+This lab explains how to use Remote Server Administration Tools from a Windows 11 client.
+
+RSAT allows support staff and administrators to manage Windows Server roles from a workstation instead of signing in directly to the server for every task.
 
 ---
 
@@ -27,160 +26,170 @@ Use Remote Server Administration Tools from the Windows 11 client to manage Acti
 
 - Install RSAT tools on Windows 11.
 - Open Active Directory Users and Computers from the client.
-- Confirm remote administration access.
-- Make a small safe change to an AD object.
+- Confirm the domain can be managed from the workstation.
+- Review a user or group object remotely.
+- Understand why remote administration is useful.
 
 ---
 
-## Lab Values
+## Lab Values Used in This Guide
 
 | Item | Value |
 |---|---|
-| Client | `W11-CLIENT01` |
-| Tools | RSAT / Active Directory Users and Computers |
-| Screenshot folder | `assets/images/lab-11-rsat-remote-administration/` |
+| Admin workstation | `W11-CLIENT01` |
+| Server | `SRV-DC01` |
+| Domain | `corp.local` |
+| Tool | RSAT Active Directory tools |
 
 ---
 
 ## Before You Start
 
-- Complete the previous lab unless this is Lab 01.
-- Use a lab environment only.
-- Do not publish real passwords or private business information.
-- Replace placeholder screenshots with your own screenshots after completing each step.
+The Windows 11 client must already be joined to the domain.
 
----
-
-## Screenshot Files
-
-| File name | Step |
-|---|---|
-| 01-open-optional-features.png | Open Optional Features |
-| 02-add-rsat-active-directory-tools.png | Add RSAT feature |
-| 03-open-aduc-from-client.png | Open Windows Tools |
-| 04-browse-domain-from-client.png | Browse the domain |
-| 05-update-object-description.png | Manage a test object |
-| 06-verify-change-from-server.png | Verify from server |
+Sign in with a domain account that has permission to view or manage Active Directory objects.
 
 ---
 
 ## Step 1 — Open Optional Features
 
-On Windows 11, open **Settings > Apps > Optional features**.
-
-Screenshot file:
+On the Windows 11 client, open:
 
 ```text
-assets/images/lab-11-rsat-remote-administration/01-open-optional-features.png
+Settings > Apps > Optional features
 ```
 
-![Open Optional Features](../../assets/images/lab-11-rsat-remote-administration/01-open-optional-features.png)
-
-[⬆ Back to top](#top)
-
-## Step 2 — Add RSAT feature
-
-Add the RSAT Active Directory tools feature.
-
-Screenshot file:
+Select:
 
 ```text
-assets/images/lab-11-rsat-remote-administration/02-add-rsat-active-directory-tools.png
+View features
 ```
 
-![Add RSAT feature](../../assets/images/lab-11-rsat-remote-administration/02-add-rsat-active-directory-tools.png)
+Search for:
 
-[⬆ Back to top](#top)
+```text
+RSAT
+```
+
+---
+
+## Step 2 — Install Active Directory RSAT Tools
+
+Install the RSAT feature for Active Directory administration.
+
+The exact feature name may vary slightly by Windows version, but it normally includes:
+
+```text
+RSAT: Active Directory Domain Services and Lightweight Directory Services Tools
+```
+
+Wait for installation to finish.
+
+---
 
 ## Step 3 — Open Windows Tools
 
-Open **Windows Tools** and start **Active Directory Users and Computers**.
-
-Screenshot file:
+Open:
 
 ```text
-assets/images/lab-11-rsat-remote-administration/03-open-aduc-from-client.png
+Start > Windows Tools
 ```
 
-![Open Windows Tools](../../assets/images/lab-11-rsat-remote-administration/03-open-aduc-from-client.png)
-
-[⬆ Back to top](#top)
-
-## Step 4 — Browse the domain
-
-Confirm the `corp.local` domain and OU structure are visible from the client.
-
-Screenshot file:
+Find and open:
 
 ```text
-assets/images/lab-11-rsat-remote-administration/04-browse-domain-from-client.png
+Active Directory Users and Computers
 ```
 
-![Browse the domain](../../assets/images/lab-11-rsat-remote-administration/04-browse-domain-from-client.png)
+This confirms that the tool is installed on the workstation.
 
-[⬆ Back to top](#top)
+---
 
-## Step 5 — Manage a test object
+## Step 4 — Browse the Domain
 
-Open a test user object and update a lab-safe field such as Description.
-
-Screenshot file:
+In Active Directory Users and Computers, confirm that the domain appears:
 
 ```text
-assets/images/lab-11-rsat-remote-administration/05-update-object-description.png
+corp.local
 ```
 
-![Manage a test object](../../assets/images/lab-11-rsat-remote-administration/05-update-object-description.png)
-
-[⬆ Back to top](#top)
-
-## Step 6 — Verify from server
-
-On the server, open ADUC and confirm the change is visible.
-
-Screenshot file:
+Browse to:
 
 ```text
-assets/images/lab-11-rsat-remote-administration/06-verify-change-from-server.png
+Company > Users
+Company > Groups
+Company > Computers
 ```
 
-![Verify from server](../../assets/images/lab-11-rsat-remote-administration/06-verify-change-from-server.png)
+---
 
-[⬆ Back to top](#top)
+## Step 5 — Review a User Object
 
+Open the test user account:
+
+```text
+j.smith
+```
+
+Review the General, Account and Member Of tabs.
+
+This proves that directory objects can be reviewed from the client workstation.
+
+---
+
+## Step 6 — Review a Group Object
+
+Open:
+
+```text
+GG_StandardUsers
+```
+
+Review the Members tab.
+
+Confirm the test user is listed as a member.
+
+---
+
+## Step 7 — Run a Command Check
+
+Open PowerShell and run:
+
+```powershell
+Get-Command Get-ADUser
+```
+
+If the command is available, the Active Directory PowerShell module is installed.
+
+Optional check:
+
+```powershell
+Get-ADDomain
+```
 
 ---
 
 ## Completion Checklist
 
-- [ ] RSAT installed.
-- [ ] ADUC opened from Windows 11.
-- [ ] Domain visible from client.
-- [ ] Test object reviewed.
-- [ ] Safe change confirmed.
+- [ ] Windows 11 client signed in with a domain account.
+- [ ] RSAT searched from Optional Features.
+- [ ] Active Directory RSAT tools installed.
+- [ ] Active Directory Users and Computers opened from the client.
+- [ ] Domain structure browsed from the client.
+- [ ] User object reviewed.
+- [ ] Group object reviewed.
+- [ ] PowerShell command availability checked.
 
 ---
 
 ## Key Takeaways
 
-- RSAT allows support staff to manage server tools from a workstation.
-- Permissions still control what the technician can change.
-- Remote administration reduces the need to sign in directly to the server.
-
----
-
-## Author
-
-**Xuan Toan Nguyen**  
-IT Support | Service Desk | Desktop Support | System Administration  
-Adelaide, South Australia
-
-- LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
-- GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+- RSAT allows remote administration from a workstation.
+- Support staff can review and manage directory objects without working directly on the server console.
+- Remote tools should only be used by approved accounts with appropriate permissions.
 
 ---
 
 <p align="center">
-  <a href="../10-home-folder-and-file-share/README.md">⬅ Previous Lab</a> | <a href="../../README.md">🏠 Main README</a> | <a href="../12-second-client-computer-management/README.md">Next Lab ➡</a> |
-  <a href="#top">⬆ Back to Top</a>
+  <a href="../10-home-folder-and-file-share/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../12-second-client-computer-management/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
 </p>
