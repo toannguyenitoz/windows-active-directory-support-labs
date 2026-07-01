@@ -3,214 +3,214 @@
 # Lab 10 — Home Folder and File Share
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Windows%2011-Client-0078D4?logo=windows&logoColor=white" alt="Windows 11">
-  <img src="https://img.shields.io/badge/Windows%20Server-Admin-5E5E5E?logo=windows&logoColor=white" alt="Windows Server">
-  <img src="https://img.shields.io/badge/Active%20Directory-Guide-6A1B9A" alt="Active Directory">
-  <img src="https://img.shields.io/badge/IT%20Support-Step--by--Step-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Intermediate-blue" alt="Intermediate">
-  <img src="https://img.shields.io/badge/Status-Ready-yellow" alt="Ready">
+  <img src="https://img.shields.io/badge/Windows%20Server-File%20Share-5E5E5E?logo=windows&logoColor=white" alt="Windows Server">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
+  <img src="https://img.shields.io/badge/Level-Intermediate-orange" alt="Intermediate">
 </p>
 
 <p align="center">
-  <a href="../09-password-lockout-logon-controls/README.md">⬅ Previous Lab</a> | <a href="../../README.md">🏠 Main README</a> | <a href="../11-rsat-remote-administration/README.md">Next Lab ➡</a>
+  <a href="../09-password-lockout-logon-controls/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../11-rsat-remote-administration/README.md">Next Lab</a>
 </p>
 
 ---
 
 ## Overview
 
-Create a server share and configure a user home folder for workplace-style file access.
+This lab explains how to create a basic server file share and connect it to a domain user workflow.
+
+File shares are common in workplace environments. IT Support staff often need to check whether a user can access a shared folder, confirm mapped drives, and understand the difference between share permissions and NTFS permissions.
 
 ---
 
 ## Objectives
 
-- Create a folder on the server.
-- Share the folder.
-- Review share and NTFS permissions.
-- Configure a home folder path for a user.
-- Test access from Windows 11.
+- Create a folder on Windows Server for shared data.
+- Share the folder with a clear share name.
+- Review share permissions.
+- Review NTFS permissions.
+- Test access from the Windows 11 client.
+- Create a simple test file to confirm access.
 
 ---
 
-## Lab Values
+## Lab Values Used in This Guide
 
 | Item | Value |
 |---|---|
-| Server folder | `C:\Shares\Homes` |
-| Share name | `Homes` |
-| Drive letter | `H:` |
-| Screenshot folder | `assets/images/lab-10-home-folder-and-file-share/` |
+| Server | `SRV-DC01` |
+| Client | `W11-CLIENT01` |
+| Share folder | `C:\Shares\SharedData` |
+| Share name | `SharedData` |
+| Test user | `j.smith` |
+| Test group | `GG_StandardUsers` |
 
 ---
 
 ## Before You Start
 
-- Complete the previous lab unless this is Lab 01.
-- Use a lab environment only.
-- Do not publish real passwords or private business information.
-- Replace placeholder screenshots with your own screenshots after completing each step.
+Complete the user and group management labs first.
+
+Confirm that the Windows 11 client can sign in with a domain account.
 
 ---
 
-## Screenshot Files
+## Step 1 — Create the Server Folder
 
-| File name | Step |
-|---|---|
-| 01-create-server-homes-folder.png | Create server folder |
-| 02-advanced-sharing-homes.png | Enable sharing |
-| 03-share-permissions.png | Review share permissions |
-| 04-ntfs-permissions.png | Review NTFS permissions |
-| 05-user-profile-home-folder.png | Configure user home folder |
-| 06-client-home-folder-test.png | Test from client |
-| 07-create-test-file-in-home-folder.png | Create test file |
+On the server, create a new folder:
+
+```text
+C:\Shares\SharedData
+```
+
+This folder will be used as the shared location for the lab.
 
 ---
 
-## Step 1 — Create server folder
+## Step 2 — Open Folder Properties
 
-On the server, create `C:\Shares\Homes`.
-
-Screenshot file:
+Right-click the folder and open:
 
 ```text
-assets/images/lab-10-home-folder-and-file-share/01-create-server-homes-folder.png
+Properties
 ```
 
-![Create server folder](../../assets/images/lab-10-home-folder-and-file-share/01-create-server-homes-folder.png)
-
-[⬆ Back to top](#top)
-
-## Step 2 — Enable sharing
-
-Open folder properties and enable advanced sharing.
-
-Set the share name to `Homes`.
-
-Screenshot file:
+Review these tabs:
 
 ```text
-assets/images/lab-10-home-folder-and-file-share/02-advanced-sharing-homes.png
+Sharing
+Security
 ```
 
-![Enable sharing](../../assets/images/lab-10-home-folder-and-file-share/02-advanced-sharing-homes.png)
+The Sharing tab controls network access to the folder.
 
-[⬆ Back to top](#top)
+The Security tab controls NTFS permissions on the folder.
 
-## Step 3 — Review share permissions
+---
 
-Review share permissions and use lab-safe group-based permissions.
+## Step 3 — Share the Folder
 
-Screenshot file:
+On the Sharing tab, open advanced sharing and enable sharing for the folder.
+
+Use the share name:
 
 ```text
-assets/images/lab-10-home-folder-and-file-share/03-share-permissions.png
+SharedData
 ```
 
-![Review share permissions](../../assets/images/lab-10-home-folder-and-file-share/03-share-permissions.png)
-
-[⬆ Back to top](#top)
-
-## Step 4 — Review NTFS permissions
-
-Open the Security tab and review NTFS permissions.
-
-Screenshot file:
+The shared path will be:
 
 ```text
-assets/images/lab-10-home-folder-and-file-share/04-ntfs-permissions.png
+\\SRV-DC01\SharedData
 ```
 
-![Review NTFS permissions](../../assets/images/lab-10-home-folder-and-file-share/04-ntfs-permissions.png)
+---
 
-[⬆ Back to top](#top)
+## Step 4 — Review Share Permissions
 
-## Step 5 — Configure user home folder
+Review which users or groups can access the share.
 
-Open the user properties in ADUC.
-
-On the Profile tab, configure drive `H:` with a user-specific folder path.
-
-Screenshot file:
+For a simple lab, assign access to a group such as:
 
 ```text
-assets/images/lab-10-home-folder-and-file-share/05-user-profile-home-folder.png
+GG_StandardUsers
 ```
 
-![Configure user home folder](../../assets/images/lab-10-home-folder-and-file-share/05-user-profile-home-folder.png)
+In real workplaces, access should be managed through groups, not by adding individual users one by one.
 
-[⬆ Back to top](#top)
+---
 
-## Step 6 — Test from client
+## Step 5 — Review NTFS Permissions
 
-Sign in as the domain user on Windows 11 and confirm the home drive or folder is available.
+Open the Security tab and review folder permissions.
 
-Run:
+Confirm that the correct group has the access required for the lab.
+
+Remember:
+
+- Share permissions apply over the network.
+- NTFS permissions apply to the folder itself.
+- The most restrictive effective permission normally wins.
+
+---
+
+## Step 6 — Test Access from the Windows 11 Client
+
+Sign in to the Windows 11 client as the test domain user.
+
+Open File Explorer and enter:
+
+```text
+\\SRV-DC01\SharedData
+```
+
+Confirm the shared folder opens.
+
+---
+
+## Step 7 — Create a Test File
+
+Inside the shared folder, create a simple test file.
+
+Example:
+
+```text
+access-test.txt
+```
+
+Add a short test note and save the file.
+
+This confirms that the user has write access if write permission was intended.
+
+---
+
+## Step 8 — Verify from the Server
+
+On the server, open:
+
+```text
+C:\Shares\SharedData
+```
+
+Confirm that the test file created from the client appears on the server.
+
+---
+
+## Step 9 — Optional Mapped Drive Test
+
+On the client, open Command Prompt and run:
 
 ```cmd
-whoami
 net use
 ```
 
-Screenshot file:
+This displays current network drive connections.
 
-```text
-assets/images/lab-10-home-folder-and-file-share/06-client-home-folder-test.png
-```
-
-![Test from client](../../assets/images/lab-10-home-folder-and-file-share/06-client-home-folder-test.png)
-
-[⬆ Back to top](#top)
-
-## Step 7 — Create test file
-
-Create a small text file in the home folder and confirm it appears on the server.
-
-Screenshot file:
-
-```text
-assets/images/lab-10-home-folder-and-file-share/07-create-test-file-in-home-folder.png
-```
-
-![Create test file](../../assets/images/lab-10-home-folder-and-file-share/07-create-test-file-in-home-folder.png)
-
-[⬆ Back to top](#top)
-
+A mapped drive can also be created later through Group Policy or manually for testing.
 
 ---
 
 ## Completion Checklist
 
 - [ ] Server folder created.
-- [ ] Folder shared.
+- [ ] Folder shared with a clear share name.
 - [ ] Share permissions reviewed.
 - [ ] NTFS permissions reviewed.
-- [ ] Home folder configured.
-- [ ] Client access tested.
-- [ ] Test file created.
+- [ ] Client can open the shared path.
+- [ ] Test file created from the client.
+- [ ] Test file confirmed on the server.
+- [ ] Difference between share and NTFS permissions understood.
 
 ---
 
 ## Key Takeaways
 
-- Share permissions and NTFS permissions work together.
-- Home folders give users a consistent personal network storage location.
-- Group-based permissions are easier to manage than user-by-user permissions.
-
----
-
-## Author
-
-**Xuan Toan Nguyen**  
-IT Support | Service Desk | Desktop Support | System Administration  
-Adelaide, South Australia
-
-- LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
-- GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+- File access should usually be managed through groups.
+- Share permissions and NTFS permissions both affect access.
+- Testing from the client confirms the real user experience.
+- Clear share names make support easier.
 
 ---
 
 <p align="center">
-  <a href="../09-password-lockout-logon-controls/README.md">⬅ Previous Lab</a> | <a href="../../README.md">🏠 Main README</a> | <a href="../11-rsat-remote-administration/README.md">Next Lab ➡</a> |
-  <a href="#top">⬆ Back to Top</a>
+  <a href="../09-password-lockout-logon-controls/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../11-rsat-remote-administration/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
 </p>
