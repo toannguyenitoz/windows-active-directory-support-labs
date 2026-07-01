@@ -3,217 +3,202 @@
 # Lab 03 — Network and DNS Configuration
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Windows%2011-Client-0078D4?logo=windows&logoColor=white" alt="Windows 11">
-  <img src="https://img.shields.io/badge/Windows%20Server-Admin-5E5E5E?logo=windows&logoColor=white" alt="Windows Server">
-  <img src="https://img.shields.io/badge/Active%20Directory-Guide-6A1B9A" alt="Active Directory">
-  <img src="https://img.shields.io/badge/IT%20Support-Step--by--Step-green" alt="IT Support">
+  <img src="https://img.shields.io/badge/Networking-DNS-blue" alt="Networking">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
   <img src="https://img.shields.io/badge/Level-Beginner-blue" alt="Beginner">
-  <img src="https://img.shields.io/badge/Status-Ready-yellow" alt="Ready">
 </p>
 
 <p align="center">
-  <a href="../02-windows-server-initial-configuration/README.md">⬅ Previous Lab</a> | <a href="../../README.md">🏠 Main README</a> | <a href="../04-active-directory-domain-services-setup/README.md">Next Lab ➡</a>
+  <a href="../02-windows-server-initial-configuration/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../04-active-directory-domain-services-setup/README.md">Next Lab</a>
 </p>
 
 ---
 
 ## Overview
 
-Configure IP and DNS settings so Windows clients can communicate with the server and later locate the Active Directory domain.
+This lab configures the basic network and DNS settings required before Active Directory can be installed and before a Windows 11 client can join the domain.
+
+The key idea is simple: the Windows 11 client must use the server as its DNS server so it can locate the domain controller in later labs.
 
 ---
 
 ## Objectives
 
-- Set a static IP address on the Windows Server.
-- Point server DNS to itself when it becomes the DNS server.
-- Point the Windows 11 client DNS to the server IP.
-- Test basic connectivity between client and server.
-- Understand why DNS is required for domain join.
+- Configure or confirm the server IP address.
+- Configure the server DNS setting.
+- Configure the Windows 11 client DNS setting.
+- Test connectivity between client and server.
+- Confirm the environment is ready for directory service setup.
 
 ---
 
-## Lab Values
+## Lab Values Used in This Guide
 
 | Item | Value |
 |---|---|
+| Server name | `SRV-DC01` |
 | Server IP | `192.168.20.10` |
-| Client IP | `192.168.20.101` or DHCP |
+| Client name | `W11-CLIENT01` |
+| Client IP | `192.168.20.101` |
 | Subnet mask | `255.255.255.0` |
-| DNS server | `192.168.20.10` |
-| Screenshot folder | `assets/images/lab-03-network-and-dns-configuration/` |
+| Client DNS server | `192.168.20.10` |
+
+> Use values that match your own lab, but keep server and client on the same network.
 
 ---
 
 ## Before You Start
 
-- Complete the previous lab unless this is Lab 01.
-- Use a lab environment only.
-- Do not publish real passwords or private business information.
-- Replace placeholder screenshots with your own screenshots after completing each step.
+Complete Lab 01 and Lab 02 first.
+
+You should know:
+
+- The server computer name.
+- The client computer name.
+- The IP range used by the lab.
+- Which network adapter is connected.
 
 ---
 
-## Screenshot Files
+## Step 1 — Review Server Network Adapter
 
-| File name | Step |
-|---|---|
-| 01-server-ipv4-static-settings.png | Configure server static IP |
-| 02-server-dns-settings.png | Set server DNS value |
-| 03-server-ipconfig-after-static-ip.png | Confirm server IP settings |
-| 04-client-dns-server-settings.png | Configure client DNS |
-| 05-client-ping-server.png | Test client-to-server connectivity |
-| 06-client-dns-lookup-test.png | Run DNS readiness check |
+On the server, open:
+
+```text
+Control Panel > Network and Internet > Network Connections
+```
+
+Open the Ethernet adapter properties and select:
+
+```text
+Internet Protocol Version 4 (TCP/IPv4)
+```
+
+Review the current IP configuration before making changes.
 
 ---
 
-## Step 1 — Configure server static IP
+## Step 2 — Configure Server IPv4 Settings
 
-On the server, open **Network Connections**.
+Set the server IPv4 values using your lab design.
 
-Open the Ethernet adapter properties and select **Internet Protocol Version 4**.
-
-Set the server IP to `192.168.20.10` and subnet mask to `255.255.255.0`.
-
-Screenshot file:
+Example values:
 
 ```text
-assets/images/lab-03-network-and-dns-configuration/01-server-ipv4-static-settings.png
+IP address: 192.168.20.10
+Subnet mask: 255.255.255.0
+Default gateway: use your lab gateway if required
+Preferred DNS server: 192.168.20.10
 ```
 
-![Configure server static IP](../../assets/images/lab-03-network-and-dns-configuration/01-server-ipv4-static-settings.png)
+The server uses itself as DNS because it will provide DNS services after the domain role is configured.
 
-[⬆ Back to top](#top)
+---
 
-## Step 2 — Set server DNS value
+## Step 3 — Verify Server IP Configuration
 
-Set Preferred DNS server to `192.168.20.10`.
-
-This value is suitable once DNS is installed with the domain controller role.
-
-Screenshot file:
-
-```text
-assets/images/lab-03-network-and-dns-configuration/02-server-dns-settings.png
-```
-
-![Set server DNS value](../../assets/images/lab-03-network-and-dns-configuration/02-server-dns-settings.png)
-
-[⬆ Back to top](#top)
-
-## Step 3 — Confirm server IP settings
-
-Run the following command on the server.
-
-Run:
+On the server, open Command Prompt and run:
 
 ```cmd
 ipconfig /all
 ```
 
-Screenshot file:
+Confirm:
+
+- IPv4 address is correct.
+- Subnet mask is correct.
+- DNS server points to the server IP.
+- The correct adapter is being used.
+
+---
+
+## Step 4 — Configure Client DNS Setting
+
+On the Windows 11 client, open the IPv4 properties for the active network adapter.
+
+Set the preferred DNS server to:
 
 ```text
-assets/images/lab-03-network-and-dns-configuration/03-server-ipconfig-after-static-ip.png
+192.168.20.10
 ```
 
-![Confirm server IP settings](../../assets/images/lab-03-network-and-dns-configuration/03-server-ipconfig-after-static-ip.png)
+This allows the client to use the server for name resolution in later domain labs.
 
-[⬆ Back to top](#top)
+---
 
-## Step 4 — Configure client DNS
+## Step 5 — Verify Client IP Configuration
 
-On the Windows 11 client, open IPv4 settings for the active adapter.
+On the Windows 11 client, run:
 
-Set the DNS server to `192.168.20.10`.
-
-The client can use DHCP or a static IP, but DNS must point to the domain controller.
-
-Screenshot file:
-
-```text
-assets/images/lab-03-network-and-dns-configuration/04-client-dns-server-settings.png
+```cmd
+ipconfig /all
 ```
 
-![Configure client DNS](../../assets/images/lab-03-network-and-dns-configuration/04-client-dns-server-settings.png)
+Confirm:
 
-[⬆ Back to top](#top)
+- The client has a valid IPv4 address.
+- The client is on the same network as the server.
+- The DNS server value points to the server IP.
 
-## Step 5 — Test client-to-server connectivity
+---
 
-From the client, test whether the server is reachable.
+## Step 6 — Test Client to Server Connectivity
 
-Run:
+From the Windows 11 client, run:
 
 ```cmd
 ping 192.168.20.10
 ```
 
-Screenshot file:
+A successful reply confirms that the client can reach the server.
+
+A failed test usually means one of these areas needs checking:
+
+- Incorrect IP address.
+- Wrong subnet mask.
+- Wrong network adapter.
+- Firewall rule blocking the test.
+- Client and server not on the same network.
+
+---
+
+## Step 7 — Record the Final Network Values
+
+Record the final values before moving to the next lab:
 
 ```text
-assets/images/lab-03-network-and-dns-configuration/05-client-ping-server.png
+Server name
+Server IP
+Client name
+Client IP
+Client DNS server
+Domain name planned for next lab
 ```
 
-![Test client-to-server connectivity](../../assets/images/lab-03-network-and-dns-configuration/05-client-ping-server.png)
-
-[⬆ Back to top](#top)
-
-## Step 6 — Run DNS readiness check
-
-After the domain is configured, use name lookup to confirm DNS resolution.
-
-Run:
-
-```cmd
-nslookup corp.local
-ping SRV-DC01
-```
-
-Screenshot file:
-
-```text
-assets/images/lab-03-network-and-dns-configuration/06-client-dns-lookup-test.png
-```
-
-![Run DNS readiness check](../../assets/images/lab-03-network-and-dns-configuration/06-client-dns-lookup-test.png)
-
-[⬆ Back to top](#top)
-
+These values are required for Active Directory setup and domain join.
 
 ---
 
 ## Completion Checklist
 
-- [ ] Server static IP configured.
-- [ ] Server DNS setting reviewed.
-- [ ] Client DNS points to server IP.
-- [ ] Client can ping server IP.
-- [ ] DNS lookup command tested after domain setup.
-- [ ] Final IP configuration screenshots saved.
+- [ ] Server network adapter reviewed.
+- [ ] Server IPv4 settings configured or confirmed.
+- [ ] Server DNS value reviewed.
+- [ ] Client DNS points to the server IP.
+- [ ] Client IP configuration checked.
+- [ ] Client can reach the server.
+- [ ] Final network values recorded.
 
 ---
 
 ## Key Takeaways
 
-- Active Directory depends heavily on DNS.
-- Domain join fails often when the client uses the wrong DNS server.
-- Always confirm IP and DNS before troubleshooting domain issues.
-
----
-
-## Author
-
-**Xuan Toan Nguyen**  
-IT Support | Service Desk | Desktop Support | System Administration  
-Adelaide, South Australia
-
-- LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
-- GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+- DNS is critical for Active Directory.
+- Domain clients should use the domain controller DNS service, not a random external DNS server.
+- `ipconfig /all` and `ping` are essential support commands for first-level network checks.
 
 ---
 
 <p align="center">
-  <a href="../02-windows-server-initial-configuration/README.md">⬅ Previous Lab</a> | <a href="../../README.md">🏠 Main README</a> | <a href="../04-active-directory-domain-services-setup/README.md">Next Lab ➡</a> |
-  <a href="#top">⬆ Back to Top</a>
+  <a href="../02-windows-server-initial-configuration/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../04-active-directory-domain-services-setup/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
 </p>
