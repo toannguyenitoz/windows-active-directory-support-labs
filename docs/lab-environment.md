@@ -1,7 +1,5 @@
 # Lab Environment
 
-This document describes the suggested lab environment used throughout the guide.
-
 ## Recommended Machines
 
 | Machine | Purpose | Example Name |
@@ -19,14 +17,8 @@ This document describes the suggested lab environment used throughout the guide.
 | Client 1 IP | `192.168.20.101` |
 | Client 2 IP | `192.168.20.102` |
 | Subnet Mask | `255.255.255.0` |
-| Default Gateway | Optional in isolated lab |
 | DNS Server | `192.168.20.10` |
-
-## Example Domain
-
-```text
-corp.local
-```
+| Domain | `corp.local` |
 
 ## Naming Standard
 
@@ -34,7 +26,6 @@ corp.local
 |---|---|
 | Server | `SRV-DC01` |
 | Client | `W11-CLIENT01` |
-| OU | `OU=Users`, `OU=Computers`, `OU=Groups` |
 | Global Group | `GG_ITSupport` |
 | Domain Local Group | `DL_FileShare_Read` |
 | User | `j.smith` |
@@ -42,6 +33,6 @@ corp.local
 ## Safety Notes
 
 - Use a lab environment only.
-- Do not use real client or business data.
-- Do not publish real passwords or internal system details.
+- Do not publish real passwords.
+- Do not publish internal business information.
 - Replace examples with your own safe lab values where required.

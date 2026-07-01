@@ -1,16 +1,15 @@
 # Changelog
 
-All notable updates to this repository will be documented here.
-
 ## 2026-07-01
 
 ### Added
 
-- Created the initial Windows Active Directory Support Labs guide.
-- Added a 16-lab step-by-step learning path.
-- Added repository structure for labs, docs, scripts, templates and screenshot folders.
+- Created a complete Windows 11 and Active Directory IT Support guide.
+- Added 16 detailed labs with step-by-step instructions.
+- Added screenshot folders and placeholder images.
+- Added command reference, lab environment guide and documentation templates.
 
 ### Planned
 
-- Add real screenshots for each lab after completion.
-- Expand troubleshooting examples as more issues are tested.
+- Replace placeholder images with real screenshots after each lab is completed.
+- Add more troubleshooting examples as new issues are tested.

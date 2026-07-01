@@ -1,6 +1,6 @@
 # Project Board
 
-Use this file to track lab build progress and screenshot updates.
+Use this file to track guide content and screenshot updates.
 
 | Lab | Topic | Guide | Screenshots | Status |
 |---|---|---|---|---|
@@ -19,14 +19,14 @@ Use this file to track lab build progress and screenshot updates.
 | 13 | Print Server and Network Printer | Ready | Pending | Ready |
 | 14 | Remote Desktop Support | Ready | Pending | Ready |
 | 15 | Network Troubleshooting: Wi-Fi and IP | Ready | Pending | Ready |
-| 16 | Service Desk Documentation | Ready | Pending | Ready |
+| 16 | Service Desk Documentation and Case Notes | Ready | Pending | Ready |
 
 ## Screenshot Update Workflow
 
 1. Complete the lab steps.
 2. Capture screenshots.
 3. Save screenshots in the correct `assets/images/<lab-folder>/` directory.
-4. Update the lab README if extra notes are needed.
+4. Replace the placeholder image file with the same file name.
 5. Commit and push changes.
 
 ## Suggested Git Commands

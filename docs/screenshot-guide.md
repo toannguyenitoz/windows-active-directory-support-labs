@@ -1,19 +1,13 @@
 # Screenshot Guide
 
-Screenshots are used to make each lab easier to follow.
+Screenshots make each lab easier to follow.
 
-## Screenshot Folder Pattern
+## Folder Pattern
 
 Each lab has its own image folder:
 
 ```text
 assets/images/lab-xx-topic-name/
-```
-
-Example:
-
-```text
-assets/images/lab-01-windows-11-client-initial-configuration/
 ```
 
 ## File Naming Pattern

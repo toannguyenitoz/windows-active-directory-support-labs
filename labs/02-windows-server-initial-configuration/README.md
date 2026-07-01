@@ -1,51 +1,226 @@
-# Lab 02 - Windows Server Initial Configuration
+<a id="top"></a>
 
-This lab prepares a Windows Server machine for a small workplace-style network.
+# Lab 02 — Windows Server Initial Configuration
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Windows%2011-Client-0078D4?logo=windows&logoColor=white" alt="Windows 11">
+  <img src="https://img.shields.io/badge/Windows%20Server-Admin-5E5E5E?logo=windows&logoColor=white" alt="Windows Server">
+  <img src="https://img.shields.io/badge/Active%20Directory-Guide-6A1B9A" alt="Active Directory">
+  <img src="https://img.shields.io/badge/IT%20Support-Step--by--Step-green" alt="IT Support">
+  <img src="https://img.shields.io/badge/Level-Beginner-blue" alt="Beginner">
+  <img src="https://img.shields.io/badge/Status-Ready-yellow" alt="Ready">
+</p>
+
+<p align="center">
+  <a href="../01-windows-11-client-initial-configuration/README.md">⬅ Previous Lab</a> | <a href="../../README.md">🏠 Main README</a> | <a href="../03-network-and-dns-configuration/README.md">Next Lab ➡</a>
+</p>
+
+---
+
+## Overview
+
+Prepare a Windows Server machine to become the central server for directory, DNS, file, print and remote administration tasks.
+
+---
 
 ## Objectives
 
-- Check Windows Server information.
-- Rename the server.
-- Configure basic power and remote settings.
-- Confirm network adapter details.
-- Prepare the server for DNS and Active Directory roles.
+- Review Server Manager and local server settings.
+- Rename the server using a clear server naming standard.
+- Confirm hostname and Windows Server version.
+- Review network adapter details before applying static IP settings.
+- Enable Remote Desktop if required for administration.
 
-## Suggested Lab Values
+---
 
-Server name: `SRV-DC01`
+## Lab Values
 
-## Step-by-step Guide
+| Item | Value |
+|---|---|
+| Server name | `SRV-DC01` |
+| Server OS | Windows Server 2019 or Windows Server 2022 |
+| Initial role | Member server before domain services are configured |
+| Screenshot folder | `assets/images/lab-02-windows-server-initial-configuration/` |
 
-1. Open Server Manager and confirm the server starts normally.
-2. Open Local Server and review computer name, workgroup/domain, Remote Desktop, Ethernet and Windows Firewall status.
-3. Rename the server to `SRV-DC01`.
-4. Restart the server after the rename.
-5. After restart, open Command Prompt and run `hostname` to confirm the new name.
-6. Run `ipconfig /all` and record the current IPv4 address, DNS server and adapter name.
-7. Open Settings or Control Panel and adjust sleep settings so the server does not sleep during lab work.
-8. Review Remote Desktop settings and enable Remote Desktop if required for later support labs.
+---
 
-## Verification Commands
+## Before You Start
 
-- `hostname`
-- `ipconfig /all`
-- `winver`
+- Complete the previous lab unless this is Lab 01.
+- Use a lab environment only.
+- Do not publish real passwords or private business information.
+- Replace placeholder screenshots with your own screenshots after completing each step.
+
+---
 
 ## Screenshot Files
 
-- `01-server-manager-local-server.png`
-- `02-rename-server-srv-dc01.png`
-- `03-confirm-server-hostname.png`
-- `04-server-ipconfig-before-static-ip.png`
-- `05-remote-desktop-server-settings.png`
+| File name | Step |
+|---|---|
+| 01-server-manager-local-server.png | Open Server Manager |
+| 02-rename-server-srv-dc01.png | Rename the server |
+| 03-confirm-server-hostname.png | Confirm server hostname |
+| 04-server-ipconfig-before-static-ip.png | Review server IP configuration |
+| 05-remote-desktop-server-settings.png | Review Remote Desktop |
+| 06-server-final-verification.png | Run final verification |
+
+---
+
+## Step 1 — Open Server Manager
+
+Sign in to the Windows Server and open **Server Manager**.
+
+Select **Local Server** and review the current configuration.
+
+Screenshot file:
+
+```text
+assets/images/lab-02-windows-server-initial-configuration/01-server-manager-local-server.png
+```
+
+![Open Server Manager](../../assets/images/lab-02-windows-server-initial-configuration/01-server-manager-local-server.png)
+
+[⬆ Back to top](#top)
+
+## Step 2 — Rename the server
+
+In **Local Server**, click the current computer name.
+
+Rename the server to `SRV-DC01`.
+
+Restart when prompted.
+
+Screenshot file:
+
+```text
+assets/images/lab-02-windows-server-initial-configuration/02-rename-server-srv-dc01.png
+```
+
+![Rename the server](../../assets/images/lab-02-windows-server-initial-configuration/02-rename-server-srv-dc01.png)
+
+[⬆ Back to top](#top)
+
+## Step 3 — Confirm server hostname
+
+After restart, open Command Prompt and verify the new name.
+
+Run:
+
+```cmd
+hostname
+```
+
+Expected result:
+
+```text
+SRV-DC01
+```
+
+Screenshot file:
+
+```text
+assets/images/lab-02-windows-server-initial-configuration/03-confirm-server-hostname.png
+```
+
+![Confirm server hostname](../../assets/images/lab-02-windows-server-initial-configuration/03-confirm-server-hostname.png)
+
+[⬆ Back to top](#top)
+
+## Step 4 — Review server IP configuration
+
+Check the current IP address, adapter name, DNS server and DHCP status.
+
+This is only a review step; static IP is configured in the next lab.
+
+Run:
+
+```cmd
+ipconfig /all
+```
+
+Screenshot file:
+
+```text
+assets/images/lab-02-windows-server-initial-configuration/04-server-ipconfig-before-static-ip.png
+```
+
+![Review server IP configuration](../../assets/images/lab-02-windows-server-initial-configuration/04-server-ipconfig-before-static-ip.png)
+
+[⬆ Back to top](#top)
+
+## Step 5 — Review Remote Desktop
+
+In **Server Manager > Local Server**, review the Remote Desktop setting.
+
+Enable it for lab administration if needed.
+
+Screenshot file:
+
+```text
+assets/images/lab-02-windows-server-initial-configuration/05-remote-desktop-server-settings.png
+```
+
+![Review Remote Desktop](../../assets/images/lab-02-windows-server-initial-configuration/05-remote-desktop-server-settings.png)
+
+[⬆ Back to top](#top)
+
+## Step 6 — Run final verification
+
+Confirm the server baseline information.
+
+Run:
+
+```cmd
+hostname
+ipconfig /all
+winver
+```
+
+Screenshot file:
+
+```text
+assets/images/lab-02-windows-server-initial-configuration/06-server-final-verification.png
+```
+
+![Run final verification](../../assets/images/lab-02-windows-server-initial-configuration/06-server-final-verification.png)
+
+[⬆ Back to top](#top)
+
+
+---
 
 ## Completion Checklist
 
-- [ ] Server Manager opened
-- [ ] Server renamed to `SRV-DC01`
-- [ ] Server restarted successfully
-- [ ] Hostname confirmed
-- [ ] Network configuration reviewed
-- [ ] Remote Desktop reviewed
+- [ ] Server Manager opened.
+- [ ] Server renamed to `SRV-DC01`.
+- [ ] Server restarted successfully.
+- [ ] Hostname verified.
+- [ ] Network adapter details reviewed.
+- [ ] Remote Desktop setting reviewed.
+- [ ] Final verification completed.
 
-[Previous Lab](../01-windows-11-client-initial-configuration/README.md) | [Main README](../../README.md) | [Next Lab](../03-network-and-dns-configuration/README.md)
+---
+
+## Key Takeaways
+
+- Servers should use predictable names that identify their role.
+- A domain controller must use a stable IP configuration.
+- Remote administration settings should be reviewed before continuing.
+
+---
+
+## Author
+
+**Xuan Toan Nguyen**  
+IT Support | Service Desk | Desktop Support | System Administration  
+Adelaide, South Australia
+
+- LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
+- GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+
+---
+
+<p align="center">
+  <a href="../01-windows-11-client-initial-configuration/README.md">⬅ Previous Lab</a> | <a href="../../README.md">🏠 Main README</a> | <a href="../03-network-and-dns-configuration/README.md">Next Lab ➡</a> |
+  <a href="#top">⬆ Back to Top</a>
+</p>

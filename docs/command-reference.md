@@ -1,7 +1,5 @@
 # Command Reference
 
-Useful commands used across the Windows and Active Directory labs.
-
 ## Windows Client Commands
 
 ```cmd
@@ -51,7 +49,3 @@ gpresult /r
 ```cmd
 mstsc
 ```
-
-## File Share Checks
-
-Use File Explorer to open the server share path and confirm the expected folders are visible.

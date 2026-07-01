@@ -1,3 +1,5 @@
 # Repository Status
 
-Initial repository structure has been created. Screenshots will be added later.
+Initial complete user guide is ready.
+
+Screenshots are placeholders and should be replaced after each lab is completed.
