@@ -5,52 +5,68 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Windows%2011-Client-0078D4?logo=windows&logoColor=white" alt="Windows 11">
   <img src="https://img.shields.io/badge/Windows%20Server-Admin-5E5E5E?logo=windows&logoColor=white" alt="Windows Server">
-  <img src="https://img.shields.io/badge/Active%20Directory-Guide-6A1B9A" alt="Active Directory">
-  <img src="https://img.shields.io/badge/IT%20Support-Step--by--Step-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Status-Ready-yellow" alt="Ready">
+  <img src="https://img.shields.io/badge/Active%20Directory-User%20Guide-6A1B9A" alt="Active Directory">
+  <img src="https://img.shields.io/badge/IT%20Support-Step--by--Step-2E7D32" alt="IT Support">
+  <img src="https://img.shields.io/badge/Level-Beginner%20to%20Intermediate-F9A825" alt="Level">
+  <img src="https://img.shields.io/badge/Status-Ready-1565C0" alt="Ready">
 </p>
 
 <p align="center">
-  <strong>Step-by-step Windows 11 and Active Directory support guide for IT Support, Service Desk, Desktop Support and junior System Administration practice.</strong>
+  <strong>📘 A practical Windows 11, Windows Server and Active Directory user guide for IT Support, Service Desk, Desktop Support and junior System Administration practice.</strong>
 </p>
 
 <p align="center">
-  <a href="https://www.linkedin.com/in/toan-nguyen-it-oz">LinkedIn</a> ·
-  <a href="https://github.com/toannguyenitoz">GitHub</a>
+  <a href="https://www.linkedin.com/in/toan-nguyen-it-oz">🔗 LinkedIn</a> ·
+  <a href="https://github.com/toannguyenitoz">💻 GitHub</a> ·
+  <a href="#learning-roadmap">🧭 Learning Roadmap</a> ·
+  <a href="#skills-covered">🧰 Skills Covered</a>
 </p>
 
 ---
 
-## 📌 Repository Purpose
+## 🎯 Repository Purpose
 
-This repository is a practical user guide for building and supporting a small workplace-style Windows environment.
+This repository is a **step-by-step user guide** for building and supporting a small workplace-style Windows environment.
 
-It is designed so IT Support learners and junior administrators can follow clear instructions, complete each configuration task, run the required commands, and understand how Windows clients work with Windows Server, DNS, Active Directory, file sharing, printer support, Remote Desktop and troubleshooting workflows.
+It is written for readers who want to follow the labs and practise real IT Support tasks, including Windows client preparation, Windows Server setup, DNS, Active Directory, domain join, user and group management, file sharing, printer support, Remote Desktop and troubleshooting.
 
-Screenshots in this guide are used as visual examples to show what each step should look like. They help readers understand the expected result while following the lab in their own environment.
+> **Screenshot note:** Screenshots are visual examples for learning and reference. Readers follow the guide and perform the steps in their own environment. New screenshots may be added by the repository author as the labs are completed.
 
 ---
 
-## 🧭 Learning Path
+## 🧭 Learning Roadmap
+
+| Phase | Focus Area | Labs |
+|---|---|---|
+| 🟦 Phase 1 | Windows client and server baseline | Lab 01 - Lab 02 |
+| 🟨 Phase 2 | Network and DNS foundation | Lab 03 |
+| 🟪 Phase 3 | Active Directory setup and domain join | Lab 04 - Lab 05 |
+| 🟩 Phase 4 | Users, groups and account support | Lab 06 - Lab 09 |
+| 🟧 Phase 5 | File, print and remote administration | Lab 10 - Lab 14 |
+| 🟥 Phase 6 | Troubleshooting and documentation | Lab 15 - Lab 16 |
+
+---
+
+## 📚 Lab Index
 
 | Lab | Topic | Level | Status |
 |---|---|---|---|
-| 01 | [Windows 11 Client Initial Configuration](labs/01-windows-11-client-initial-configuration/README.md) | Beginner | Ready |
-| 02 | [Windows Server Initial Configuration](labs/02-windows-server-initial-configuration/README.md) | Beginner | Ready |
-| 03 | [Network and DNS Configuration](labs/03-network-and-dns-configuration/README.md) | Beginner | Ready |
-| 04 | [Active Directory Domain Services Setup](labs/04-active-directory-domain-services-setup/README.md) | Intermediate | Ready |
-| 05 | [Join Windows 11 Client to Domain](labs/05-join-windows-11-client-to-domain/README.md) | Intermediate | Ready |
-| 06 | [Active Directory OU Structure](labs/06-active-directory-ou-structure/README.md) | Intermediate | Ready |
-| 07 | [Active Directory User Management](labs/07-active-directory-user-management/README.md) | Intermediate | Ready |
-| 08 | [Active Directory Group Management](labs/08-active-directory-group-management/README.md) | Intermediate | Ready |
-| 09 | [Password, Lockout and Logon Controls](labs/09-password-lockout-logon-controls/README.md) | Intermediate | Ready |
-| 10 | [Home Folder and File Share](labs/10-home-folder-and-file-share/README.md) | Intermediate | Ready |
-| 11 | [RSAT Remote Administration](labs/11-rsat-remote-administration/README.md) | Intermediate | Ready |
-| 12 | [Second Client and Computer Management](labs/12-second-client-computer-management/README.md) | Intermediate | Ready |
-| 13 | [Print Server and Network Printer](labs/13-print-server-and-network-printer/README.md) | Intermediate | Ready |
-| 14 | [Remote Desktop Support](labs/14-remote-desktop-support/README.md) | Intermediate | Ready |
-| 15 | [Network Troubleshooting: Wi-Fi and IP](labs/15-network-troubleshooting-wifi-ip/README.md) | Beginner | Ready |
-| 16 | [Service Desk Documentation and Case Notes](labs/16-service-desk-documentation/README.md) | Beginner | Ready |
+| 01 | 🪟 [Windows 11 Client Initial Configuration](labs/01-windows-11-client-initial-configuration/README.md) | Beginner | ✅ Ready |
+| 02 | 🖥️ [Windows Server Initial Configuration](labs/02-windows-server-initial-configuration/README.md) | Beginner | ✅ Ready |
+| 03 | 🌐 [Network and DNS Configuration](labs/03-network-and-dns-configuration/README.md) | Beginner | ✅ Ready |
+| 04 | 🏢 [Active Directory Domain Services Setup](labs/04-active-directory-domain-services-setup/README.md) | Intermediate | ✅ Ready |
+| 05 | 🔗 [Join Windows 11 Client to Domain](labs/05-join-windows-11-client-to-domain/README.md) | Intermediate | ✅ Ready |
+| 06 | 🗂️ [Active Directory OU Structure](labs/06-active-directory-ou-structure/README.md) | Intermediate | ✅ Ready |
+| 07 | 👤 [Active Directory User Management](labs/07-active-directory-user-management/README.md) | Intermediate | ✅ Ready |
+| 08 | 👥 [Active Directory Group Management](labs/08-active-directory-group-management/README.md) | Intermediate | ✅ Ready |
+| 09 | 🔐 [Password, Lockout and Logon Controls](labs/09-password-lockout-logon-controls/README.md) | Intermediate | ✅ Ready |
+| 10 | 📁 [Home Folder and File Share](labs/10-home-folder-and-file-share/README.md) | Intermediate | ✅ Ready |
+| 11 | 🛠️ [RSAT Remote Administration](labs/11-rsat-remote-administration/README.md) | Intermediate | ✅ Ready |
+| 12 | 💻 [Second Client and Computer Management](labs/12-second-client-computer-management/README.md) | Intermediate | ✅ Ready |
+| 13 | 🖨️ [Print Server and Network Printer](labs/13-print-server-and-network-printer/README.md) | Intermediate | ✅ Ready |
+| 14 | 🛰️ [Remote Desktop Support](labs/14-remote-desktop-support/README.md) | Intermediate | ✅ Ready |
+| 15 | 🧪 [Network Troubleshooting: Wi-Fi and IP](labs/15-network-troubleshooting-wifi-ip/README.md) | Beginner | ✅ Ready |
+| 16 | 📝 [Service Desk Documentation and Case Notes](labs/16-service-desk-documentation/README.md) | Beginner | ✅ Ready |
 
 ---
 
@@ -58,35 +74,49 @@ Screenshots in this guide are used as visual examples to show what each step sho
 
 | Component | Example Value |
 |---|---|
-| Client OS | Windows 11 Pro / Enterprise / Education |
-| Server OS | Windows Server 2019 / 2022 |
-| Domain Name | `corp.local` |
-| Domain Controller | `SRV-DC01` |
-| Client Computer | `W11-CLIENT01` |
-| Second Client | `W11-CLIENT02` |
-| Server IP | `192.168.20.10` |
-| Client IP | `192.168.20.101` |
-| DNS Server | Domain Controller IP |
+| 🪟 Client OS | Windows 11 Pro / Enterprise / Education |
+| 🖥️ Server OS | Windows Server 2019 / 2022 |
+| 🏢 Domain Name | `corp.local` |
+| 🧭 Domain Controller | `SRV-DC01` |
+| 💻 Client Computer | `W11-CLIENT01` |
+| 💻 Second Client | `W11-CLIENT02` |
+| 🌐 Server IP | `192.168.20.10` |
+| 🌐 Client IP | `192.168.20.101` |
+| 🔎 DNS Server | Domain Controller IP |
 
-> You can change names and IP addresses to match your own lab, but keep a consistent naming standard.
+> Use values that match your own lab, but keep naming and IP addressing consistent across all labs.
 
 ---
 
+<a id="skills-covered"></a>
+
 ## 🧰 Skills Covered
 
-- Windows 11 workstation baseline configuration
-- Windows Server baseline configuration
-- Static IP and DNS configuration
-- Active Directory Domain Services setup
-- Domain join process
-- Organizational Units, users and groups
-- Password reset and account unlock workflow
-- File sharing and home folders
-- RSAT remote administration
-- Printer support and print queue management
-- Remote Desktop support workflow
-- Network troubleshooting with `ipconfig`, `ping`, `nslookup` and related tools
-- Service desk case notes and support documentation
+| Area | Practical Skills |
+|---|---|
+| 🪟 Windows Client | Device naming, system checks, network checks, Remote Desktop review |
+| 🖥️ Windows Server | Server Manager, hostname, IP review, role preparation |
+| 🌐 Networking | Static IP, DNS, connectivity testing, name resolution |
+| 🏢 Active Directory | Domain Services, domain join, OUs, users, groups, computer objects |
+| 🔐 Account Support | Password reset workflow, account status, lockout review, logon controls |
+| 📁 File Services | Shared folders, access testing, share and NTFS permission concepts |
+| 🖨️ Print Support | Print Management, shared printer workflow, queue checks |
+| 🛰️ Remote Support | Remote Desktop connection workflow and safe support behaviour |
+| 📝 Documentation | Troubleshooting notes, case summaries and final resolution notes |
+
+---
+
+## 🚀 How to Follow This User Guide
+
+This guide is designed for readers to **follow and perform** the labs in order.
+
+1. Start from **Lab 01**.
+2. Read the objective and lab values.
+3. Follow each configuration step in order.
+4. Run the verification commands.
+5. Compare the result with the expected outcome.
+6. Review the completion checklist.
+7. Continue to the next lab.
 
 ---
 
@@ -108,30 +138,14 @@ windows-active-directory-support-labs/
 
 ---
 
-## 🚀 How to Follow This User Guide
-
-This repository is written for readers who want to follow the labs and build the environment themselves. Each lab explains what to configure, which commands to run, and how to verify the result.
-
-1. Start from Lab 01.
-2. Read the lab objective and environment values.
-3. Follow each configuration step in order.
-4. Run the verification commands to confirm the result.
-5. Use the screenshots as visual examples of the expected screens or outputs.
-6. Review the completion checklist to confirm the lab is finished.
-7. Continue to the next lab.
-
-> Note: The screenshots are examples for learning and reference. Readers do not need to replace them. New screenshots may be added by the repository author as the labs are completed.
-
----
-
 ## 👤 Author
 
 **Xuan Toan Nguyen**  
 IT Support | Service Desk | Desktop Support | System Administration  
 Adelaide, South Australia
 
-- LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
-- GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+- 🔗 LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
+- 💻 GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
 
 ---
 
