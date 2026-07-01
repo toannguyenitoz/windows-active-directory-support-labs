@@ -3,222 +3,202 @@
 # Lab 14 — Remote Desktop Support
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Windows%2011-Client-0078D4?logo=windows&logoColor=white" alt="Windows 11">
-  <img src="https://img.shields.io/badge/Windows%20Server-Admin-5E5E5E?logo=windows&logoColor=white" alt="Windows Server">
-  <img src="https://img.shields.io/badge/Active%20Directory-Guide-6A1B9A" alt="Active Directory">
-  <img src="https://img.shields.io/badge/IT%20Support-Step--by--Step-green" alt="IT Support">
-  <img src="https://img.shields.io/badge/Level-Intermediate-blue" alt="Intermediate">
-  <img src="https://img.shields.io/badge/Status-Ready-yellow" alt="Ready">
+  <img src="https://img.shields.io/badge/Windows-Remote%20Support-0078D4?logo=windows&logoColor=white" alt="Remote Support">
+  <img src="https://img.shields.io/badge/IT%20Support-User%20Guide-green" alt="IT Support">
+  <img src="https://img.shields.io/badge/Level-Intermediate-orange" alt="Intermediate">
 </p>
 
 <p align="center">
-  <a href="../13-print-server-and-network-printer/README.md">⬅ Previous Lab</a> | <a href="../../README.md">🏠 Main README</a> | <a href="../15-network-troubleshooting-wifi-ip/README.md">Next Lab ➡</a>
+  <a href="../13-print-server-and-network-printer/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../15-network-troubleshooting-wifi-ip/README.md">Next Lab</a>
 </p>
 
 ---
 
 ## Overview
 
-Practice a professional remote support workflow using Remote Desktop in a controlled lab environment.
+This lab explains a basic Remote Desktop support workflow.
+
+Remote support allows an approved support person to connect to another computer for troubleshooting or administration. This lab focuses on safe lab practice, connection checks and professional support behaviour.
 
 ---
 
 ## Objectives
 
-- Enable or review Remote Desktop on a target computer.
-- Confirm target hostname and IP address.
-- Connect from a support computer.
-- Perform a simple support check.
-- Disconnect safely and document the session.
+- Review Remote Desktop availability.
+- Confirm the target computer name and IP address.
+- Test network connectivity to the target computer.
+- Open the Remote Desktop client.
+- Connect to the target computer.
+- Close the session safely after support testing.
 
 ---
 
-## Lab Values
+## Lab Values Used in This Guide
 
 | Item | Value |
 |---|---|
-| Target | `W11-CLIENT01` or `W11-CLIENT02` |
-| Support tool | Remote Desktop Connection |
-| Screenshot folder | `assets/images/lab-14-remote-desktop-support/` |
+| Support computer | `W11-CLIENT01` |
+| Target computer | `W11-CLIENT02` or `SRV-DC01` |
+| Domain | `corp.local` |
+| Tool | Remote Desktop Connection |
 
 ---
 
 ## Before You Start
 
-- Complete the previous lab unless this is Lab 01.
-- Use a lab environment only.
-- Do not publish real passwords or private business information.
-- Replace placeholder screenshots with your own screenshots after completing each step.
+Use Remote Desktop only in a safe lab environment or where you have permission.
+
+Confirm that the target computer supports Remote Desktop and is powered on.
 
 ---
 
-## Screenshot Files
+## Step 1 — Review Remote Desktop Settings on the Target
 
-| File name | Step |
-|---|---|
-| 01-review-remote-desktop-settings.png | Review target settings |
-| 02-enable-remote-desktop.png | Enable Remote Desktop if supported |
-| 03-confirm-target-hostname-and-ip.png | Confirm target name and IP |
-| 04-open-remote-desktop-connection.png | Open Remote Desktop Connection |
-| 05-remote-session-connected.png | Connect to target |
-| 06-remote-support-check.png | Perform support check |
-| 07-remote-session-disconnected.png | Disconnect safely |
+On the target computer, open:
+
+```text
+Settings > System > Remote Desktop
+```
+
+Review whether Remote Desktop is enabled.
+
+Windows 11 Pro, Enterprise and Education editions usually support Remote Desktop host functionality. Windows Home editions may not.
 
 ---
 
-## Step 1 — Review target settings
+## Step 2 — Confirm the Target Computer Name
 
-On the target Windows 11 computer, open Remote Desktop settings.
-
-Screenshot file:
-
-```text
-assets/images/lab-14-remote-desktop-support/01-review-remote-desktop-settings.png
-```
-
-![Review target settings](../../assets/images/lab-14-remote-desktop-support/01-review-remote-desktop-settings.png)
-
-[⬆ Back to top](#top)
-
-## Step 2 — Enable Remote Desktop if supported
-
-Enable Remote Desktop on supported Windows editions.
-
-Confirm firewall prompts if shown.
-
-Screenshot file:
-
-```text
-assets/images/lab-14-remote-desktop-support/02-enable-remote-desktop.png
-```
-
-![Enable Remote Desktop if supported](../../assets/images/lab-14-remote-desktop-support/02-enable-remote-desktop.png)
-
-[⬆ Back to top](#top)
-
-## Step 3 — Confirm target name and IP
-
-Record the hostname and IP address of the target device.
-
-Run:
+On the target computer, open Command Prompt and run:
 
 ```cmd
 hostname
+```
+
+Record the result.
+
+Example:
+
+```text
+W11-CLIENT02
+```
+
+---
+
+## Step 3 — Confirm the Target IP Address
+
+On the target computer, run:
+
+```cmd
 ipconfig
 ```
 
-Screenshot file:
+Record the IPv4 address.
 
-```text
-assets/images/lab-14-remote-desktop-support/03-confirm-target-hostname-and-ip.png
+This gives an alternative connection method if name resolution is not working.
+
+---
+
+## Step 4 — Test Connectivity from the Support Computer
+
+From the support computer, run:
+
+```cmd
+ping W11-CLIENT02
 ```
 
-![Confirm target name and IP](../../assets/images/lab-14-remote-desktop-support/03-confirm-target-hostname-and-ip.png)
+If name ping fails, test the IP address:
 
-[⬆ Back to top](#top)
+```cmd
+ping 192.168.20.102
+```
 
-## Step 4 — Open Remote Desktop Connection
+Successful connectivity confirms that the support computer can reach the target.
 
-On the support computer, open Remote Desktop Connection.
+---
 
-Run:
+## Step 5 — Open Remote Desktop Connection
+
+On the support computer, open:
+
+```text
+Start > Remote Desktop Connection
+```
+
+Or run:
 
 ```cmd
 mstsc
 ```
 
-Screenshot file:
+---
+
+## Step 6 — Connect to the Target Computer
+
+Enter the target computer name or IP address.
+
+Example:
 
 ```text
-assets/images/lab-14-remote-desktop-support/04-open-remote-desktop-connection.png
+W11-CLIENT02
 ```
 
-![Open Remote Desktop Connection](../../assets/images/lab-14-remote-desktop-support/04-open-remote-desktop-connection.png)
+Sign in using an approved domain account.
 
-[⬆ Back to top](#top)
+Confirm that the remote session opens successfully.
 
-## Step 5 — Connect to target
+---
 
-Enter the target hostname or IP address and sign in with an approved lab account.
+## Step 7 — Complete a Simple Support Check
 
-Screenshot file:
+Inside the remote session, complete a safe check such as:
 
 ```text
-assets/images/lab-14-remote-desktop-support/05-remote-session-connected.png
+Open Settings
+Check device name
+Open Command Prompt
+Run hostname
 ```
 
-![Connect to target](../../assets/images/lab-14-remote-desktop-support/05-remote-session-connected.png)
+This confirms that the remote session is usable.
 
-[⬆ Back to top](#top)
+---
 
-## Step 6 — Perform support check
+## Step 8 — Close the Remote Session Safely
 
-Open Settings or Command Prompt in the remote session and confirm the target device.
+When testing is complete, close the session properly.
 
-Run:
-
-```cmd
-hostname
-```
-
-Screenshot file:
+Use one of these methods:
 
 ```text
-assets/images/lab-14-remote-desktop-support/06-remote-support-check.png
+Sign out from the remote computer
+Disconnect the Remote Desktop session
 ```
 
-![Perform support check](../../assets/images/lab-14-remote-desktop-support/06-remote-support-check.png)
-
-[⬆ Back to top](#top)
-
-## Step 7 — Disconnect safely
-
-Close or disconnect the remote session after testing.
-
-Screenshot file:
-
-```text
-assets/images/lab-14-remote-desktop-support/07-remote-session-disconnected.png
-```
-
-![Disconnect safely](../../assets/images/lab-14-remote-desktop-support/07-remote-session-disconnected.png)
-
-[⬆ Back to top](#top)
-
+For real support work, always communicate with the user before connecting, making changes or ending the session.
 
 ---
 
 ## Completion Checklist
 
-- [ ] Remote Desktop setting reviewed.
-- [ ] Target hostname confirmed.
-- [ ] Target IP confirmed.
-- [ ] Remote connection tested.
-- [ ] Support check completed.
-- [ ] Session disconnected safely.
+- [ ] Remote Desktop availability reviewed on the target.
+- [ ] Target computer name confirmed.
+- [ ] Target IP address confirmed.
+- [ ] Connectivity tested from support computer.
+- [ ] Remote Desktop Connection opened.
+- [ ] Remote session established.
+- [ ] Basic support check completed.
+- [ ] Session closed safely.
 
 ---
 
 ## Key Takeaways
 
-- Remote access should be approved and professional.
-- Always be aware of the user experience during a remote session.
-- Document what was checked and changed.
-
----
-
-## Author
-
-**Xuan Toan Nguyen**  
-IT Support | Service Desk | Desktop Support | System Administration  
-Adelaide, South Australia
-
-- LinkedIn: [www.linkedin.com/in/toan-nguyen-it-oz](https://www.linkedin.com/in/toan-nguyen-it-oz)
-- GitHub: [github.com/toannguyenitoz](https://github.com/toannguyenitoz)
+- Remote Desktop requires the target computer to allow remote connections.
+- Computer name and IP address are both useful for connection testing.
+- Remote support should always be performed with permission and clear communication.
 
 ---
 
 <p align="center">
-  <a href="../13-print-server-and-network-printer/README.md">⬅ Previous Lab</a> | <a href="../../README.md">🏠 Main README</a> | <a href="../15-network-troubleshooting-wifi-ip/README.md">Next Lab ➡</a> |
-  <a href="#top">⬆ Back to Top</a>
+  <a href="../13-print-server-and-network-printer/README.md">Previous Lab</a> | <a href="../../README.md">Main README</a> | <a href="../15-network-troubleshooting-wifi-ip/README.md">Next Lab</a> | <a href="#top">Back to Top</a>
 </p>
