@@ -35,7 +35,7 @@ Join the Windows 11 client to the Active Directory domain.
 | Domain | `W2K16AD.local` |
 | Domain controller | `SRV-DC01` |
 | DNS server | `192.168.20.10` |
-| Domain account example | `W2K16AD\\Administrator` |
+| Domain account example | `W2K16AD\Administrator` |
 
 ## 🧩 Before You Start
 
@@ -53,13 +53,13 @@ Join the Windows 11 client to the Active Directory domain.
 > Correct example:
 >
 > ```text
-> W2K16AD\\Administrator
+> W2K16AD\Administrator
 > ```
 >
 > Incorrect example:
 >
 > ```text
-> W11-CLIENT01\\Administrator
+> W11-CLIENT01\Administrator
 > ```
 >
 > The account is checked by Active Directory on `SRV-DC01`. A local client account cannot approve the domain join.
@@ -112,7 +112,7 @@ When Windows asks for an account, enter a domain account that has permission to 
 Example:
 
 ```text
-W2K16AD\\Administrator
+W2K16AD\Administrator
 ```
 
 > [!IMPORTANT]
@@ -130,7 +130,7 @@ Restart when prompted.
 Use one of the following formats:
 
 ```text
-W2K16AD\\username
+W2K16AD\username
 ```
 
 or
@@ -179,13 +179,13 @@ Open ADUC and find `W11-CLIENT01`.
 Incorrect:
 
 ```text
-W11-CLIENT01\\Administrator
+W11-CLIENT01\Administrator
 ```
 
 Correct:
 
 ```text
-W2K16AD\\Administrator
+W2K16AD\Administrator
 ```
 
 ### DNS not pointing to the Domain Controller
