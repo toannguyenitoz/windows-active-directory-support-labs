@@ -22,7 +22,8 @@ Join the Windows 11 client to the Active Directory domain.
 ## ✅ What You Will Learn
 
 - Confirm client DNS points to the domain controller.
-- Join the client to `corp.local`.
+- Join the client to `W2K16AD.local`.
+- Understand which account is required during domain join.
 - Restart and test domain sign-in.
 - Confirm the computer object appears in Active Directory.
 
@@ -31,17 +32,37 @@ Join the Windows 11 client to the Active Directory domain.
 | Item | Value |
 |---|---|
 | Client name | `W11-CLIENT01` |
-| Domain | `corp.local` |
+| Domain | `W2K16AD.local` |
+| Domain controller | `SRV-DC01` |
 | DNS server | `192.168.20.10` |
+| Domain account example | `W2K16AD\\Administrator` |
 
 ## 🧩 Before You Start
 
 - Complete Lab 04 first.
 - Confirm the client can reach the server.
 - Confirm DNS points to the domain controller.
+- Confirm you have a domain account with permission to join computers to the domain.
 
 > [!WARNING]
 > Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
+
+> [!IMPORTANT]
+> When joining a Windows client to a domain, use a **domain account from the Domain Controller**, not a local account from the Windows 11 client.
+>
+> Correct example:
+>
+> ```text
+> W2K16AD\\Administrator
+> ```
+>
+> Incorrect example:
+>
+> ```text
+> W11-CLIENT01\\Administrator
+> ```
+>
+> The account is checked by Active Directory on `SRV-DC01`. A local client account cannot approve the domain join.
 
 ## 🚀 Step-by-Step Guide
 
@@ -65,11 +86,11 @@ Check whether the client can resolve the domain name.
 Run:
 
 ```cmd
-nslookup corp.local
+nslookup W2K16AD.local
 ```
 
 > [!TIP]
-> If this fails, review client DNS.
+> If this fails, review client DNS. The client DNS server should point to the Domain Controller IP address.
 
 ### ⚙️ Step 3 — Open domain join settings
 
@@ -80,10 +101,22 @@ Open **Settings > System > About > Advanced system settings > Computer Name > Ch
 
 ### 🏢 Step 4 — Join the domain
 
-Select Domain and enter `corp.local`.
+Select **Domain** and enter:
 
-> [!TIP]
-> Use an account with permission to join computers.
+```text
+W2K16AD.local
+```
+
+When Windows asks for an account, enter a domain account that has permission to join computers to Active Directory.
+
+Example:
+
+```text
+W2K16AD\\Administrator
+```
+
+> [!IMPORTANT]
+> This account comes from the server/domain environment. Do not use the local account from `W11-CLIENT01`.
 
 ### 🔁 Step 5 — Restart the client
 
@@ -94,7 +127,17 @@ Restart when prompted.
 
 ### 👤 Step 6 — Sign in with a domain account
 
-Use `CORP\username` or `username@corp.local`.
+Use one of the following formats:
+
+```text
+W2K16AD\\username
+```
+
+or
+
+```text
+username@W2K16AD.local
+```
 
 > [!TIP]
 > Domain sign-in confirms the join is usable.
@@ -129,12 +172,53 @@ Open ADUC and find `W11-CLIENT01`.
 
 ---
 
+## 🧯 Common Mistakes
+
+### Using a local client account for domain join
+
+Incorrect:
+
+```text
+W11-CLIENT01\\Administrator
+```
+
+Correct:
+
+```text
+W2K16AD\\Administrator
+```
+
+### DNS not pointing to the Domain Controller
+
+Incorrect:
+
+```text
+DNS Server: 8.8.8.8
+```
+
+Correct:
+
+```text
+DNS Server: 192.168.20.10
+```
+
+### Client cannot resolve the domain
+
+Verify:
+
+```cmd
+nslookup W2K16AD.local
+ping SRV-DC01
+```
+
+---
+
 ## 🧾 Command Reference
 
 | Command | Run on | Purpose | Expected result |
 |---|---|---|---|
 | `ping 192.168.20.10` | Client | Tests server connectivity | Successful replies |
-| `nslookup corp.local` | Client | Tests DNS/domain lookup | Response from domain DNS |
+| `nslookup W2K16AD.local` | Client | Tests DNS/domain lookup | Response from domain DNS |
 | `echo %USERDOMAIN%` | Client | Shows sign-in domain | Shows domain value |
 
 ---
@@ -144,7 +228,8 @@ Open ADUC and find `W11-CLIENT01`.
 - [ ] Client DNS checked.
 - [ ] Server connectivity tested.
 - [ ] Domain lookup tested.
-- [ ] Client joined to `corp.local`.
+- [ ] Correct domain account used for domain join.
+- [ ] Client joined to `W2K16AD.local`.
 - [ ] Client restarted.
 - [ ] Domain sign-in tested.
 - [ ] Computer object found in AD.
@@ -156,8 +241,9 @@ Open ADUC and find `W11-CLIENT01`.
 | Key point | Why it matters |
 |---|---|
 | 1 | Domain join depends on correct DNS. |
-| 2 | After joining the domain, the client becomes a managed computer. |
-| 3 | Domain users can sign in after restart. |
+| 2 | Domain join account must come from Active Directory, not the local client computer. |
+| 3 | After joining the domain, the client becomes a managed computer. |
+| 4 | Domain users can sign in after restart. |
 
 ---
 
