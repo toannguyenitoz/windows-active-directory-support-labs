@@ -75,6 +75,7 @@ AdelaideTechSolutions > Users > DisabledUsers
 
 - Sign in to `SRV-DC01` using a domain administrator account.
 - Open PowerShell as Administrator.
+- Open PowerShell from the repository root folder, or change directory to the repository root before running scripts.
 
 > [!WARNING]
 > Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
@@ -89,6 +90,9 @@ AdelaideTechSolutions > Users > DisabledUsers
 | [`verify-lab07-ad-users.ps1`](../../scripts/verify-lab07-ad-users.ps1) | Verifies the expected users, OU location and enabled/disabled state. |
 | [`manage-lab07-user-lifecycle.ps1`](../../scripts/manage-lab07-user-lifecycle.ps1) | Demonstrates disable, enable, reset password and force password change actions. |
 
+> [!TIP]
+> The examples below avoid fixed local paths such as `D:\...`. They assume you are already in the repository root folder. This makes the guide portable on any drive or computer.
+
 ---
 
 # Method 1 — Recommended Script Workflow
@@ -97,11 +101,11 @@ This is the preferred workflow for the portfolio version of this lab.
 
 ## ⚙️ Step 1 — Run the user creation script
 
-Run on `SRV-DC01`:
+Run on `SRV-DC01` from the repository root folder:
 
 ```powershell
 Set-ExecutionPolicy RemoteSigned -Scope Process
-cd D:\Toannx\Github\windows-active-directory-support-labs\scripts
+Set-Location .\scripts
 .\create-lab07-ad-users.ps1
 ```
 
@@ -118,7 +122,7 @@ Created or updated users:
 
 ## 🔍 Step 2 — Verify the users
 
-Run:
+Run from the `scripts` folder:
 
 ```powershell
 .\verify-lab07-ad-users.ps1
@@ -167,7 +171,7 @@ Force password change at next logon:
 ```
 
 > [!TIP]
-> These commands demonstrate real Service Desk account support tasks without hard-coding passwords into the repository.
+> These commands demonstrate real Service Desk account support tasks without hard-coding passwords or local drive paths into the repository.
 
 ---
 
@@ -270,10 +274,10 @@ Department: IT
 
 ## 🧪 Step 6 — Verify users with PowerShell
 
-Run:
+From the repository root folder, run:
 
 ```powershell
-cd D:\Toannx\Github\windows-active-directory-support-labs\scripts
+Set-Location .\scripts
 .\verify-lab07-ad-users.ps1
 ```
 
@@ -318,7 +322,7 @@ Get-Module -ListAvailable ActiveDirectory
 
 ### Required OU not found
 
-Run the Lab 06 OU creation script first:
+Run the Lab 06 OU creation script first from the `scripts` folder:
 
 ```powershell
 .\create-lab06-ou-structure.ps1
