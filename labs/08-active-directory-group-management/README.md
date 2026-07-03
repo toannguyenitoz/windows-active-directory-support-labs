@@ -17,10 +17,13 @@
 
 Create and manage Active Directory groups for cleaner user access management.
 
-This lab uses **PowerShell automation as the main method** and uses **Active Directory Users and Computers (ADUC)** screenshots as visual evidence.
+This lab can be completed in two ways:
+
+1. **GUI method** — manually create groups and memberships using **Active Directory Users and Computers (ADUC)**.
+2. **PowerShell method** — create, verify and manage groups using scripts.
 
 > [!NOTE]
-> The goal is not to screenshot every group creation wizard page. The goal is to demonstrate a repeatable group management workflow using scripts, then review the result in ADUC and PowerShell.
+> Screenshots show final results and verification evidence. The GUI text explains the complete manual process for creating groups, setting group type/scope and adding members.
 
 ---
 
@@ -105,7 +108,7 @@ admin.helpdesk
 ```
 
 - Sign in to `SRV-DC01` using a domain administrator account.
-- Open PowerShell as Administrator.
+- Open PowerShell as Administrator if using scripts.
 - Open PowerShell from the repository root folder, or change directory to the repository root before running scripts.
 
 > [!WARNING]
@@ -126,33 +129,337 @@ admin.helpdesk
 
 ---
 
-# Method 1 — Recommended Script Workflow
+# Method 1 — Detailed GUI Step-by-Step Guide
 
-This is the preferred workflow for the portfolio version of this lab.
+Use this method to practise manual group creation and membership management in ADUC. Screenshots are final result evidence; the steps explain the full manual process.
 
-## ⚙️ Step 1 — Create groups and memberships
+---
 
-Run on `SRV-DC01` from the repository root folder:
+## 🖱️ Step 1 — Open the SecurityGroups OU
 
-```powershell
-Set-ExecutionPolicy RemoteSigned -Scope Process
-Set-Location .\scripts
-.\create-lab08-ad-groups.ps1
+1. Sign in to `SRV-DC01`.
+2. Open **Server Manager**.
+3. Click **Tools**.
+4. Open **Active Directory Users and Computers**.
+5. Expand:
+
+```text
+W2K16AD.local > AdelaideTechSolutions > Groups > SecurityGroups
 ```
+
+6. Confirm this is the correct OU for security groups before creating any groups.
+
+![Open SecurityGroups OU](../../assets/images/lab-08-active-directory-group-management/01-open-security-groups-ou.png)
+
+---
+
+## 🛡️ Step 2 — Create security groups manually
+
+Create the security groups inside:
+
+```text
+AdelaideTechSolutions > Groups > SecurityGroups
+```
+
+For each group:
+
+1. Right-click `SecurityGroups`.
+2. Select:
+
+```text
+New > Group
+```
+
+3. Enter the **Group name**.
+4. Confirm the **Group name (pre-Windows 2000)** is automatically populated.
+5. Select the correct **Group scope**.
+6. Select **Security** as the group type.
+7. Click **OK**.
+8. After the group is created, right-click the group and select **Properties**.
+9. On the **General** tab, enter a clear description.
+10. Click **Apply** and **OK**.
+
+Create these groups:
+
+| Group name | Group scope | Group type | Description |
+|---|---|---|---|
+| `GG_All_StandardUsers` | Global | Security | Lab 08 global security group for all standard users |
+| `GG_IT_Support` | Global | Security | Lab 08 global security group for IT support users |
+| `GG_HR_Users` | Global | Security | Lab 08 global security group for HR users |
+| `GG_Finance_Users` | Global | Security | Lab 08 global security group for Finance users |
+| `GG_Sales_Users` | Global | Security | Lab 08 global security group for Sales users |
+| `GG_Helpdesk_Admins` | Global | Security | Lab 08 global security group for Helpdesk admin users |
+| `DL_SharedData_Read` | Domain Local | Security | Lab 08 domain local group for read access to SharedData |
+| `DL_SharedData_Modify` | Domain Local | Security | Lab 08 domain local group for modify access to SharedData |
+
+Expected result in ADUC:
+
+```text
+GG_All_StandardUsers
+GG_IT_Support
+GG_HR_Users
+GG_Finance_Users
+GG_Sales_Users
+GG_Helpdesk_Admins
+DL_SharedData_Read
+DL_SharedData_Modify
+```
+
+![Security groups created](../../assets/images/lab-08-active-directory-group-management/02-security-groups-created.png)
+
+> [!TIP]
+> Use Global groups to collect users by role or department. Use Domain Local groups for permissions on resources such as shared folders.
+
+---
+
+## 📧 Step 3 — Create distribution groups manually
+
+Create the distribution groups inside:
+
+```text
+AdelaideTechSolutions > Groups > DistributionGroups
+```
+
+For each distribution group:
+
+1. Browse to:
+
+```text
+W2K16AD.local > AdelaideTechSolutions > Groups > DistributionGroups
+```
+
+2. Right-click `DistributionGroups`.
+3. Select:
+
+```text
+New > Group
+```
+
+4. Enter the group name.
+5. Select **Global** for group scope.
+6. Select **Distribution** for group type.
+7. Click **OK**.
+8. Open **Properties** and enter a description.
+
+Create these groups:
+
+| Group name | Group scope | Group type | Description |
+|---|---|---|---|
+| `DG_AllStaff` | Global | Distribution | Lab 08 distribution group for all staff |
+| `DG_ITTeam` | Global | Distribution | Lab 08 distribution group for IT team members |
 
 Expected result:
 
 ```text
-Lab 08 group creation and membership setup completed.
+DG_AllStaff
+DG_ITTeam
 ```
+
+![Distribution groups created](../../assets/images/lab-08-active-directory-group-management/03-distribution-groups-created.png)
+
+> [!NOTE]
+> In this lab, distribution groups are created for structure and learning. A real email-enabled distribution group usually requires Exchange or Microsoft 365 integration.
 
 ---
 
-## 🔍 Step 2 — Verify groups and memberships
+## 👤 Step 4 — Add users to Global Security groups
 
-Run from the `scripts` folder:
+Add users from Lab 07 into the Global Security groups.
+
+For each group:
+
+1. Browse to:
+
+```text
+W2K16AD.local > AdelaideTechSolutions > Groups > SecurityGroups
+```
+
+2. Right-click the target group.
+3. Select **Properties**.
+4. Open the **Members** tab.
+5. Click **Add**.
+6. Enter the username or display name.
+7. Click **Check Names**.
+8. Confirm the name resolves successfully.
+9. Click **OK**.
+10. Repeat until all required members are added.
+11. Click **Apply** and **OK**.
+
+Add these memberships:
+
+| Group | Members |
+|---|---|
+| `GG_All_StandardUsers` | `John Smith`, `Mary Johnson`, `David Lee`, `Sarah Brown` |
+| `GG_IT_Support` | `John Smith` |
+| `GG_HR_Users` | `Mary Johnson` |
+| `GG_Finance_Users` | `David Lee` |
+| `GG_Sales_Users` | `Sarah Brown` |
+| `GG_Helpdesk_Admins` | `Helpdesk Admin` |
+
+For the screenshot, open:
+
+```text
+GG_All_StandardUsers > Properties > Members
+```
+
+Confirm:
+
+```text
+John Smith
+Mary Johnson
+David Lee
+Sarah Brown
+```
+
+![Global group members](../../assets/images/lab-08-active-directory-group-management/04-global-group-members.png)
+
+---
+
+## 🔁 Step 5 — Nest Global groups into Domain Local groups
+
+Create nested membership for the access groups.
+
+1. Browse to:
+
+```text
+W2K16AD.local > AdelaideTechSolutions > Groups > SecurityGroups
+```
+
+2. Right-click:
+
+```text
+DL_SharedData_Read
+```
+
+3. Select **Properties**.
+4. Open the **Members** tab.
+5. Click **Add**.
+6. Enter:
+
+```text
+GG_All_StandardUsers
+```
+
+7. Click **Check Names**.
+8. Click **OK**.
+9. Click **Apply** and **OK**.
+
+Then configure the modify access group:
+
+1. Right-click:
+
+```text
+DL_SharedData_Modify
+```
+
+2. Select **Properties**.
+3. Open the **Members** tab.
+4. Click **Add**.
+5. Add these groups:
+
+```text
+GG_IT_Support
+GG_Helpdesk_Admins
+```
+
+6. Click **Check Names**.
+7. Click **OK**.
+8. Click **Apply** and **OK**.
+
+For the screenshot, open:
+
+```text
+DL_SharedData_Modify > Properties > Members
+```
+
+Confirm:
+
+```text
+GG_IT_Support
+GG_Helpdesk_Admins
+```
+
+![Domain local group nesting](../../assets/images/lab-08-active-directory-group-management/05-domain-local-group-nesting.png)
+
+> [!TIP]
+> This demonstrates the AGDLP-style model: user accounts are placed into Global groups, then Global groups are placed into Domain Local groups that can later be used for permissions.
+
+---
+
+## 👥 Step 6 — Add users to distribution groups
+
+Add users to the distribution groups for organisation-style grouping.
+
+1. Browse to:
+
+```text
+W2K16AD.local > AdelaideTechSolutions > Groups > DistributionGroups
+```
+
+2. Right-click `DG_AllStaff`.
+3. Select **Properties**.
+4. Open the **Members** tab.
+5. Add:
+
+```text
+John Smith
+Mary Johnson
+David Lee
+Sarah Brown
+```
+
+6. Click **Apply** and **OK**.
+7. Right-click `DG_ITTeam`.
+8. Select **Properties**.
+9. Open the **Members** tab.
+10. Add:
+
+```text
+John Smith
+Helpdesk Admin
+```
+
+11. Click **Apply** and **OK**.
+
+---
+
+## 🧾 Step 7 — Review a user's Member Of tab
+
+Review the user side of group membership.
+
+1. Browse to:
+
+```text
+W2K16AD.local > AdelaideTechSolutions > Users > StandardUsers
+```
+
+2. Right-click `John Smith`.
+3. Select **Properties**.
+4. Open the **Member Of** tab.
+5. Confirm memberships such as:
+
+```text
+GG_All_StandardUsers
+GG_IT_Support
+DG_AllStaff
+DG_ITTeam
+Domain Users
+```
+
+6. Click **OK** or **Cancel** after reviewing.
+
+![User Member Of groups](../../assets/images/lab-08-active-directory-group-management/06-user-member-of-groups.png)
+
+---
+
+## 🧪 Step 8 — Verify groups with PowerShell
+
+Open **PowerShell as Administrator** on `SRV-DC01`.
+
+From the repository root folder, run:
 
 ```powershell
+Set-Location .\scripts
 .\verify-lab08-ad-groups.ps1
 ```
 
@@ -162,11 +469,54 @@ Expected result:
 PASS
 ```
 
-for expected groups and key memberships.
+for group and membership checks.
+
+![Verify groups with PowerShell](../../assets/images/lab-08-active-directory-group-management/07-verify-groups-powershell.png)
 
 ---
 
-## 🔐 Step 3 — Optional group membership management examples
+## 📋 Step 9 — Optional PowerShell group list
+
+Run:
+
+```powershell
+Get-ADGroup -Filter * -SearchBase "OU=Groups,OU=AdelaideTechSolutions,DC=W2K16AD,DC=local" -Properties GroupScope,GroupCategory,Description |
+Select-Object Name,GroupScope,GroupCategory,Description |
+Sort-Object Name |
+Format-Table -AutoSize
+```
+
+![List groups with PowerShell](../../assets/images/lab-08-active-directory-group-management/08-list-groups-powershell.png)
+
+---
+
+# Method 2 — Recommended Script Workflow
+
+Use this method if you want to complete the lab faster and demonstrate automation skills.
+
+## ⚙️ Script Step 1 — Create groups and memberships
+
+Run on `SRV-DC01` from the repository root folder:
+
+```powershell
+Set-ExecutionPolicy RemoteSigned -Scope Process
+Set-Location .\scripts
+.\create-lab08-ad-groups.ps1
+```
+
+---
+
+## 🔍 Script Step 2 — Verify groups and memberships
+
+Run from the `scripts` folder:
+
+```powershell
+.\verify-lab08-ad-groups.ps1
+```
+
+---
+
+## 🔐 Script Step 3 — Optional group membership management examples
 
 Show group members:
 
@@ -192,171 +542,6 @@ Remove a member:
 .\manage-lab08-group-membership.ps1 -Action RemoveMember -GroupName GG_IT_Support -MemberName john.smith
 ```
 
-> [!TIP]
-> These commands demonstrate common Service Desk and junior System Administrator group membership tasks.
-
----
-
-# Method 2 — GUI Review and Screenshot Evidence
-
-After running the scripts, use ADUC to review and capture evidence.
-
----
-
-## 🖱️ Step 1 — Open the SecurityGroups OU
-
-Open:
-
-```text
-Server Manager > Tools > Active Directory Users and Computers
-```
-
-Browse to:
-
-```text
-W2K16AD.local > AdelaideTechSolutions > Groups > SecurityGroups
-```
-
-![Open SecurityGroups OU](../../assets/images/lab-08-active-directory-group-management/01-open-security-groups-ou.png)
-
----
-
-## 🛡️ Step 2 — Confirm security groups were created
-
-In `SecurityGroups`, confirm groups such as:
-
-```text
-GG_All_StandardUsers
-GG_IT_Support
-GG_HR_Users
-GG_Finance_Users
-GG_Sales_Users
-GG_Helpdesk_Admins
-DL_SharedData_Read
-DL_SharedData_Modify
-```
-
-![Security groups created](../../assets/images/lab-08-active-directory-group-management/02-security-groups-created.png)
-
----
-
-## 📧 Step 3 — Confirm distribution groups were created
-
-Browse to:
-
-```text
-W2K16AD.local > AdelaideTechSolutions > Groups > DistributionGroups
-```
-
-Confirm groups such as:
-
-```text
-DG_AllStaff
-DG_ITTeam
-```
-
-![Distribution groups created](../../assets/images/lab-08-active-directory-group-management/03-distribution-groups-created.png)
-
----
-
-## 👤 Step 4 — Review members of a Global group
-
-Open properties for:
-
-```text
-GG_All_StandardUsers
-```
-
-Review the **Members** tab and confirm users such as:
-
-```text
-John Smith
-Mary Johnson
-David Lee
-Sarah Brown
-```
-
-![Global group members](../../assets/images/lab-08-active-directory-group-management/04-global-group-members.png)
-
----
-
-## 🔁 Step 5 — Review nested group membership
-
-Open properties for:
-
-```text
-DL_SharedData_Modify
-```
-
-Review the **Members** tab and confirm nested groups such as:
-
-```text
-GG_IT_Support
-GG_Helpdesk_Admins
-```
-
-![Domain local group nesting](../../assets/images/lab-08-active-directory-group-management/05-domain-local-group-nesting.png)
-
-> [!TIP]
-> This shows the AGDLP-style model: user accounts are placed in Global groups, and Global groups are nested into Domain Local access groups.
-
----
-
-## 👥 Step 6 — Review a user's Member Of tab
-
-Open properties for:
-
-```text
-John Smith
-```
-
-Review the **Member Of** tab and confirm memberships such as:
-
-```text
-GG_All_StandardUsers
-GG_IT_Support
-DG_AllStaff
-DG_ITTeam
-```
-
-![User Member Of groups](../../assets/images/lab-08-active-directory-group-management/06-user-member-of-groups.png)
-
----
-
-## 🧪 Step 7 — Verify groups with PowerShell
-
-From the repository root folder, run:
-
-```powershell
-Set-Location .\scripts
-.\verify-lab08-ad-groups.ps1
-```
-
-Expected result:
-
-```text
-PASS
-```
-
-for group and membership checks.
-
-![Verify groups with PowerShell](../../assets/images/lab-08-active-directory-group-management/07-verify-groups-powershell.png)
-
----
-
-## 📋 Step 8 — Optional PowerShell group list
-
-Run:
-
-```powershell
-Get-ADGroup -Filter * -SearchBase "OU=Groups,OU=AdelaideTechSolutions,DC=W2K16AD,DC=local" -Properties GroupScope,GroupCategory,Description |
-Select-Object Name,GroupScope,GroupCategory,Description |
-Sort-Object Name |
-Format-Table -AutoSize
-```
-
-![List groups with PowerShell](../../assets/images/lab-08-active-directory-group-management/08-list-groups-powershell.png)
-
 ---
 
 ## 🧯 Troubleshooting
@@ -364,8 +549,6 @@ Format-Table -AutoSize
 ### ActiveDirectory module is not found
 
 Run the scripts on the Domain Controller, or install RSAT tools on an admin workstation.
-
-Check:
 
 ```powershell
 Get-Module -ListAvailable ActiveDirectory
@@ -418,11 +601,11 @@ Use a domain administrator account or an account delegated to manage groups and 
 
 - [ ] Lab 06 OU structure completed.
 - [ ] Lab 07 users created.
-- [ ] Group creation script reviewed.
-- [ ] Security groups created.
-- [ ] Distribution groups created.
+- [ ] Security groups created with correct scope and type.
+- [ ] Distribution groups created with correct scope and type.
 - [ ] Users added to Global groups.
 - [ ] Global groups nested into Domain Local groups.
+- [ ] Distribution group membership configured.
 - [ ] Group membership reviewed in ADUC.
 - [ ] User membership reviewed in ADUC.
 - [ ] Groups and memberships verified with PowerShell.

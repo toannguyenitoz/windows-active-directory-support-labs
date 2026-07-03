@@ -17,16 +17,19 @@
 
 Create and manage sample Active Directory domain users for a small workplace-style environment.
 
-This lab uses **PowerShell automation as the main method** and uses **Active Directory Users and Computers (ADUC)** screenshots as visual evidence.
+This lab can be completed in two ways:
+
+1. **GUI method** — manually create users and update user properties using **Active Directory Users and Computers (ADUC)**.
+2. **PowerShell method** — create, verify and manage users using scripts.
 
 > [!NOTE]
-> The goal is not to screenshot every wizard page. The goal is to demonstrate that users can be created, reviewed, verified and managed using a repeatable script-based workflow.
+> Screenshots show final results and verification evidence. The GUI text explains the complete manual steps to create users, set attributes and manage account state.
 
 ---
 
 ## ✅ What You Will Learn
 
-- Create multiple domain users with PowerShell.
+- Create multiple domain users with ADUC or PowerShell.
 - Place users into the correct OU structure.
 - Configure user attributes such as department and job title.
 - Create enabled standard users, an admin user and a disabled user example.
@@ -74,7 +77,7 @@ AdelaideTechSolutions > Users > DisabledUsers
 ```
 
 - Sign in to `SRV-DC01` using a domain administrator account.
-- Open PowerShell as Administrator.
+- Open PowerShell as Administrator if using scripts.
 - Open PowerShell from the repository root folder, or change directory to the repository root before running scripts.
 
 > [!WARNING]
@@ -95,11 +98,291 @@ AdelaideTechSolutions > Users > DisabledUsers
 
 ---
 
-# Method 1 — Recommended Script Workflow
+# Method 1 — Detailed GUI Step-by-Step Guide
 
-This is the preferred workflow for the portfolio version of this lab.
+Use this method to practise manual user creation and account management in ADUC. The screenshots still show the final result, but the steps below describe the full GUI process.
 
-## ⚙️ Step 1 — Run the user creation script
+---
+
+## 🖱️ Step 1 — Open the StandardUsers OU
+
+1. Sign in to `SRV-DC01`.
+2. Open **Server Manager**.
+3. Click **Tools**.
+4. Open **Active Directory Users and Computers**.
+5. Expand:
+
+```text
+W2K16AD.local > AdelaideTechSolutions > Users > StandardUsers
+```
+
+6. Confirm you are in the correct OU before creating standard user accounts.
+
+![Open StandardUsers OU](../../assets/images/lab-07-active-directory-user-management/01-open-standard-users-ou.png)
+
+---
+
+## 👤 Step 2 — Create standard users manually
+
+Create the four standard users inside:
+
+```text
+AdelaideTechSolutions > Users > StandardUsers
+```
+
+For each user:
+
+1. Right-click `StandardUsers`.
+2. Select:
+
+```text
+New > User
+```
+
+3. Enter the user's name details.
+4. Enter the **User logon name**.
+5. Click **Next**.
+6. Enter a temporary lab password.
+7. Confirm the password.
+8. Select:
+
+```text
+User must change password at next logon
+```
+
+9. Leave the account enabled.
+10. Click **Next**.
+11. Review the summary.
+12. Click **Finish**.
+
+Create these users:
+
+| First name | Last name | User logon name | OU |
+|---|---|---|---|
+| John | Smith | `john.smith` | `StandardUsers` |
+| Mary | Johnson | `mary.johnson` | `StandardUsers` |
+| David | Lee | `david.lee` | `StandardUsers` |
+| Sarah | Brown | `sarah.brown` | `StandardUsers` |
+
+Expected result in ADUC:
+
+```text
+John Smith
+Mary Johnson
+David Lee
+Sarah Brown
+```
+
+![Standard users created](../../assets/images/lab-07-active-directory-user-management/02-standard-users-created.png)
+
+> [!TIP]
+> In a workplace, a user creation request should come from an approved onboarding ticket or HR process.
+
+---
+
+## 📝 Step 3 — Add department and title details to standard users
+
+After creating the users, update their properties so the accounts are useful for support and administration.
+
+For each standard user:
+
+1. Right-click the user.
+2. Select **Properties**.
+3. Open the **Organization** tab.
+4. Enter the user's **Title**.
+5. Enter the user's **Department**.
+6. Click **Apply**.
+7. Click **OK**.
+
+Use these values:
+
+| User | Department | Title |
+|---|---|---|
+| John Smith | IT | IT Support Technician |
+| Mary Johnson | HR | HR Coordinator |
+| David Lee | Finance | Finance Officer |
+| Sarah Brown | Sales | Sales Representative |
+
+---
+
+## 🛡️ Step 4 — Create the admin user manually
+
+Create a separate delegated admin-style account inside:
+
+```text
+AdelaideTechSolutions > Users > AdminUsers
+```
+
+1. In ADUC, browse to:
+
+```text
+W2K16AD.local > AdelaideTechSolutions > Users > AdminUsers
+```
+
+2. Right-click `AdminUsers`.
+3. Select:
+
+```text
+New > User
+```
+
+4. Enter:
+
+| Field | Value |
+|---|---|
+| First name | `Helpdesk` |
+| Last name | `Admin` |
+| Full name | `Helpdesk Admin` |
+| User logon name | `admin.helpdesk` |
+
+5. Click **Next**.
+6. Enter a temporary lab password.
+7. Select **User must change password at next logon**.
+8. Click **Next**.
+9. Click **Finish**.
+10. Right-click `Helpdesk Admin` and open **Properties**.
+11. Open the **Organization** tab.
+12. Set:
+
+| Field | Value |
+|---|---|
+| Title | `Helpdesk Administrator` |
+| Department | `IT` |
+
+13. Click **OK**.
+
+![Admin users created](../../assets/images/lab-07-active-directory-user-management/03-admin-users-created.png)
+
+> [!TIP]
+> Keep admin-style accounts separate from normal user accounts. This makes auditing and management easier.
+
+---
+
+## ⛔ Step 5 — Create and disable a former user account
+
+Create a disabled account example inside:
+
+```text
+AdelaideTechSolutions > Users > DisabledUsers
+```
+
+1. Browse to:
+
+```text
+W2K16AD.local > AdelaideTechSolutions > Users > DisabledUsers
+```
+
+2. Right-click `DisabledUsers`.
+3. Select:
+
+```text
+New > User
+```
+
+4. Enter:
+
+| Field | Value |
+|---|---|
+| First name | `Former` |
+| Last name | `User` |
+| Full name | `Former User` |
+| User logon name | `former.user` |
+
+5. Click **Next**.
+6. Enter a temporary lab password.
+7. Click **Next**.
+8. Click **Finish**.
+9. Right-click `Former User`.
+10. Select **Disable Account**.
+11. Confirm the action if prompted.
+12. The user icon should show the disabled account indicator.
+
+Optionally update the **Organization** tab:
+
+| Field | Value |
+|---|---|
+| Title | `Former Employee` |
+| Department | `Operations` |
+
+![Disabled users created](../../assets/images/lab-07-active-directory-user-management/04-disabled-users-created.png)
+
+> [!TIP]
+> In real environments, disabled users are often retained for a period before deletion depending on policy, audit and mailbox/data retention requirements.
+
+---
+
+## 🧾 Step 6 — Review a user properties example
+
+Open the properties of `John Smith` and review the account information.
+
+1. Browse to:
+
+```text
+W2K16AD.local > AdelaideTechSolutions > Users > StandardUsers
+```
+
+2. Right-click `John Smith`.
+3. Select **Properties**.
+4. Review the **General** tab.
+5. Review the **Account** tab.
+6. Review the **Organization** tab.
+7. Confirm:
+
+```text
+Title: IT Support Technician
+Department: IT
+User logon name: john.smith@W2K16AD.local
+```
+
+8. Click **OK** or **Cancel** after reviewing.
+
+![User properties example](../../assets/images/lab-07-active-directory-user-management/05-user-properties-example.png)
+
+---
+
+## 🧪 Step 7 — Verify users with PowerShell
+
+Open **PowerShell as Administrator** on `SRV-DC01`.
+
+From the repository root folder, run:
+
+```powershell
+Set-Location .\scripts
+.\verify-lab07-ad-users.ps1
+```
+
+Expected result:
+
+```text
+PASS
+```
+
+for all Lab 07 users.
+
+![Verify users with PowerShell](../../assets/images/lab-07-active-directory-user-management/06-verify-users-powershell.png)
+
+---
+
+## 📋 Step 8 — Optional PowerShell user list
+
+Run:
+
+```powershell
+Get-ADUser -Filter * -SearchBase "OU=Users,OU=AdelaideTechSolutions,DC=W2K16AD,DC=local" -Properties Department,Title,Enabled |
+Select-Object Name,SamAccountName,Department,Title,Enabled |
+Sort-Object SamAccountName |
+Format-Table -AutoSize
+```
+
+![List users with PowerShell](../../assets/images/lab-07-active-directory-user-management/07-list-users-powershell.png)
+
+---
+
+# Method 2 — Recommended Script Workflow
+
+Use this method if you want to complete the lab faster and demonstrate automation skills.
+
+## ⚙️ Script Step 1 — Run the user creation script
 
 Run on `SRV-DC01` from the repository root folder:
 
@@ -111,16 +394,9 @@ Set-Location .\scripts
 
 When prompted, enter a temporary password for the lab users. The password is entered securely and is not stored in the script.
 
-Expected result:
-
-```text
-Lab 07 user creation completed.
-Created or updated users:
-```
-
 ---
 
-## 🔍 Step 2 — Verify the users
+## 🔍 Script Step 2 — Verify the users
 
 Run from the `scripts` folder:
 
@@ -128,17 +404,9 @@ Run from the `scripts` folder:
 .\verify-lab07-ad-users.ps1
 ```
 
-Expected result:
-
-```text
-PASS
-```
-
-for each expected user.
-
 ---
 
-## 🔐 Step 3 — Optional user lifecycle examples
+## 🔐 Script Step 3 — Optional user lifecycle examples
 
 Show a user:
 
@@ -170,142 +438,6 @@ Force password change at next logon:
 .\manage-lab07-user-lifecycle.ps1 -Action ForcePasswordChange -SamAccountName john.smith
 ```
 
-> [!TIP]
-> These commands demonstrate real Service Desk account support tasks without hard-coding passwords or local drive paths into the repository.
-
----
-
-# Method 2 — GUI Review and Screenshot Evidence
-
-After running the scripts, use ADUC to review and capture evidence.
-
----
-
-## 🖱️ Step 1 — Open the StandardUsers OU
-
-Open:
-
-```text
-Server Manager > Tools > Active Directory Users and Computers
-```
-
-Browse to:
-
-```text
-W2K16AD.local > AdelaideTechSolutions > Users > StandardUsers
-```
-
-![Open StandardUsers OU](../../assets/images/lab-07-active-directory-user-management/01-open-standard-users-ou.png)
-
----
-
-## 👥 Step 2 — Confirm standard users were created
-
-In `StandardUsers`, confirm these users exist:
-
-```text
-John Smith
-Mary Johnson
-David Lee
-Sarah Brown
-```
-
-![Standard users created](../../assets/images/lab-07-active-directory-user-management/02-standard-users-created.png)
-
----
-
-## 🛡️ Step 3 — Confirm admin user was created
-
-Browse to:
-
-```text
-W2K16AD.local > AdelaideTechSolutions > Users > AdminUsers
-```
-
-Confirm this user exists:
-
-```text
-Helpdesk Admin
-```
-
-![Admin users created](../../assets/images/lab-07-active-directory-user-management/03-admin-users-created.png)
-
----
-
-## ⛔ Step 4 — Confirm disabled user was created
-
-Browse to:
-
-```text
-W2K16AD.local > AdelaideTechSolutions > Users > DisabledUsers
-```
-
-Confirm this user exists:
-
-```text
-Former User
-```
-
-![Disabled users created](../../assets/images/lab-07-active-directory-user-management/04-disabled-users-created.png)
-
-> [!TIP]
-> The disabled icon in ADUC is useful visual evidence for account status.
-
----
-
-## 📝 Step 5 — Review a user properties example
-
-Open properties for:
-
-```text
-John Smith
-```
-
-Review the **Organization** tab and confirm values such as:
-
-```text
-Title: IT Support Technician
-Department: IT
-```
-
-![User properties example](../../assets/images/lab-07-active-directory-user-management/05-user-properties-example.png)
-
----
-
-## 🧪 Step 6 — Verify users with PowerShell
-
-From the repository root folder, run:
-
-```powershell
-Set-Location .\scripts
-.\verify-lab07-ad-users.ps1
-```
-
-Expected result:
-
-```text
-PASS
-```
-
-for all Lab 07 users.
-
-![Verify users with PowerShell](../../assets/images/lab-07-active-directory-user-management/06-verify-users-powershell.png)
-
----
-
-## 📋 Step 7 — Optional PowerShell user list
-
-Run:
-
-```powershell
-Get-ADUser -Filter * -SearchBase "OU=Users,OU=AdelaideTechSolutions,DC=W2K16AD,DC=local" -Properties Department,Title,Enabled |
-Select-Object Name,SamAccountName,Department,Title,Enabled |
-Sort-Object SamAccountName |
-Format-Table -AutoSize
-```
-
-![List users with PowerShell](../../assets/images/lab-07-active-directory-user-management/07-list-users-powershell.png)
-
 ---
 
 ## 🧯 Troubleshooting
@@ -313,8 +445,6 @@ Format-Table -AutoSize
 ### ActiveDirectory module is not found
 
 Run the scripts on the Domain Controller, or install RSAT tools on an admin workstation.
-
-Check:
 
 ```powershell
 Get-Module -ListAvailable ActiveDirectory
@@ -361,11 +491,10 @@ Use a stronger temporary lab password that meets the domain password policy.
 ## ✅ Completion Checklist
 
 - [ ] Lab 06 OU structure completed.
-- [ ] User creation script reviewed.
-- [ ] Lab 07 users created or updated.
-- [ ] Standard users confirmed in ADUC.
-- [ ] Admin user confirmed in ADUC.
-- [ ] Disabled user confirmed in ADUC.
+- [ ] Standard users created in `StandardUsers`.
+- [ ] Admin user created in `AdminUsers`.
+- [ ] Disabled user created in `DisabledUsers`.
+- [ ] Department and title attributes configured.
 - [ ] User properties reviewed.
 - [ ] Users verified with PowerShell.
 - [ ] Optional lifecycle management script tested.

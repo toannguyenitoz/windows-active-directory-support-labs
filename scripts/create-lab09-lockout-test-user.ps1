@@ -67,10 +67,10 @@ if ($ExistingUser) {
             -Title "Account Lockout Test User" `
             -Description "Lab 09 test user for password reset, lockout and logon control practice" `
             -ChangePasswordAtLogon $false `
-            -AccountExpirationDate $null `
             -ErrorAction Stop
 
         Set-ADAccountPassword -Identity $SamAccountName -NewPassword $TemporaryPassword -Reset -ErrorAction Stop
+        Clear-ADAccountExpiration -Identity $SamAccountName -ErrorAction SilentlyContinue
         Enable-ADAccount -Identity $SamAccountName -ErrorAction Stop
         Unlock-ADAccount -Identity $SamAccountName -ErrorAction SilentlyContinue
 
@@ -104,8 +104,8 @@ else {
 
 Write-Host ""
 Write-Host "Current lockout test user state:" -ForegroundColor Cyan
-Get-ADUser -Identity $SamAccountName -Properties Enabled,LockedOut,PasswordLastSet,PasswordExpired,Department,Title,DistinguishedName,UserPrincipalName |
-    Select-Object Name,SamAccountName,UserPrincipalName,Enabled,LockedOut,PasswordLastSet,PasswordExpired,Department,Title,DistinguishedName |
+Get-ADUser -Identity $SamAccountName -Properties Enabled,LockedOut,AccountExpirationDate,PasswordLastSet,PasswordExpired,PasswordNeverExpires,Department,Title,DistinguishedName,UserPrincipalName |
+    Select-Object Name,SamAccountName,UserPrincipalName,Enabled,LockedOut,AccountExpirationDate,PasswordLastSet,PasswordExpired,PasswordNeverExpires,Department,Title,DistinguishedName |
     Format-List
 
 Write-Host "Lab 09 lockout test user ready." -ForegroundColor Green
