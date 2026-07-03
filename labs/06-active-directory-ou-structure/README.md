@@ -23,7 +23,7 @@ This lab can be completed in two ways:
 2. **PowerShell method** — create, verify and move objects using scripts.
 
 > [!NOTE]
-> This lab is written as a practical user guide. Screenshots are used as visual evidence for a GitHub portfolio and can be created after completing the steps by GUI or PowerShell.
+> Screenshots show the final result for each section. The text steps explain the full GUI process so the lab can be followed manually without relying only on scripts.
 
 ---
 
@@ -113,31 +113,38 @@ Set-Location .\scripts
 ```
 
 > [!TIP]
-> The creation script is idempotent. This means it can be run again without creating duplicate OUs. Existing OUs are detected and skipped.
+> The creation script is idempotent. It can be run again without creating duplicate OUs. Existing OUs are detected and skipped.
 
 ---
 
-# Method 1 — GUI Step-by-Step Guide
+# Method 1 — Detailed GUI Step-by-Step Guide
 
-Use this method if you want to practise the normal Active Directory admin interface.
+Use this method if you want to practise the normal Active Directory admin interface. The screenshot under each step is the final evidence image, but the instructions describe the complete GUI action.
 
 ---
 
 ## 🖱️ Step 1 — Open Active Directory Users and Computers
 
-On `SRV-DC01`, open:
-
-```text
-Server Manager > Tools > Active Directory Users and Computers
-```
-
-Click the domain root:
+1. Sign in to `SRV-DC01`.
+2. Open **Server Manager**.
+3. Click **Tools** in the top-right menu.
+4. Select **Active Directory Users and Computers**.
+5. In the left pane, expand the domain:
 
 ```text
 W2K16AD.local
 ```
 
-You should see the default containers such as `Builtin`, `Computers`, `Domain Controllers` and `Users`.
+6. Review the default containers:
+
+```text
+Builtin
+Computers
+Domain Controllers
+Users
+```
+
+This confirms the ADUC console is connected to the correct domain before creating any new OUs.
 
 ![Open ADUC domain root](../../assets/images/lab-06-active-directory-ou-structure/01-open-aduc-domain-root.png)
 
@@ -145,23 +152,32 @@ You should see the default containers such as `Builtin`, `Computers`, `Domain Co
 
 ## 🏢 Step 2 — Create the top-level company OU
 
-Right-click the domain:
+1. In ADUC, right-click the domain root:
 
 ```text
-W2K16AD.local > New > Organizational Unit
+W2K16AD.local
 ```
 
-Create this OU:
+2. Select:
+
+```text
+New > Organizational Unit
+```
+
+3. In **Name**, enter:
 
 ```text
 AdelaideTechSolutions
 ```
 
-Keep this option selected:
+4. Keep the option selected:
 
 ```text
 Protect container from accidental deletion
 ```
+
+5. Click **OK**.
+6. Confirm the new OU appears directly under `W2K16AD.local`.
 
 ![Create company OU](../../assets/images/lab-06-active-directory-ou-structure/02-create-company-ou.png)
 
@@ -170,112 +186,38 @@ Protect container from accidental deletion
 
 ---
 
-## 🧱 Step 3 — Create core OUs
+## 🧱 Step 3 — Create core organizational units
 
-Inside `AdelaideTechSolutions`, create these OUs:
+Create the main administrative containers inside the company OU.
+
+1. Right-click:
+
+```text
+AdelaideTechSolutions
+```
+
+2. Select:
+
+```text
+New > Organizational Unit
+```
+
+3. Enter the first OU name:
 
 ```text
 Users
+```
+
+4. Keep **Protect container from accidental deletion** selected.
+5. Click **OK**.
+6. Repeat the same process for each OU below:
+
+```text
 Computers
 Groups
 ServiceAccounts
 Departments
 ```
-
-GUI path:
-
-```text
-Right-click AdelaideTechSolutions > New > Organizational Unit
-```
-
-![Create core organizational units](../../assets/images/lab-06-active-directory-ou-structure/03-create-core-organizational-units.png)
-
----
-
-## 🏬 Step 4 — Create department OUs
-
-Inside:
-
-```text
-AdelaideTechSolutions > Departments
-```
-
-Create these OUs:
-
-```text
-IT
-HR
-Finance
-Sales
-Operations
-```
-
-![Create department OUs](../../assets/images/lab-06-active-directory-ou-structure/04-create-department-ous.png)
-
----
-
-## 👤 Step 5 — Create user management OUs
-
-Inside:
-
-```text
-AdelaideTechSolutions > Users
-```
-
-Create these OUs:
-
-```text
-StandardUsers
-AdminUsers
-DisabledUsers
-```
-
-![Create user management OUs](../../assets/images/lab-06-active-directory-ou-structure/05-create-user-management-ous.png)
-
----
-
-## 💻 Step 6 — Create computer management OUs
-
-Inside:
-
-```text
-AdelaideTechSolutions > Computers
-```
-
-Create these OUs:
-
-```text
-Workstations
-Servers
-Laptops
-```
-
-![Create computer management OUs](../../assets/images/lab-06-active-directory-ou-structure/06-create-computer-management-ous.png)
-
----
-
-## 👥 Step 7 — Create group management OUs
-
-Inside:
-
-```text
-AdelaideTechSolutions > Groups
-```
-
-Create these OUs:
-
-```text
-SecurityGroups
-DistributionGroups
-```
-
-![Create group management OUs](../../assets/images/lab-06-active-directory-ou-structure/07-create-group-management-ous.png)
-
----
-
-## 🧾 Step 8 — Review the final OU structure
-
-Expand the `AdelaideTechSolutions` OU and confirm the full structure is visible.
 
 Expected result:
 
@@ -287,6 +229,193 @@ AdelaideTechSolutions
 ├── ServiceAccounts
 └── Users
 ```
+
+![Create core organizational units](../../assets/images/lab-06-active-directory-ou-structure/03-create-core-organizational-units.png)
+
+---
+
+## 🏬 Step 4 — Create department OUs
+
+Create department OUs inside the `Departments` OU.
+
+1. Expand:
+
+```text
+AdelaideTechSolutions > Departments
+```
+
+2. Right-click `Departments`.
+3. Select:
+
+```text
+New > Organizational Unit
+```
+
+4. Create the following OUs one by one:
+
+```text
+IT
+HR
+Finance
+Sales
+Operations
+```
+
+5. Keep **Protect container from accidental deletion** selected for each OU.
+6. Click **OK** after each one.
+
+Expected result:
+
+```text
+Departments
+├── Finance
+├── HR
+├── IT
+├── Operations
+└── Sales
+```
+
+![Create department OUs](../../assets/images/lab-06-active-directory-ou-structure/04-create-department-ous.png)
+
+---
+
+## 👤 Step 5 — Create user management OUs
+
+Create separate user OUs for normal users, admin users and disabled accounts.
+
+1. Expand:
+
+```text
+AdelaideTechSolutions > Users
+```
+
+2. Right-click `Users`.
+3. Select:
+
+```text
+New > Organizational Unit
+```
+
+4. Create these OUs one by one:
+
+```text
+StandardUsers
+AdminUsers
+DisabledUsers
+```
+
+5. Keep **Protect container from accidental deletion** selected.
+6. Confirm all three OUs appear under `Users`.
+
+Purpose of each OU:
+
+| OU | Purpose |
+|---|---|
+| `StandardUsers` | Normal user accounts. |
+| `AdminUsers` | Administrative or delegated support accounts. |
+| `DisabledUsers` | Disabled or offboarded lab accounts. |
+
+![Create user management OUs](../../assets/images/lab-06-active-directory-ou-structure/05-create-user-management-ous.png)
+
+---
+
+## 💻 Step 6 — Create computer management OUs
+
+Create separate computer OUs for different device types.
+
+1. Expand:
+
+```text
+AdelaideTechSolutions > Computers
+```
+
+2. Right-click `Computers`.
+3. Select:
+
+```text
+New > Organizational Unit
+```
+
+4. Create these OUs one by one:
+
+```text
+Workstations
+Servers
+Laptops
+```
+
+5. Keep **Protect container from accidental deletion** selected.
+6. Confirm all three OUs appear under `Computers`.
+
+Purpose of each OU:
+
+| OU | Purpose |
+|---|---|
+| `Workstations` | Domain-joined desktop PCs. |
+| `Servers` | Member servers and server objects. |
+| `Laptops` | Portable client devices. |
+
+![Create computer management OUs](../../assets/images/lab-06-active-directory-ou-structure/06-create-computer-management-ous.png)
+
+---
+
+## 👥 Step 7 — Create group management OUs
+
+Create separate group OUs for security and distribution groups.
+
+1. Expand:
+
+```text
+AdelaideTechSolutions > Groups
+```
+
+2. Right-click `Groups`.
+3. Select:
+
+```text
+New > Organizational Unit
+```
+
+4. Create these OUs one by one:
+
+```text
+SecurityGroups
+DistributionGroups
+```
+
+5. Keep **Protect container from accidental deletion** selected.
+6. Confirm both OUs appear under `Groups`.
+
+Purpose of each OU:
+
+| OU | Purpose |
+|---|---|
+| `SecurityGroups` | Groups used for permissions and access control. |
+| `DistributionGroups` | Groups used for email-style distribution examples. |
+
+![Create group management OUs](../../assets/images/lab-06-active-directory-ou-structure/07-create-group-management-ous.png)
+
+---
+
+## 🧾 Step 8 — Review the final OU structure
+
+1. In ADUC, expand:
+
+```text
+W2K16AD.local > AdelaideTechSolutions
+```
+
+2. Expand each child OU to confirm the sub-OUs exist:
+
+```text
+Computers > Workstations / Servers / Laptops
+Departments > IT / HR / Finance / Sales / Operations
+Groups > SecurityGroups / DistributionGroups
+Users > StandardUsers / AdminUsers / DisabledUsers
+```
+
+3. If any OU is missing, create it before continuing.
+4. If the console does not update immediately, right-click `AdelaideTechSolutions` and select **Refresh**.
 
 ![Final OU structure overview](../../assets/images/lab-06-active-directory-ou-structure/08-final-ou-structure-overview.png)
 
@@ -302,6 +431,8 @@ Run:
 Get-ADOrganizationalUnit -Filter * -SearchBase "OU=AdelaideTechSolutions,DC=W2K16AD,DC=local" | Select-Object Name,DistinguishedName | Sort-Object Name
 ```
 
+Review the output and confirm the OU names are listed.
+
 ![Verify OU structure with PowerShell](../../assets/images/lab-06-active-directory-ou-structure/09-verify-ou-structure-powershell.png)
 
 > [!TIP]
@@ -311,29 +442,37 @@ Get-ADOrganizationalUnit -Filter * -SearchBase "OU=AdelaideTechSolutions,DC=W2K1
 
 ## 🚚 Step 10 — Move the client computer object
 
-In ADUC, go to the default container:
+Move `W11-CLIENT01` from the default `Computers` container into the managed workstation OU.
+
+1. In ADUC, open the default container:
 
 ```text
 W2K16AD.local > Computers
 ```
 
-Right-click:
+2. Find the computer object:
 
 ```text
 W11-CLIENT01
 ```
 
-Select:
+3. Right-click `W11-CLIENT01`.
+4. Select **Move**.
+5. In the destination picker, browse to:
 
 ```text
-Move
+W2K16AD.local > AdelaideTechSolutions > Computers > Workstations
 ```
 
-Move it to:
+6. Select `Workstations`.
+7. Click **OK**.
+8. Open:
 
 ```text
 AdelaideTechSolutions > Computers > Workstations
 ```
+
+9. Confirm `W11-CLIENT01` now appears in the `Workstations` OU.
 
 ![Move client computer to Workstations OU](../../assets/images/lab-06-active-directory-ou-structure/10-move-client-computer-to-workstations-ou.png)
 
@@ -378,21 +517,6 @@ Set-Location .\scripts
 .\create-lab06-ou-structure.ps1
 ```
 
-This script creates:
-
-```text
-AdelaideTechSolutions
-Users
-Computers
-Groups
-ServiceAccounts
-Departments
-IT, HR, Finance, Sales, Operations
-StandardUsers, AdminUsers, DisabledUsers
-Workstations, Servers, Laptops
-SecurityGroups, DistributionGroups
-```
-
 ---
 
 ## 🔍 Script Step 2 — Verify the OU structure
@@ -403,14 +527,6 @@ Run from the `scripts` folder:
 .\verify-lab06-ou-structure.ps1
 ```
 
-Expected result:
-
-```text
-PASS
-```
-
-for all required OUs.
-
 ---
 
 ## 🚚 Script Step 3 — Move the client computer object
@@ -419,18 +535,6 @@ Run from the `scripts` folder:
 
 ```powershell
 .\move-lab06-client-to-workstations-ou.ps1
-```
-
-This moves:
-
-```text
-W11-CLIENT01
-```
-
-into:
-
-```text
-OU=Workstations,OU=Computers,OU=AdelaideTechSolutions,DC=W2K16AD,DC=local
 ```
 
 ---
@@ -443,13 +547,6 @@ Run:
 Get-ADComputer W11-CLIENT01 -Properties DistinguishedName | Select-Object Name, DistinguishedName
 ```
 
-Expected result:
-
-```text
-W11-CLIENT01
-OU=Workstations,OU=Computers,OU=AdelaideTechSolutions,DC=W2K16AD,DC=local
-```
-
 ---
 
 ## 🧯 Troubleshooting
@@ -457,8 +554,6 @@ OU=Workstations,OU=Computers,OU=AdelaideTechSolutions,DC=W2K16AD,DC=local
 ### ActiveDirectory module is not found
 
 Run the scripts on the Domain Controller, or install RSAT tools on an admin workstation.
-
-Check module availability:
 
 ```powershell
 Get-Module -ListAvailable ActiveDirectory
@@ -471,8 +566,6 @@ Use a domain administrator account or an account with permission to create OUs a
 ### Computer object cannot be found
 
 Confirm the Windows 11 client has already joined the domain in Lab 05.
-
-Run:
 
 ```powershell
 Get-ADComputer W11-CLIENT01
