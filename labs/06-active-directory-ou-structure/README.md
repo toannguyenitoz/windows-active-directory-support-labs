@@ -100,7 +100,7 @@ W2K16AD.local
 | [`move-lab06-client-to-workstations-ou.ps1`](../../scripts/move-lab06-client-to-workstations-ou.ps1) | Moves `W11-CLIENT01` into the Workstations OU. |
 
 > [!TIP]
-> The examples below avoid fixed local paths such as `D:\...`. They assume you are already in the repository root folder. This makes the guide portable on any drive or computer.
+> The examples below avoid fixed local drive paths. They assume you are already in the repository root folder. This makes the guide portable on any drive or computer.
 
 Example:
 
