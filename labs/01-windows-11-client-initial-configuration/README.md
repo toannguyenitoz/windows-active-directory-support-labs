@@ -141,6 +141,27 @@ winver
 
 ---
 
+## 🖼️ Demo Screenshots
+
+> [!NOTE]
+> The following screenshots are examples from the lab environment. They help readers compare the expected screens and command outputs with their own lab results.
+
+| Screenshot | What it shows |
+|---|---|
+| ![Windows 11 About page](../../assets/images/lab-01-windows-11-client-initial-configuration/01-windows-11-about-page.png) | Windows 11 About page with device and edition information |
+| ![Rename this PC to W11-CLIENT01](../../assets/images/lab-01-windows-11-client-initial-configuration/02-rename-this-pc-w11-client01.png) | Rename this PC screen using the lab computer name |
+| ![Confirm client hostname](../../assets/images/lab-01-windows-11-client-initial-configuration/03-confirm-client-hostname.png) | `hostname` output confirming `W11-CLIENT01` |
+| ![Confirm current user](../../assets/images/lab-01-windows-11-client-initial-configuration/04-confirm-current-user.png) | `whoami` output showing the current signed-in account |
+| ![IP configuration before domain join](../../assets/images/lab-01-windows-11-client-initial-configuration/05-ipconfig-before-domain-join.png) | `ipconfig /all` output before domain join |
+| ![Disable sleep settings](../../assets/images/lab-01-windows-11-client-initial-configuration/06-disable-sleep-settings.png) | Power and sleep settings for stable lab work |
+| ![Remote Desktop settings](../../assets/images/lab-01-windows-11-client-initial-configuration/07-remote-desktop-settings.png) | Remote Desktop settings review |
+| ![Client verification commands](../../assets/images/lab-01-windows-11-client-initial-configuration/08-client-verification-commands.png) | Final verification commands for Lab 01 |
+
+> [!WARNING]
+> Screenshots will only display on GitHub after the image files are committed and pushed to the matching `assets/images/...` folder.
+
+---
+
 ## 🧾 Command Reference
 
 | Command | Run on | Purpose | Expected result |
