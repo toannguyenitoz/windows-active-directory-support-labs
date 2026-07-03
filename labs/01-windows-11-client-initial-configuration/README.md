@@ -54,12 +54,24 @@ Open **Settings > System > About** and review device name, processor, RAM, syste
 > [!TIP]
 > This creates a baseline before any configuration changes are made.
 
+**Demo screenshot:** Windows 11 About page.
+
+![Windows 11 About page](../../assets/images/lab-01-windows-11-client-initial-configuration/01-windows-11-about-page.png)
+
+---
+
 ### 🏷️ Step 2 — Rename the Windows 11 client
 
 Select **Rename this PC**, set the computer name to `W11-CLIENT01`, then restart when prompted.
 
 > [!TIP]
 > A clear device name helps with support, inventory, DNS lookup and remote access.
+
+**Demo screenshot:** Rename this PC using the lab computer name.
+
+![Rename this PC to W11-CLIENT01](../../assets/images/lab-01-windows-11-client-initial-configuration/02-rename-this-pc-w11-client01.png)
+
+---
 
 ### 💻 Step 3 — Confirm the computer name
 
@@ -74,6 +86,12 @@ hostname
 > [!TIP]
 > Expected result: `W11-CLIENT01`.
 
+**Demo screenshot:** `hostname` output confirming the client computer name.
+
+![Confirm client hostname](../../assets/images/lab-01-windows-11-client-initial-configuration/03-confirm-client-hostname.png)
+
+---
+
 ### 👤 Step 4 — Confirm the current signed-in account
 
 Check which account is currently signed in before domain join.
@@ -86,6 +104,12 @@ whoami
 
 > [!TIP]
 > Before domain join, the result normally shows a local account.
+
+**Demo screenshot:** `whoami` output showing the current signed-in account.
+
+![Confirm current user](../../assets/images/lab-01-windows-11-client-initial-configuration/04-confirm-current-user.png)
+
+---
 
 ### 🌐 Step 5 — Review network configuration
 
@@ -100,6 +124,12 @@ ipconfig /all
 > [!TIP]
 > Do not change DNS in this lab; DNS is configured later.
 
+**Demo screenshot:** `ipconfig /all` output before domain join.
+
+![IP configuration before domain join](../../assets/images/lab-01-windows-11-client-initial-configuration/05-ipconfig-before-domain-join.png)
+
+---
+
 ### 🔋 Step 6 — Adjust sleep settings
 
 Open **Settings > System > Power & battery > Screen and sleep** and set plugged-in sleep to **Never** or a long value.
@@ -107,12 +137,24 @@ Open **Settings > System > Power & battery > Screen and sleep** and set plugged-
 > [!TIP]
 > This prevents interruptions during later lab tasks.
 
+**Demo screenshot:** Power and sleep settings for stable lab work.
+
+![Disable sleep settings](../../assets/images/lab-01-windows-11-client-initial-configuration/06-disable-sleep-settings.png)
+
+---
+
 ### 🛰️ Step 7 — Review Remote Desktop settings
 
 Open **Settings > System > Remote Desktop** and review whether Remote Desktop is available.
 
 > [!TIP]
 > Windows Home may not support Remote Desktop host functionality.
+
+**Demo screenshot:** Remote Desktop settings review.
+
+![Remote Desktop settings](../../assets/images/lab-01-windows-11-client-initial-configuration/07-remote-desktop-settings.png)
+
+---
 
 ### 🧪 Step 8 — Run final verification
 
@@ -138,6 +180,13 @@ winver
 
 > [!TIP]
 > Confirm name, account, network and Windows version.
+
+**Demo screenshot:** Final verification commands for Lab 01.
+
+![Client verification commands](../../assets/images/lab-01-windows-11-client-initial-configuration/08-client-verification-commands.png)
+
+> [!WARNING]
+> Screenshots display on GitHub only after the image files are committed and pushed to the matching `assets/images/...` folder.
 
 ---
 

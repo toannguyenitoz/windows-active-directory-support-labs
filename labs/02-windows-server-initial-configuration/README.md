@@ -53,12 +53,24 @@ Open **Server Manager > Local Server** and review computer name, workgroup/domai
 > [!TIP]
 > Server Manager is the main dashboard for Windows Server administration.
 
+**Demo screenshot:** Server Manager Local Server dashboard.
+
+![Server Manager Local Server](../../assets/images/lab-02-windows-server-initial-configuration/01-server-manager-local-server.png)
+
+---
+
 ### 🏷️ Step 2 — Rename the server
 
 Change the computer name to `SRV-DC01` and restart when prompted.
 
 > [!TIP]
 > A role-based name makes documentation and troubleshooting easier.
+
+**Demo screenshot:** Rename the server to `SRV-DC01`.
+
+![Rename server to SRV-DC01](../../assets/images/lab-02-windows-server-initial-configuration/02-rename-server-srv-dc01.png)
+
+---
 
 ### 💻 Step 3 — Confirm the server name
 
@@ -73,6 +85,12 @@ hostname
 > [!TIP]
 > Expected result: `SRV-DC01`.
 
+**Demo screenshot:** `hostname` output confirming the server name.
+
+![Confirm server hostname](../../assets/images/lab-02-windows-server-initial-configuration/03-confirm-server-hostname.png)
+
+---
+
 ### 🌐 Step 4 — Review network configuration
 
 Record IPv4 address, subnet mask, default gateway, DNS servers and adapter name.
@@ -86,6 +104,12 @@ ipconfig /all
 > [!TIP]
 > Do not finalize the network design until Lab 03.
 
+**Demo screenshot:** `ipconfig /all` output on Windows Server.
+
+![Server ipconfig all](../../assets/images/lab-02-windows-server-initial-configuration/04-server-ipconfig-all.png)
+
+---
+
 ### 🛰️ Step 5 — Review Remote Desktop
 
 On the Local Server page, review the Remote Desktop status.
@@ -93,12 +117,24 @@ On the Local Server page, review the Remote Desktop status.
 > [!TIP]
 > Enable only in a controlled lab or approved environment.
 
+**Demo screenshot:** Remote Desktop status on Local Server.
+
+![Remote Desktop status](../../assets/images/lab-02-windows-server-initial-configuration/05-remote-desktop-status.png)
+
+---
+
 ### 🕒 Step 6 — Review time zone and update status
 
 Confirm time zone and update status from Local Server.
 
 > [!TIP]
 > Accurate time helps authentication and log analysis.
+
+**Demo screenshot:** Time zone and Windows Update status.
+
+![Time zone and Windows Update status](../../assets/images/lab-02-windows-server-initial-configuration/06-time-zone-windows-update-status.png)
+
+---
 
 ### 🧪 Step 7 — Run final verification
 
@@ -120,6 +156,13 @@ winver
 
 > [!TIP]
 > The server is ready for networking configuration.
+
+**Demo screenshot:** Final verification commands for Lab 02.
+
+![Server final verification](../../assets/images/lab-02-windows-server-initial-configuration/07-server-final-verification.png)
+
+> [!WARNING]
+> Screenshots display on GitHub only after the image files are committed and pushed to the matching `assets/images/...` folder.
 
 ---
 
