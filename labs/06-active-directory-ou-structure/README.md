@@ -84,6 +84,7 @@ W2K16AD.local
 - Confirm `W11-CLIENT01` exists in Active Directory.
 - Sign in to `SRV-DC01` using a domain administrator account.
 - Open PowerShell as Administrator if using scripts.
+- Open PowerShell from the repository root folder, or change directory to the repository root before running scripts.
 
 > [!WARNING]
 > Use a lab environment only. Do not publish real passwords, personal information, client data or internal business details.
@@ -98,13 +99,14 @@ W2K16AD.local
 | [`verify-lab06-ou-structure.ps1`](../../scripts/verify-lab06-ou-structure.ps1) | Verifies all expected OUs exist. |
 | [`move-lab06-client-to-workstations-ou.ps1`](../../scripts/move-lab06-client-to-workstations-ou.ps1) | Moves `W11-CLIENT01` into the Workstations OU. |
 
-Run scripts from the repository root or from the `scripts` folder.
+> [!TIP]
+> The examples below avoid fixed local paths such as `D:\...`. They assume you are already in the repository root folder. This makes the guide portable on any drive or computer.
 
 Example:
 
 ```powershell
 Set-ExecutionPolicy RemoteSigned -Scope Process
-cd D:\Toannx\Github\windows-active-directory-support-labs\scripts
+Set-Location .\scripts
 .\create-lab06-ou-structure.ps1
 .\verify-lab06-ou-structure.ps1
 .\move-lab06-client-to-workstations-ou.ps1
@@ -368,11 +370,11 @@ Use this method if you want to complete the lab faster and demonstrate automatio
 
 ## ⚙️ Script Step 1 — Create the full OU structure
 
-Run on `SRV-DC01`:
+Run on `SRV-DC01` from the repository root folder:
 
 ```powershell
 Set-ExecutionPolicy RemoteSigned -Scope Process
-cd D:\Toannx\Github\windows-active-directory-support-labs\scripts
+Set-Location .\scripts
 .\create-lab06-ou-structure.ps1
 ```
 
@@ -395,7 +397,7 @@ SecurityGroups, DistributionGroups
 
 ## 🔍 Script Step 2 — Verify the OU structure
 
-Run:
+Run from the `scripts` folder:
 
 ```powershell
 .\verify-lab06-ou-structure.ps1
@@ -413,7 +415,7 @@ for all required OUs.
 
 ## 🚚 Script Step 3 — Move the client computer object
 
-Run:
+Run from the `scripts` folder:
 
 ```powershell
 .\move-lab06-client-to-workstations-ou.ps1
