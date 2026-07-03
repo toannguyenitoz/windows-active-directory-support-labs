@@ -53,12 +53,32 @@ Open the server network adapter IPv4 properties and review current values.
 > [!TIP]
 > Changing the wrong adapter is a common lab mistake.
 
+**Demo screenshot:** Server network adapter list or Ethernet status.
+
+![Review server network adapter](../../assets/images/lab-03-network-and-dns-configuration/01-review-server-network-adapter.png)
+
+---
+
 ### 🧭 Step 2 — Configure server IPv4
 
 Set server IP, subnet mask and preferred DNS according to the lab design.
 
+Example values:
+
+```text
+IP address: 192.168.20.10
+Subnet mask: 255.255.255.0
+Preferred DNS server: 192.168.20.10
+```
+
 > [!TIP]
 > The server will use itself as DNS after DNS services are installed.
+
+**Demo screenshot:** Server IPv4 properties with static IP and DNS values.
+
+![Configure server IPv4](../../assets/images/lab-03-network-and-dns-configuration/02-configure-server-ipv4.png)
+
+---
 
 ### 🧪 Step 3 — Verify server IP configuration
 
@@ -73,12 +93,24 @@ ipconfig /all
 > [!TIP]
 > Check the adapter name to avoid reading the wrong interface.
 
+**Demo screenshot:** Server `ipconfig /all` output showing IPv4 and DNS.
+
+![Verify server IP configuration](../../assets/images/lab-03-network-and-dns-configuration/03-verify-server-ipconfig.png)
+
+---
+
 ### 💻 Step 4 — Configure client DNS
 
 On the Windows 11 client, set the preferred DNS server to `192.168.20.10`.
 
 > [!TIP]
 > Domain clients must use the domain DNS service.
+
+**Demo screenshot:** Windows 11 client IPv4 DNS setting pointing to the server.
+
+![Configure client DNS](../../assets/images/lab-03-network-and-dns-configuration/04-configure-client-dns.png)
+
+---
 
 ### 🔍 Step 5 — Verify client IP configuration
 
@@ -93,6 +125,12 @@ ipconfig /all
 > [!TIP]
 > Client and server should be on the same subnet.
 
+**Demo screenshot:** Client `ipconfig /all` output showing DNS server as `192.168.20.10`.
+
+![Verify client IP configuration](../../assets/images/lab-03-network-and-dns-configuration/05-verify-client-ipconfig.png)
+
+---
+
 ### 📡 Step 6 — Test connectivity
 
 From the client, test connectivity to the server.
@@ -106,12 +144,25 @@ ping 192.168.20.10
 > [!TIP]
 > Successful replies confirm basic IP connectivity.
 
+**Demo screenshot:** Successful ping from client to server.
+
+![Test client to server connectivity](../../assets/images/lab-03-network-and-dns-configuration/06-test-client-to-server-ping.png)
+
+---
+
 ### 📝 Step 7 — Record final network values
 
 Record server name, server IP, client name, client IP, client DNS and planned domain name.
 
 > [!TIP]
 > These values are used repeatedly in later labs.
+
+**Demo screenshot:** Final network value summary or notes for the lab.
+
+![Record final network values](../../assets/images/lab-03-network-and-dns-configuration/07-record-final-network-values.png)
+
+> [!WARNING]
+> Screenshots display on GitHub only after the image files are committed and pushed to the matching `assets/images/...` folder.
 
 ---
 
