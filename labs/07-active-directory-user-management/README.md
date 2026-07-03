@@ -91,7 +91,7 @@ AdelaideTechSolutions > Users > DisabledUsers
 | [`manage-lab07-user-lifecycle.ps1`](../../scripts/manage-lab07-user-lifecycle.ps1) | Demonstrates disable, enable, reset password and force password change actions. |
 
 > [!TIP]
-> The examples below avoid fixed local paths such as `D:\...`. They assume you are already in the repository root folder. This makes the guide portable on any drive or computer.
+> The examples below avoid fixed local drive paths. They assume you are already in the repository root folder. This makes the guide portable on any drive or computer.
 
 ---
 
