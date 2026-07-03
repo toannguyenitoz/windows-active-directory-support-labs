@@ -66,46 +66,57 @@ Join the Windows 11 client to the Active Directory domain.
 
 ## 🚀 Step-by-Step Guide
 
-### 📡 Step 1 — Test connectivity
+### 📡 Step 1 — Check client DNS before domain join
 
-Ping the domain controller from the client.
-
-Run:
-
-```cmd
-ping 192.168.20.10
-```
-
-> [!TIP]
-> A reply confirms IP connectivity.
-
-### 🔍 Step 2 — Test name resolution
-
-Check whether the client can resolve the domain name.
+On the Windows 11 client, confirm the client IP address and DNS server.
 
 Run:
 
 ```cmd
-nslookup W2K16AD.local
+ipconfig /all
 ```
 
+Expected values:
+
+```text
+IPv4 Address: 192.168.20.101
+DNS Servers: 192.168.20.10
+```
+
+![Check client DNS before domain join](../../assets/images/lab-05-join-windows-11-client-to-domain/01-check-client-dns-before-domain-join.png)
+
 > [!TIP]
-> If this fails, review client DNS. The client DNS server should point to the Domain Controller IP address.
+> The client DNS server must point to the Domain Controller. Public DNS servers such as `8.8.8.8` cannot locate the internal Active Directory domain.
 
-### ⚙️ Step 3 — Open domain join settings
+### ⚙️ Step 2 — Open System Properties
 
-Open **Settings > System > About > Advanced system settings > Computer Name > Change**.
+Open **System Properties > Computer Name** before changing the domain membership.
+
+Run:
+
+```cmd
+sysdm.cpl
+```
+
+![Open System Properties](../../assets/images/lab-05-join-windows-11-client-to-domain/02-open-system-properties.png)
 
 > [!TIP]
-> This is where workgroup/domain membership is changed.
+> This screenshot shows the client before it is joined to the domain.
 
-### 🏢 Step 4 — Join the domain
+### 🏢 Step 3 — Enter the domain name
 
 Select **Domain** and enter:
 
 ```text
 W2K16AD.local
 ```
+
+![Join domain W2K16AD.local](../../assets/images/lab-05-join-windows-11-client-to-domain/03-join-domain-w2k16ad-local.png)
+
+> [!TIP]
+> If the domain name cannot be found, check DNS and network connectivity first.
+
+### 🔐 Step 4 — Enter domain credentials
 
 When Windows asks for an account, enter a domain account that has permission to join computers to Active Directory.
 
@@ -115,17 +126,39 @@ Example:
 W2K16AD\Administrator
 ```
 
+![Domain credentials prompt](../../assets/images/lab-05-join-windows-11-client-to-domain/04-domain-credentials-prompt.png)
+
 > [!IMPORTANT]
 > This account comes from the server/domain environment. Do not use the local account from `W11-CLIENT01`.
 
-### 🔁 Step 5 — Restart the client
+### ✅ Step 5 — Confirm domain join success
 
-Restart when prompted.
+After the correct domain account is accepted, Windows should show a welcome message for the domain.
+
+Expected result:
+
+```text
+Welcome to the W2K16AD.local domain
+```
+
+![Domain join success](../../assets/images/lab-05-join-windows-11-client-to-domain/05-domain-join-success.png)
+
+### 🔁 Step 6 — Restart the client
+
+Restart the Windows 11 client when prompted.
+
+![Restart after domain join](../../assets/images/lab-05-join-windows-11-client-to-domain/06-restart-after-domain-join.png)
 
 > [!TIP]
-> Restart applies domain membership.
+> Restart applies the domain membership change.
 
-### 👤 Step 6 — Sign in with a domain account
+### 👤 Step 7 — Confirm the domain logon screen
+
+After restart, confirm the sign-in screen can use a domain account.
+
+![Domain logon screen](../../assets/images/lab-05-join-windows-11-client-to-domain/07-domain-logon-screen.png)
+
+### 👥 Step 8 — Sign in with a domain user
 
 Use one of the following formats:
 
@@ -139,36 +172,36 @@ or
 username@W2K16AD.local
 ```
 
+![Log on with domain user](../../assets/images/lab-05-join-windows-11-client-to-domain/08-logon-with-domain-user.png)
+
 > [!TIP]
 > Domain sign-in confirms the join is usable.
 
-### 🧪 Step 7 — Confirm domain membership
+### 🧪 Step 9 — Verify domain membership
 
-Run verification commands.
+Run verification commands on the Windows 11 client.
 
 Run:
 
 ```cmd
 hostname
-```
-
-```cmd
 whoami
-```
-
-```cmd
 echo %USERDOMAIN%
 ```
 
-> [!TIP]
-> Confirm the user domain and device state.
-
-### 🗂️ Step 8 — Confirm the computer object
-
-Open ADUC and find `W11-CLIENT01`.
+![Verify domain membership](../../assets/images/lab-05-join-windows-11-client-to-domain/09-verify-domain-membership.png)
 
 > [!TIP]
-> This confirms Active Directory knows the client.
+> Confirm the computer name, signed-in user context and domain value.
+
+### 🗂️ Step 10 — Confirm the computer object in Active Directory
+
+On the Domain Controller, open **Active Directory Users and Computers** and find `W11-CLIENT01`.
+
+![Active Directory computer object](../../assets/images/lab-05-join-windows-11-client-to-domain/10-active-directory-computer-object.png)
+
+> [!TIP]
+> This confirms Active Directory knows the client computer.
 
 ---
 
@@ -217,8 +250,11 @@ ping SRV-DC01
 
 | Command | Run on | Purpose | Expected result |
 |---|---|---|---|
-| `ping 192.168.20.10` | Client | Tests server connectivity | Successful replies |
+| `ipconfig /all` | Client | Checks client IP and DNS | DNS shows `192.168.20.10` |
 | `nslookup W2K16AD.local` | Client | Tests DNS/domain lookup | Response from domain DNS |
+| `ping 192.168.20.10` | Client | Tests server connectivity | Successful replies |
+| `hostname` | Client | Shows computer name | `W11-CLIENT01` |
+| `whoami` | Client | Shows signed-in account | Domain account context |
 | `echo %USERDOMAIN%` | Client | Shows sign-in domain | Shows domain value |
 
 ---
